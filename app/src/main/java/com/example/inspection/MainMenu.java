@@ -119,7 +119,11 @@ public class MainMenu extends AppCompatActivity
 
                 break;
             case R.id.nav_appointment:
-
+                AppointmentFragment appointmentFragment = new AppointmentFragment();
+                appointmentFragment.setArguments(bundle);
+                ft.replace(R.id.main_fragment, appointmentFragment)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.nav_custDetails:
 //            ft.add(R.id.main_fragment, customerFragment, "customer");

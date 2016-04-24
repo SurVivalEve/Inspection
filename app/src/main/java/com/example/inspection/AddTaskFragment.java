@@ -21,26 +21,35 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.inspection.adapters.CustomerListAdapter;
+import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
 import com.example.inspection.sync.SyncManager;
 
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by Sur.Vival on 29/2/2016.
- */
 public class AddTaskFragment extends Fragment implements View.OnClickListener {
     private EditText custName, custPhoneNumber, building, block, appDate, appTime;
     private Button btnAddTask;
     private CoordinatorLayout coordinatorLayout;
     private String[] inputData;
+    private Appointment apt;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_task, container, false);
         init(view);
+        try{
+            apt = (Appointment) this.getArguments().getSerializable("appointment");
+            custName.setText(apt.getCustomer().getFullname());
+            custPhoneNumber.setText(apt.getCustomer().getPhone());
+            building.setText(apt.getBuilding());
+            block.setText(apt.getFlatBlock());
+            appDate.setText((apt.getDate().getYear()+1900)+"-"+apt.getDate().getMonth()+"-"+apt.getDate().getDate());
+        } catch (Exception e){
+            apt = null;
+        }
         return view;
     }
 

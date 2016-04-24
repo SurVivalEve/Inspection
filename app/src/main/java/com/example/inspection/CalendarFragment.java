@@ -299,13 +299,13 @@ public class CalendarFragment extends Fragment {
             if(getAppointmentNum(monthInWeekdayContainerW[i/24], dayInWeekdayContainerW[i/24], i%24)>count)
                 count = getAppointmentNum(monthInWeekdayContainerW[i/24], dayInWeekdayContainerW[i/24], i%24);
         }
-        if(count>=2)
+        if(count*45>heightOfDayContainerView)
             heightOfDayContainerView = 45*count;
         for(int i=0; i<dayDetailContainer.length; i++) {
             //for typesetting
             View typesettingView = new View(this.getActivity());
             typesettingView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, 11));
+                    ViewGroup.LayoutParams.MATCH_PARENT, 30));
             dayDetailContainer[i].addView(typesettingView);
             //horizontal line separator
             View lineSeparator = layoutInflater.inflate(R.layout.item_horizontal_line, null);
@@ -323,12 +323,18 @@ public class CalendarFragment extends Fragment {
         }
         for (int i = 0; i < timeMarks.length; i++) {
             TextView timeMarkText = new TextView(this.getActivity());
+            int height = heightOfDayContainerView+1;
             if(i!=timeMarks.length-1) {
+                for (int k=0; k<7; k++) {
+                    int newHeight = (getAppointmentNum(monthInWeekdayContainerW[k], dayInWeekdayContainerW[k], i) * 45)+1;
+                    if(newHeight>height)
+                        height = newHeight;
+                }
                 timeMarkText.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, heightOfDayContainerView + 2));
+                        ViewGroup.LayoutParams.MATCH_PARENT, height));
             } else {
                 timeMarkText.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, 30));
+                        ViewGroup.LayoutParams.MATCH_PARENT, 50));
             }
             timeMarkText.setGravity(Gravity.RIGHT);
             timeMarkText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
