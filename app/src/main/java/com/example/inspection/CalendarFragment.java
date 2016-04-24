@@ -135,12 +135,12 @@ public class CalendarFragment extends Fragment {
             if(currentWeekDay == i) {
                 //set bold and underline to today
                 weekday[i].setTypeface(null, Typeface.BOLD);
-                String today = new String(weeks[i] + " " + dayString);
+                String today = new String(weeks[i] + "\n " + dayString);
                 SpannableString s_today = new SpannableString(today);
                 s_today.setSpan(new UnderlineSpan(), 0, today.length(), 0);
                 weekday[i].setText(s_today);
             } else {
-                weekday[i].setText(weeks[i] + " " + dayString);
+                weekday[i].setText(weeks[i] + "\n " + dayString);
             }
             item_weekday.setLayoutParams(weekdayParam);
         }
@@ -299,8 +299,8 @@ public class CalendarFragment extends Fragment {
             if(getAppointmentNum(monthInWeekdayContainerW[i/24], dayInWeekdayContainerW[i/24], i%24)>count)
                 count = getAppointmentNum(monthInWeekdayContainerW[i/24], dayInWeekdayContainerW[i/24], i%24);
         }
-        if(count*45>heightOfDayContainerView)
-            heightOfDayContainerView = 45*count;
+        if(count*120>heightOfDayContainerView)
+            heightOfDayContainerView = 120*count;
         for(int i=0; i<dayDetailContainer.length; i++) {
             //for typesetting
             View typesettingView = new View(this.getActivity());
@@ -323,18 +323,12 @@ public class CalendarFragment extends Fragment {
         }
         for (int i = 0; i < timeMarks.length; i++) {
             TextView timeMarkText = new TextView(this.getActivity());
-            int height = heightOfDayContainerView+1;
             if(i!=timeMarks.length-1) {
-                for (int k=0; k<7; k++) {
-                    int newHeight = (getAppointmentNum(monthInWeekdayContainerW[k], dayInWeekdayContainerW[k], i) * 45)+1;
-                    if(newHeight>height)
-                        height = newHeight;
-                }
                 timeMarkText.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, height));
+                        ViewGroup.LayoutParams.MATCH_PARENT, heightOfDayContainerView+4));
             } else {
                 timeMarkText.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, 50));
+                        ViewGroup.LayoutParams.MATCH_PARENT, heightOfDayContainerView/3));
             }
             timeMarkText.setGravity(Gravity.RIGHT);
             timeMarkText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
@@ -351,7 +345,7 @@ public class CalendarFragment extends Fragment {
                     // add item_appointment_view
                     View item_appointment_view = layoutInflater.inflate(R.layout.item_appointment_view, null);
                     item_appointment_view.setLayoutParams(new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, 45));
+                            LinearLayout.LayoutParams.MATCH_PARENT, 120));
                     TextView time = (TextView) item_appointment_view.findViewById(R.id.time);
                     TextView assignedBy = (TextView) item_appointment_view.findViewById(R.id.assignedBy);
                     time.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -366,7 +360,7 @@ public class CalendarFragment extends Fragment {
                     if(schedule.getAppointments().get(i).getEmpID().equalsIgnoreCase(""))
                         assignedBy.setText("non-assigned");
                     else
-                        assignedBy.setText(schedule.getAppointments().get(i).getEmpID());
+                        assignedBy.setText(schedule.getAppointments().get(i).getEmpName().split(" ")[0]);
                     final int index = i;
                     item_appointment_view.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -387,7 +381,7 @@ public class CalendarFragment extends Fragment {
                         dayDetailContainer[k].addView(item_appointment_view, 2 + hour * 2+1);
                     else
                         dayDetailContainer[k].addView(item_appointment_view, 2 + hour * 2);
-                    emptyViews[k * 24 + hour].getLayoutParams().height = heightOfDayContainerView-(getAppointmentNum(month+1, day, hour) * 45);
+                    emptyViews[k * 24 + hour].getLayoutParams().height = heightOfDayContainerView-(getAppointmentNum(month+1, day, hour) * 120);
                 }
             }
         }

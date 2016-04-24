@@ -63,6 +63,7 @@ public class AppointmentFragment extends Fragment {
                     "Wan Chai District",
                     new Date(),
                     empID,
+                    "",
                     cust
             );
         }

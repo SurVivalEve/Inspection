@@ -221,9 +221,10 @@ public class SyncManager {
                 for (int i = 0; i < schedule.length(); i++) {
                     JSONObject s = schedule.getJSONObject(i);
                     Date appointmentTime = formatter.parse(s.getString("appointmentTime"));
-                    String empID = "", taskID = "";
+                    String empID = "", taskID = "", empName = "";
                     if (!s.isNull("empID")) {
                         empID = s.getString("empID");
+                        empName = s.getString("empName");
                         assign[appointmentTime.getDate() - 1]++;
                     } else {
                         notAssign[appointmentTime.getDate() - 1]++;
@@ -231,7 +232,7 @@ public class SyncManager {
                     if(s.isNull("taskID"))
                         taskID = s.getString("taskID");
                     Customer cust = new Customer(
-                            "",//customer id
+                            s.getString("custID"),
                             s.getString("cust_fullname"),
                             s.getString("cust_phone"),
                             Customer.Sex.valueOf("M"),
@@ -247,6 +248,7 @@ public class SyncManager {
                             s.getString("districtEN"),
                             appointmentTime,
                             empID,
+                            empName,
                             cust
                     );
                     result.add(apt);
