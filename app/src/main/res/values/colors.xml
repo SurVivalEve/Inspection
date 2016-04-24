@@ -12,7 +12,7 @@
     <item name="darkred" type="color">#FFCC0000</item>
     <item name="grayForLine" type="color">#D1D1D1</item>
     <item name="greenForGraph" type="color">#ABD661</item>
-
+    <item name="white" type="color">#FFFFFF</item>
 
     <!-- Theme colors -->
     <color name="colorPrimary">#536dfe</color>
