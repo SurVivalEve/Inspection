@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_task"
+            android:icon="@drawable/ic_menu_task"
+            android:title="Add Task" />
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_menu_schedule"
+            android:title="Agenda" />
+        <item
+            android:id="@+id/nav_quotations"
+            android:icon="@drawable/ic_menu_quotations"
+            android:title="Quotations" />
+        <item
+            android:id="@+id/nav_appointment"
+            android:icon="@drawable/ic_menu_appointment"
+            android:title="Appointment" />
+
+    </group>
+
+    <item android:title="Customers">
+        <menu>
+            <item
+                android:id="@+id/nav_custDetails"
+                android:icon="@drawable/ic_menu_cust_details"
+                android:title="Details" />
+            <item
+                android:id="@+id/nav_custContact"
+                android:icon="@drawable/ic_menu_cust_contact"
+                android:title="Contact" />
+        </menu>
+    </item>
+
+</menu>
