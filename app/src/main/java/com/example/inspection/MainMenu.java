@@ -26,7 +26,7 @@ public class MainMenu extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-        empID = "E00000000006";//getIntent().getExtras().getString("empID");
+        empID = getIntent().getExtras().getString("empID");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
