@@ -116,7 +116,11 @@ public class MainMenu extends AppCompatActivity
                         .commit();
                 break;
             case R.id.nav_quotations:
-
+                QuotationsMenu quotationsMenu = new QuotationsMenu();
+                quotationsMenu.setArguments(bundle);
+                ft.replace(R.id.main_fragment, quotationsMenu)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.nav_appointment:
                 AppointmentFragment appointmentFragment = new AppointmentFragment();
