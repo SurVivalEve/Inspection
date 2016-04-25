@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Add Task"
-            android:id="@+id/textView"
             android:layout_gravity="center_horizontal"/>
 
         <View
