@@ -35,9 +35,9 @@ public class Login extends Activity {
         if(eT_username.getText().toString().equalsIgnoreCase("")||eT_password.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(this, "Please Enter username and password", Toast.LENGTH_LONG).show();
         } else {
-//            Intent i = new Intent(this, MainMenu.class);
-//            startActivity(i);
-            new getLoginResult().execute(eT_username.getText().toString(), eT_password.getText().toString());
+            Intent i = new Intent(this, MainMenu.class);
+            startActivity(i);
+//            new getLoginResult().execute(eT_username.getText().toString(), eT_password.getText().toString());
         }
     }
 
