@@ -156,13 +156,13 @@ public class CalendarFragment extends Fragment {
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT, 0f);
-        if (viewIndex == 1){
+        if (viewIndex == 0){
             monthlyLayout.setLayoutParams(param);
             param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
             weeklyLayout.setLayoutParams(param);
-        } else if (viewIndex == 0) {
+        } else if (viewIndex == 1) {
             weeklyLayout.setLayoutParams(param);
             param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
