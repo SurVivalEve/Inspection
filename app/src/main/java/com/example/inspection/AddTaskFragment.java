@@ -35,6 +35,16 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
     private String[] inputData;
     private Appointment apt;
 
+    public static final String EMP_ID = "empid";
+
+    public static AddTaskFragment newInstance(String id) {
+        AddTaskFragment fragment = new AddTaskFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +99,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                 showTime(view);
                 break;
             case R.id.btnAddTask:
-                String[] data = {custName.getText().toString(),
+                String[] data = {this.getArguments().getString(EMP_ID),
+                                 custName.getText().toString(),
                                  custPhoneNumber.getText().toString(),
                                  block.getText().toString(),
                                  building.getText().toString(),
@@ -119,8 +130,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 
             publishProgress(progress_status);
             SystemClock.sleep(1000);
-
-            return syncManager.syncAppointment("E00000000006",params[0],params[1],params[2],params[3],params[4]);
+            return syncManager.syncAppointment(params[0],params[1],params[2],params[3],params[4],params[5]);
         }
 
 

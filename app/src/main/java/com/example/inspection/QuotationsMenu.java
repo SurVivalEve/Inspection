@@ -12,6 +12,16 @@ public class QuotationsMenu extends Fragment {
 
     private Button invoice, orderForm;
 
+    public static final String EMP_ID = "empid";
+
+    public static QuotationsMenu newInstance(String id) {
+        QuotationsMenu fragment = new QuotationsMenu();
+        Bundle bundle = new Bundle();
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quotations_menu, container , false);

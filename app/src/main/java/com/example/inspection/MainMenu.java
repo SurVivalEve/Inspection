@@ -24,11 +24,10 @@ import com.example.inspection.service.AppointmentService;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecentJobFragment recentJobFragment;
-    private String empID="";
+    private static String empID="";
     private ToggleButton toggleButton;
 
-
+    // Local Database init
     private WebAppointmentDAO webAppDAO;
 
     @Override
@@ -59,6 +58,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         setDefaultFragment();
         setDatabase();
 
+
+        // Test Service (For Debug use)
         toggleButton = (ToggleButton) findViewById(R.id.service);
         toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             Intent service = new Intent(MainMenu.this,AppointmentService.class);
@@ -89,9 +90,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        recentJobFragment = RecentJobFragment.newInstance(1);
-        recentJobFragment = new RecentJobFragment();
-        transaction.replace(R.id.main_fragment, recentJobFragment);
+        RecentJobFragment recentJobFragment = RecentJobFragment.newInstance(1, empID);
+        transaction.replace(R.id.main_fragment, recentJobFragment, "recentjob");
         transaction.commit();
     }
 
@@ -100,44 +100,35 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("empID", empID);
 
         switch(item.getItemId()){
             case R.id.nav_task:
-                AddTaskFragment addTaskFragment = new AddTaskFragment();
-                ft.replace(R.id.main_fragment, addTaskFragment)
+                ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
                     .addToBackStack(null)
                     .commit();
                 break;
             case R.id.nav_schedule:
-                CalendarFragment calendarFragment = new CalendarFragment();
-                calendarFragment.setArguments(bundle);
-                ft.replace(R.id.main_fragment, calendarFragment)
+                ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_quotations:
-                QuotationsMenu quotationsMenu = new QuotationsMenu();
-                quotationsMenu.setArguments(bundle);
-                ft.replace(R.id.main_fragment, quotationsMenu)
+                ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotations")
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_appointment:
-                AppointmentFragment appointmentFragment = new AppointmentFragment();
-                appointmentFragment.setArguments(bundle);
-                ft.replace(R.id.main_fragment, appointmentFragment)
+                ft.replace(R.id.main_fragment, AppointmentFragment.newInstance(empID), "appointment")
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_custDetails:
 //            ft.add(R.id.main_fragment, customerFragment, "customer");
 //            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                CustomerFragment customerFragment = new CustomerFragment();
-                ft.replace(R.id.main_fragment, customerFragment)
-                    .addToBackStack(null)
-                    .commit();
+//                CustomerFragment customerFragment = new CustomerFragment();
+//                ft.replace(R.id.main_fragment, customerFragment)
+//                    .addToBackStack(null)
+//                    .commit();
                 break;
             case R.id.nav_custContact:
 
@@ -193,5 +184,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         return super.onOptionsItemSelected(item);
     }
 
+    public static String getEmpID() {
+        return empID;
+    }
 
+    public static void setEmpID(String empID) {
+        MainMenu.empID = empID;
+    }
 }

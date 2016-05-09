@@ -27,6 +27,16 @@ public class AppointmentFragment extends Fragment {
     private LinearLayout dataCol;
     private View[] item_appointment_header = new View[headers.length];
 
+    public static final String EMP_ID = "empid";
+
+    public static AppointmentFragment newInstance(String id) {
+        AppointmentFragment fragment = new AppointmentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment, container, false);
 

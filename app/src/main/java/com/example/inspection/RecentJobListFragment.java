@@ -27,6 +27,7 @@ public class RecentJobListFragment extends Fragment {
     private RecyclerView rv;
     private CoordinatorLayout coordinatorLayout;
     private int postion;
+    private String empid;
 
     public static RecentJobListFragment newInstance(String page) {
         Bundle filter = new Bundle();
@@ -46,8 +47,9 @@ public class RecentJobListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recyclerview,container,false);
         rv = (RecyclerView) view.findViewById(R.id.rv);
 
+        empid = ((MainMenu)getActivity()).getEmpID();
         // Hard Code Emp id
-        new GetPersonalSchedule().execute("E00000000006");
+        new GetPersonalSchedule().execute(empid);
         return view;
     }
 

@@ -63,12 +63,22 @@ public class CalendarFragment extends Fragment {
     private int[] monthInWeekdayContainerW = new int[weekday.length];
     private int heightOfDayContainerView = 0;
 
+    public static final String EMP_ID = "empid";
+
+    public static CalendarFragment newInstance(String id) {
+        CalendarFragment fragment = new CalendarFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        empID = getArguments().getString("empID");
+        empID = getArguments().getString(EMP_ID);
         month = (TextView) view.findViewById(R.id.month);
         pre = (TextView) view.findViewById(R.id.pre);
         next = (TextView) view.findViewById(R.id.next);
