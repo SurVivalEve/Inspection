@@ -4,62 +4,61 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <TextView
+        android:id="@+id/hidden_index"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_weight="1">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/col1_1"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:maxLength="2"
+            android:hint=""/>
 
-            <EditText
-                android:id="@+id/col1_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:hint="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="扇活窗更換"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="扇活窗更換"/>
+        <EditText
+            android:id="@+id/col1_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLength="4"
+            android:hint="" />
 
-            <EditText
-                android:id="@+id/col1_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLength="4"
-                android:hint="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="窗鉸共"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="窗鉸共"/>
+        <EditText
+            android:id="@+id/col1_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLength="2"
+            android:hint="" />
 
-            <EditText
-                android:id="@+id/col1_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLength="2"
-                android:hint="" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="隻"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/del"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="-"
-            android:background="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="隻"/>
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/del"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:background="@mipmap/ic_drop"/>
 </LinearLayout>

@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -19,13 +23,17 @@ public class QuotationOrderForm extends Fragment {
     private LinearLayout col1, col4;
     private EditText col2_1, col2_2, col3_1, constructionFee, earnest, owe, remark;
     private ArrayList<View> col1_View = new ArrayList<>();
+    private ArrayList<TextView> col1_TVs = new ArrayList<>();
     private ArrayList<EditText[]> col1_ETs = new ArrayList<>();
-    private ArrayList<Button> col1_dels = new ArrayList<>();
+    private ArrayList<ImageButton> col1_dels = new ArrayList<>();
     private ArrayList<View> col4_View = new ArrayList<>();
+    private ArrayList<TextView> col4_TVs = new ArrayList<>();
     private ArrayList<EditText> col4_ETs = new ArrayList<>();
-    private ArrayList<Button> col4_dels = new ArrayList<>();
-    private Button col1_plus, col4_plus, save;
+    private ArrayList<ImageButton> col4_dels = new ArrayList<>();
+    private ImageButton col1_plus, col4_plus;
+    private Button save;
     private LayoutInflater layoutInflater;
+    private int col1Index=0, col4Index=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -48,8 +56,8 @@ public class QuotationOrderForm extends Fragment {
         earnest = (EditText) view.findViewById(R.id.earnest);
         owe = (EditText) view.findViewById(R.id.owe);
         remark = (EditText) view.findViewById(R.id.remark);
-        col1_plus = (Button) view.findViewById(R.id.col1_plus);
-        col4_plus = (Button) view.findViewById(R.id.col4_plus);
+        col1_plus = (ImageButton) view.findViewById(R.id.col1_plus);
+        col4_plus = (ImageButton) view.findViewById(R.id.col4_plus);
         save = (Button) view.findViewById(R.id.save);
     }
 
@@ -64,21 +72,31 @@ public class QuotationOrderForm extends Fragment {
                 View v = layoutInflater.inflate(R.layout.item_quotation_orderform_col1, null);
                 col1_View.add(v);
 
+                TextView col1_TV = (TextView) v.findViewById(R.id.hidden_index);
+                final String index = String.valueOf(col1Index++);
+                col1_TV.setText(index);
+                col1_TVs.add(col1_TV);
+
                 EditText[] col1_ET = new EditText[3];
                 col1_ET[0] = (EditText) v.findViewById(R.id.col1_1);
                 col1_ET[1] = (EditText) v.findViewById(R.id.col1_2);
                 col1_ET[2] = (EditText) v.findViewById(R.id.col1_3);
                 col1_ETs.add(col1_ET);
 
-                Button col1_del = (Button) v.findViewById(R.id.del);
-                final int currentIndex = col1_View.indexOf(v);
+                ImageButton col1_del = (ImageButton) v.findViewById(R.id.del);
                 col1_del.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        col1_View.remove(currentIndex);
-                        col1_ETs.remove(currentIndex);
-                        col1_dels.remove(currentIndex);
-                        col1.removeViewAt(currentIndex);
+                        for(int i=0; i<col1Index; i++) {
+                            if(col1_TVs.get(i).getText().toString().equalsIgnoreCase(index)) {
+                                col1_View.remove(i);
+                                col1_TVs.remove(i);
+                                col1_ETs.remove(i);
+                                col1_dels.remove(i);
+                                col1.removeViewAt(i);
+                                break;
+                            }
+                        }
                     }
                 });
                 col1_dels.add(col1_del);
@@ -92,18 +110,28 @@ public class QuotationOrderForm extends Fragment {
                 View v = layoutInflater.inflate(R.layout.item_quotation_orderform_col4, null);
                 col4_View.add(v);
 
+                TextView col4_TV = (TextView) v.findViewById(R.id.hidden_index);
+                final String index = String.valueOf(col4Index++);
+                col4_TV.setText(index);
+                col4_TVs.add(col4_TV);
+
                 EditText col4_ET = (EditText) v.findViewById(R.id.col4_1);
                 col4_ETs.add(col4_ET);
 
-                Button col4_del = (Button) v.findViewById(R.id.del);
-                final int currentIndex = col4_View.indexOf(v);
+                ImageButton col4_del = (ImageButton) v.findViewById(R.id.del);
                 col4_del.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        col4_View.remove(currentIndex);
-                        col4_ETs.remove(currentIndex);
-                        col4_dels.remove(currentIndex);
-                        col4.removeViewAt(currentIndex);
+                    for(int i=0; i<col4Index; i++) {
+                        if(col4_TVs.get(i).getText().toString().equalsIgnoreCase(index)) {
+                            col4_View.remove(i);
+                            col4_TVs.remove(i);
+                            col4_ETs.remove(i);
+                            col4_dels.remove(i);
+                            col4.removeViewAt(i);
+                            break;
+                        }
+                    }
                     }
                 });
                 col4_dels.add(col4_del);

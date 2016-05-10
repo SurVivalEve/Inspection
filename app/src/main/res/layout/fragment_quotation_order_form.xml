@@ -49,19 +49,19 @@
                         android:text="換鉸工程："
                         android:textSize="15dp"/>
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/col1_plus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="+"
-                        android:background="@color/white"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_new"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/col1"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 </LinearLayout>
                 <LinearLayout
@@ -170,12 +170,12 @@
                         android:text="其他："
                         android:textSize="15dp"/>
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/col4_plus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="+"
-                        android:background="@color/white"/>
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_new"/>
                 </LinearLayout>
 
                 <LinearLayout
