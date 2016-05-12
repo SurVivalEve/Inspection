@@ -178,148 +178,76 @@ public class QuotationOrderForm extends Fragment {
                 String error_message = "";
                 error_message = checkInputFormat();
                 if (error_message == "") {
-                    JSONArray orderForm = new JSONArray();
-
+                    JSONArray orderFormJsonArray = new JSONArray();
+                    JSONObject orderForm = new JSONObject();
                     try {
                         JSONArray hinge = new JSONArray();
-
+                        //col1
                         for (int i = 0; i < col1_View.size(); i++) {
                             JSONObject hinge_data = new JSONObject();
-                            JSONArray hinge_data1s = new JSONArray();
                             for (int k = 0; k < 3; k++) {
-                                JSONObject hinge_data1_data = new JSONObject();
-                                hinge_data1_data.put("data" + (k + 1), col1_ETs.get(i)[k].getText().toString().replace(" ", ""));
-                                hinge_data1s.put(hinge_data1_data);
+                                hinge_data.put("field" + (k + 1), col1_ETs.get(i)[k].getText().toString().replace(" ", ""));
                             }
-                            hinge_data.put("data", hinge_data1s);
                             hinge.put(hinge_data);
                         }
 
-                        JSONObject col1 = new JSONObject();
                         if (col1_View.size() == 0) {
-                            col1.put("hinge", JSONObject.NULL);
+                            orderForm.put("hinge", JSONObject.NULL);
                         } else {
-                            col1.put("hinge", hinge);
+                            orderForm.put("hinge", hinge);
                         }
-                        orderForm.put(col1);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get col1 data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //col2
-                    try {
-                        JSONArray switchJsona = new JSONArray();
 
-                        JSONObject switch_data1 = new JSONObject();
+                        //col2
+
                         if (col2_1.getText().toString().isEmpty()) {
-                            switch_data1.put("data1", JSONObject.NULL);
+                            orderForm.put("switchupper", JSONObject.NULL);
                         } else {
-                            switch_data1.put("data1", col2_1.getText().toString().replace(" ", ""));
+                            orderForm.put("switchupper", col2_1.getText().toString().replace(" ", ""));
                         }
-                        switchJsona.put(switch_data1);
 
-                        JSONObject switch_data2 = new JSONObject();
                         if (col2_2.getText().toString().isEmpty()) {
-                            switch_data2.put("data2", JSONObject.NULL);
+                            orderForm.put("switchlower", JSONObject.NULL);
                         } else {
-                            switch_data2.put("data2", col2_2.getText().toString().replace(" ", ""));
+                            orderForm.put("switchlower", col2_2.getText().toString().replace(" ", ""));
                         }
-                        switchJsona.put(switch_data2);
 
-                        JSONObject switchJson = new JSONObject();
-                        switchJson.put("switch", switchJsona);
-                        orderForm.put(switchJson);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get col2 data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //col3 data
-                    try {
-                        JSONObject col3 = new JSONObject();
+                        //col3
                         if (col3_1.getText().toString().isEmpty()) {
-                            col3.put("strip", JSONObject.NULL);
+                            orderForm.put("strip", JSONObject.NULL);
                         } else {
-                            col3.put("strip", col3_1.getText().toString().replace(" ", ""));
+                            orderForm.put("strip", col3_1.getText().toString().replace(" ", ""));
                         }
-                        orderForm.put(col3);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get col3 data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //col4 data
-                    try {
+
+                        //col4
                         JSONArray others = new JSONArray();
-                        int index = 0;
                         for (int i = 0; i < col4_View.size(); i++) {
-                            if (!col4_ETs.get(i).getText().toString().isEmpty()) {
-                                JSONObject hinge_data = new JSONObject();
-                                hinge_data.put("data" + (++index), col4_ETs.get(i).getText().toString());
-                                others.put(hinge_data);
-                            }
+                            others.put(col4_ETs.get(i).getText().toString());
                         }
-                        JSONObject col4 = new JSONObject();
-                        if (index == 0) {
-                            col4.put("others", JSONObject.NULL);
+
+                        if (col4_View.size() == 0) {
+                            orderForm.put("others", JSONObject.NULL);
                         } else {
-                            col4.put("others", others);
+                            orderForm.put("others", others);
                         }
-                        orderForm.put(col4);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get col4 data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //construction fee data
-                    try {
-                        JSONObject constructionfee = new JSONObject();
-                        constructionfee.put("constructionfee", constructionFee.getText().toString().replace(" ", ""));
-                        orderForm.put(constructionfee);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get construction fee data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //earnest data
-                    try {
-                        JSONObject earnestmoney = new JSONObject();
-                        earnestmoney.put("earnestmoney", earnest.getText().toString().replace(" ", ""));
-                        orderForm.put(earnestmoney);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get earnest data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //owe data
-                    try {
-                        JSONObject owemoney = new JSONObject();
-                        owemoney.put("owemoney", owe.getText().toString().replace(" ", ""));
-                        orderForm.put(owemoney);
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get owe data json exception");
-                        Log.d("detail", e.toString());
-                        if(error_message == "")
-                            error_message = "Occur exception when generate json";
-                    }
-                    //remark data
-                    try {
-                        JSONObject remarkJson = new JSONObject();
+
+                        //construction fee
+                        orderForm.put("constructionfee", constructionFee.getText().toString().replace(" ", ""));
+
+                        //earnest
+                        orderForm.put("earnestmoney", earnest.getText().toString().replace(" ", ""));
+
+                        //owe
+                        orderForm.put("owemoney", owe.getText().toString().replace(" ", ""));
+
+                        //remark
                         if (remark.getText().toString().isEmpty()) {
-                            remarkJson.put("remark", JSONObject.NULL);
+                            orderForm.put("remark", JSONObject.NULL);
                         } else {
-                            remarkJson.put("remark", remark.getText().toString());
+                            orderForm.put("remark", remark.getText().toString());
                         }
-                        orderForm.put(remarkJson);
+
                     } catch (JSONException e) {
-                        Log.d("save onclick error", "get remark data json exception");
+                        Log.d("save onclick error", "get data to form json exception");
                         Log.d("detail", e.toString());
                         if(error_message == "")
                             error_message = "Occur exception when generate json";
@@ -328,7 +256,8 @@ public class QuotationOrderForm extends Fragment {
                     Log.d("order form json", orderForm.toString());
 
                     if(error_message == "") {
-                        mCallback.sendOrderFormMessage(orderForm);
+                        orderFormJsonArray.put(orderForm);
+                        mCallback.sendOrderFormMessage(orderFormJsonArray);
 
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();

@@ -77,32 +77,7 @@ public class CalendarMonthlyFragment extends Fragment {
 
     private void init(View view){
         empID = getArguments().getString("empID");
-        LocalScheduleDAO schDAO = new LocalScheduleDAO(getActivity().getApplicationContext());
-        LocalPreMonthScheduleDAO schPreDAO = new LocalPreMonthScheduleDAO(getActivity().getApplicationContext());
-        LocalNextMonthScheduleDAO schNextDAO = new LocalNextMonthScheduleDAO(getActivity().getApplicationContext());
-        Schedule[] sch = new Schedule[3];
-        try {
-            sch[0] = schPreDAO.toSchedule(schPreDAO.getAll());
-        } catch (Exception e){
-            Log.d("pre scheduledao error", "toschedule error");
-            Log.d("Details", e.toString());
-            sch[0] = new Schedule();
-        }
-        try {
-            sch[1] = schDAO.toSchedule(schDAO.getAll());
-        } catch (Exception e){
-            Log.d("cur scheduledao error", "toschedule error");
-            Log.d("Details", e.toString());
-            sch[1] = new Schedule();
-        }
-        try {
-            sch[2] = schNextDAO.toSchedule(schNextDAO.getAll());
-        } catch (Exception e){
-            Log.d("next scheduledao error", "toschedule error");
-            Log.d("Details", e.toString());
-            sch[2] = new Schedule();
-        }
-        setSchedule(sch);
+        refreshSchedule();
 
         month = (TextView) view.findViewById(R.id.month);
         pre = (TextView) view.findViewById(R.id.pre);
@@ -140,7 +115,40 @@ public class CalendarMonthlyFragment extends Fragment {
         }
     }
 
+    public void refreshSchedule(){
+        LocalScheduleDAO schDAO = new LocalScheduleDAO(getActivity().getApplicationContext());
+        LocalPreMonthScheduleDAO schPreDAO = new LocalPreMonthScheduleDAO(getActivity().getApplicationContext());
+        LocalNextMonthScheduleDAO schNextDAO = new LocalNextMonthScheduleDAO(getActivity().getApplicationContext());
+        Schedule[] sch = new Schedule[3];
+        try {
+            sch[0] = schPreDAO.toSchedule(schPreDAO.getAll());
+        } catch (Exception e){
+            Log.d("pre scheduledao error", "toschedule error");
+            Log.d("Details", e.toString());
+            sch[0] = new Schedule();
+        }
+        try {
+            sch[1] = schDAO.toSchedule(schDAO.getAll());
+        } catch (Exception e){
+            Log.d("cur scheduledao error", "toschedule error");
+            Log.d("Details", e.toString());
+            sch[1] = new Schedule();
+        }
+        try {
+            sch[2] = schNextDAO.toSchedule(schNextDAO.getAll());
+        } catch (Exception e){
+            Log.d("next scheduledao error", "toschedule error");
+            Log.d("Details", e.toString());
+            sch[2] = new Schedule();
+        }
+        setSchedule(sch);
+    }
+
     public void createView() {
+        // clear the view in dayContainer
+        for(int i=0; i<dayContainer.length; i++) {
+            dayContainer[i].removeAllViews();
+        }
         //set param of day item
         LinearLayout.LayoutParams dayParam = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -292,10 +300,6 @@ public class CalendarMonthlyFragment extends Fragment {
         }
 
         month.setText(months[currentMonth]);
-        // clear the view in dayContainer
-        for(int i=0; i<dayContainer.length; i++) {
-            dayContainer[i].removeAllViews();
-        }
 
         //creat the new view for view previous month
         monthIndex--;
@@ -317,10 +321,6 @@ public class CalendarMonthlyFragment extends Fragment {
         }
 
         month.setText(months[currentMonth]);
-        // clear the view in dayContainer
-        for(int i=0; i<dayContainer.length; i++) {
-            dayContainer[i].removeAllViews();
-        }
 
         //creat the new view for view previous month
         monthIndex++;
@@ -334,63 +334,5 @@ public class CalendarMonthlyFragment extends Fragment {
     public Schedule getSchedule(int month){
         //month: 0 for perivous month, 1 for current month, 2 for next month
         return this.schedule[month];
-    }
-
-    private class GetSchedule extends AsyncTask<Void, Void, Schedule[]> {
-
-        @Override
-        protected Schedule[] doInBackground(Void... params) {
-            Schedule[] result = new Schedule[3];
-            String month = "";
-            currentMonth = Calendar.getInstance().get(Calendar.MONTH); // 0-11 = Jan to Dec
-            currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-            //get current schedule data
-            if(currentMonth+1<10)
-                month="0"+(currentMonth+1);
-            else
-                month = currentMonth+1+"";
-            SyncManager syncManager = new SyncManager("getSchedule.php?empID=" + empID + "&YM="+currentYear+"-"+month, getActivity().getApplicationContext());
-            LocalScheduleDAO schDAO = syncManager.syncCalendar();
-            result[1] = schDAO.toSchedule(schDAO.getAll());
-
-            //get previous schedule data
-            if(currentMonth!=0) {
-                currentMonth--;
-            } else {
-                currentMonth = 11;
-                currentYear--;
-            }
-            if(currentMonth+1<10)
-                month="0"+(currentMonth+1);
-            else
-                month = currentMonth+1+"";
-            syncManager = new SyncManager("getSchedule.php?empID=" + empID + "&YM="+currentYear+"-"+month, getActivity().getApplicationContext());
-            schDAO = syncManager.syncCalendar();
-            result[0] = schDAO.toSchedule(schDAO.getAll());
-
-            //get next schedule data
-            if (currentMonth != 11) {
-                currentMonth++;
-            } else {
-                currentMonth=0;
-                currentYear++;
-            }
-            if(currentMonth+1<10)
-                month="0"+(currentMonth+1);
-            else
-                month = currentMonth+1+"";
-            syncManager = new SyncManager("getSchedule.php?empID=" + empID + "&YM="+currentYear+"-"+month, getActivity().getApplicationContext());
-            schDAO = syncManager.syncCalendar();
-            result[2] = schDAO.toSchedule(schDAO.getAll());
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Schedule[] result) {
-            super.onPostExecute(result);
-            setSchedule(result);
-            createView();
-        }
     }
 }

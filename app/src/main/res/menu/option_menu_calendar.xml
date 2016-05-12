@@ -2,15 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/modeModify"
-        android:title="123"
+        android:id="@+id/refreshSchedule"
+        android:title="refreshSchedule"
         android:orderInCategory="1"
         android:visible="true"
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/op_menu_help2"
+        android:id="@+id/modeModify"
+        android:title="modeModify"
         android:orderInCategory="2"
+        android:visible="true"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/op_menu_help"
+        android:orderInCategory="3"
         android:title="Help"
         app:showAsAction="never" />
 

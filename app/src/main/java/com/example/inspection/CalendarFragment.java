@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
@@ -47,8 +49,6 @@ public class CalendarFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         init(view);
-        //get the calendar data from the server and create day view
-        new GetSchedule().execute();
 
         //TODO: on item click listeners
         return view;
@@ -62,7 +62,8 @@ public class CalendarFragment extends Fragment {
         calendarMonthlyFragment = CalendarMonthlyFragment.newInstance(empID);
         calendarWeeklyFragment = CalendarWeeklyFragment.newInstance(empID);
         ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.calendar_fragment, calendarMonthlyFragment).commit();
+        ft.replace(R.id.calendar_fragment, calendarMonthlyFragment, "calendarMonthlyFragment").commit();
+
     }
 
     @Override
@@ -78,21 +79,26 @@ public class CalendarFragment extends Fragment {
         inflater.inflate(R.menu.option_menu_calendar, menu);
         MenuItem modeModify = menu.findItem(R.id.modeModify);
         modeModify.setIcon(getResources().getDrawable(R.mipmap.ic_weekly_calendar));
+        MenuItem refreshSchedule = menu.findItem(R.id.refreshSchedule);
+        refreshSchedule.setIcon(getResources().getDrawable(R.drawable.ic_autorenew_24dp));
         super.onCreateOptionsMenu(menu, inflater);;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()){
+            case R.id.refreshSchedule:
+                new GetSchedule().execute();
+                Toast.makeText(getContext(), "Updating", Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.modeModify:
                 if(viewIndex == 0) {
                     viewIndex = 1;
-                    ft.replace(R.id.calendar_fragment, calendarWeeklyFragment).addToBackStack(null).commit();
+                    ft.replace(R.id.calendar_fragment, calendarWeeklyFragment, "calendarWeeklyFragment").addToBackStack(null).commit();
                     item.setIcon(getResources().getDrawable(R.mipmap.ic_calendar));
                 } else if (viewIndex == 1){
                     viewIndex = 0;
-                    ft.replace(R.id.calendar_fragment, calendarMonthlyFragment).addToBackStack(null).commit();
+                    ft.replace(R.id.calendar_fragment, calendarMonthlyFragment, "calendarMonthlyFragment").addToBackStack(null).commit();
                     item.setIcon(getResources().getDrawable(R.mipmap.ic_weekly_calendar));
                 }
                 return true;
@@ -155,8 +161,16 @@ public class CalendarFragment extends Fragment {
         @Override
         protected void onPostExecute(Schedule[] result) {
             super.onPostExecute(result);
-            calendarMonthlyFragment.setSchedule(result);
-            calendarWeeklyFragment.setSchedule(result[1]);
+            if(viewIndex == 0){
+                CalendarMonthlyFragment calendarMonthly = (CalendarMonthlyFragment) getActivity().getSupportFragmentManager().findFragmentByTag("calendarMonthlyFragment");
+                calendarMonthly.refreshSchedule();
+                calendarMonthly.createView();
+            } else if (viewIndex == 1){
+                CalendarWeeklyFragment calendarWeekly = (CalendarWeeklyFragment) getActivity().getSupportFragmentManager().findFragmentByTag("calendarWeeklyFragment");
+                calendarWeekly.refreshSchedule();
+                calendarWeekly.createView();
+            }
+            Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
         }
     }
 }

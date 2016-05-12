@@ -108,26 +108,22 @@ public class QuotationInvoice extends Fragment {
                 String error_message = "";
                 error_message = checkInputFormat();
                 if (error_message == "") {
-                    JSONArray invoice = new JSONArray();
-
+                    JSONArray invoiceJsonArray = new JSONArray();
+                    JSONObject invoice = new JSONObject();
                     //remark data
                     try {
-                        JSONObject remarkJson = new JSONObject();
                         if (remark.getText().toString().isEmpty()) {
-                            remarkJson.put("remark", JSONObject.NULL);
+                            invoice.put("remark", JSONObject.NULL);
                         } else {
-                            remarkJson.put("remark", remark.getText().toString());
+                            invoice.put("remark", remark.getText().toString());
                         }
-                        invoice.put(remarkJson);
                     } catch (JSONException e) {
                         Log.d("save onclick error", "get remark data json exception");
                         Log.d("detail", e.toString());
                     }
                     //amount data
                     try {
-                        JSONObject amountJson = new JSONObject();
-                        amountJson.put("amount", amount.getText().toString().replace(" ", ""));
-                        invoice.put(amountJson);
+                        invoice.put("amount", amount.getText().toString().replace(" ", ""));
                     } catch (JSONException e) {
                         Log.d("save onclick error", "get amount data json exception");
                         Log.d("detail", e.toString());
@@ -136,9 +132,7 @@ public class QuotationInvoice extends Fragment {
                     try {
                         FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "sign");
                         fw.copyForm(((BitmapDrawable) custSign.getDrawable()).getBitmap(), Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-                        JSONObject custSignJson = new JSONObject();
-                        custSignJson.put("custsign", fw.getBase64String());
-                        invoice.put(custSignJson);
+                        invoice.put("custsign", fw.getBase64String());
                     } catch (ClassCastException e){
                         e.printStackTrace();
                         error_message = "Customer signature cannot be empty!";
@@ -152,9 +146,7 @@ public class QuotationInvoice extends Fragment {
                     try {
                         FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "sign");
                         fw.copyForm(((BitmapDrawable) empSign.getDrawable()).getBitmap(), Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-                        JSONObject empSignJson = new JSONObject();
-                        empSignJson.put("empsign", fw.getBase64String());
-                        invoice.put(empSignJson);
+                        invoice.put("empsign", fw.getBase64String());
                     } catch (ClassCastException e){
                         e.printStackTrace();
                         if(error_message == "")
@@ -169,7 +161,8 @@ public class QuotationInvoice extends Fragment {
                     Log.d("order form json", invoice.toString());
 
                     if(error_message == "") {
-                        mCallback.sendInvoicMessage(invoice);
+                        invoiceJsonArray.put(invoice);
+                        mCallback.sendInvoicMessage(invoiceJsonArray);
 
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
