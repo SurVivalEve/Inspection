@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.inspection.JobDetailFragment;
 import com.example.inspection.MainMenu;
 import com.example.inspection.R;
+import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.models.Processing;
 import com.example.inspection.models.RecentJob;
 
@@ -26,12 +27,12 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
 
     private Context context;
     private LayoutInflater inflater;
-    private List<Processing> processings;
+    private List<LocalRecentJob> processings;
 
 
-    public RecentJobListProcessingAdapter(Context context, RecentJob recentJob) {
+    public RecentJobListProcessingAdapter(Context context, List<LocalRecentJob> processings) {
         this.context = context;
-        this.processings = recentJob.getProcessings();
+        this.processings = processings;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -42,7 +43,7 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Processing p = processings.get(position);
+        LocalRecentJob p = processings.get(position);
         holder.empName.setText("Alex");
         holder.custName.setText(p.getFullname());
         holder.custAddress.setText(p.getBuilding());
@@ -62,7 +63,7 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
         //reduce findViewById
         public TextView custName, custPhone, custAddress, empName;
         public CircleImageView custSexImage;
-        public Processing processing;
+        public LocalRecentJob processing;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -74,11 +75,11 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
             itemView.setOnClickListener(itemViewClicked);
         }
 
-        public Processing getCustomer() {
+        public LocalRecentJob getCustomer() {
             return processing;
         }
 
-        public void setProcessing(Processing processing) {
+        public void setProcessing(LocalRecentJob processing) {
             this.processing = processing;
         }
 

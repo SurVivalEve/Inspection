@@ -38,6 +38,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 
     public static final String EMP_ID = "empid";
 
+    public String appid = "" ;
+
     public static AddTaskFragment newInstance(String id) {
         AddTaskFragment fragment = new AddTaskFragment();
         Bundle bundle = new Bundle();
@@ -54,6 +56,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
         try {
             webApp = (WebAppointment) this.getArguments().getSerializable("data");
             if (webApp != null) {
+                appid = webApp.getAppId();
                 custName.setText(webApp.getName());
                 custPhoneNumber.setText(webApp.getPhone());
                 building.setText(webApp.getBuilding());
@@ -107,7 +110,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                         custPhoneNumber.getText().toString(),
                         block.getText().toString(),
                         building.getText().toString(),
-                        appDate.getText().toString().concat(" " + appTime.getText().toString())};
+                        appDate.getText().toString().concat(" " + appTime.getText().toString()),
+                        appid};
                 inputData = data.clone();
                 new addTask().execute(data);
             default:
@@ -133,7 +137,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 
             publishProgress(progress_status);
             SystemClock.sleep(1000);
-            return syncManager.syncAppointment(params[0], params[1], params[2], params[3], params[4], params[5]);
+
+            return syncManager.syncAppointment(params[0], params[1], params[2], params[3], params[4], params[5], params[6]);
         }
 
 

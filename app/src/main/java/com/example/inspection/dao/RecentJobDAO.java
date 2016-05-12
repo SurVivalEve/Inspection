@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.inspection.database.DatabaseHelper;
+import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.dbmodels.WebAppointment;
 
 import java.util.ArrayList;
@@ -23,31 +24,37 @@ public class RecentJobDAO {
     public static final String KEY_ID = "id";
 
     // 其它表格欄位名稱
-    public static final String APP_ID = "appid";
-    public static final String NAME_COLUMN = "name";
-    public static final String PHONE_COLUMN = "phone";
-    public static final String BUILDING_COLUMN = "building";
-    public static final String BLOCK_COLUMN = "block";
-    public static final String DATE_COLUMN = "date";
+    public static final String TITLE_COLUMN = "title";
     public static final String REMARK_COLUMN = "remark";
+    public static final String TSTATUS_COLUMN = "tstatus";
+    public static final String PHONE_COLUMN = "phone";
+    public static final String FULLNAME_COLUMN = "fullname";
+    public static final String FLAT_BLOCK_COLUMN = "flatblock";
+    public static final String BUILDEING_COLUMN = "building";
+    public static final String DISTRICT_EN_COLUMN = "district";
+    public static final String ISLAND_COLUMN = "island";
+    public static final String WHICH_COLUMN = "which";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    APP_ID + " TEXT NOT NULL, " +
-                    NAME_COLUMN + " TEXT NOT NULL, " +
+                    TITLE_COLUMN + " TEXT NOT NULL, " +
+                    REMARK_COLUMN + " TEXT NOT NULL, " +
+                    TSTATUS_COLUMN + " TEXT, " +
                     PHONE_COLUMN + " TEXT NOT NULL, " +
-                    BUILDING_COLUMN + " TEXT NOT NULL, " +
-                    BLOCK_COLUMN + " TEXT NOT NULL, " +
-                    DATE_COLUMN + " TEXT NOT NULL, " +
-                    REMARK_COLUMN + " TEXT)";
+                    FULLNAME_COLUMN + " TEXT NOT NULL, " +
+                    FLAT_BLOCK_COLUMN + " TEXT NOT NULL, " +
+                    BUILDEING_COLUMN + " TEXT NOT NULL, " +
+                    DISTRICT_EN_COLUMN + " TEXT NOT NULL, " +
+                    ISLAND_COLUMN + " TEXT NOT NULL, " +
+                    WHICH_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
-    public WebAppointmentDAO(Context context) {
+    public RecentJobDAO(Context context) {
         db = DatabaseHelper.getDatabase(context);
     }
 
@@ -57,19 +64,22 @@ public class RecentJobDAO {
     }
 
     // 新增記錄
-    public long insert(WebAppointment app) {
+    public long insert(LocalRecentJob rj) {
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(APP_ID, app.getAppId());
-        cv.put(NAME_COLUMN, app.getName());
-        cv.put(PHONE_COLUMN, app.getPhone());
-        cv.put(BUILDING_COLUMN, app.getBuilding());
-        cv.put(BLOCK_COLUMN, app.getBlock());
-        cv.put(DATE_COLUMN, app.getDate());
-        cv.put(REMARK_COLUMN, app.getRemark());
+        cv.put(TITLE_COLUMN, rj.getTitle());
+        cv.put(REMARK_COLUMN, rj.getRemark());
+        cv.put(TSTATUS_COLUMN, rj.getTstatus());
+        cv.put(PHONE_COLUMN, rj.getPhone());
+        cv.put(FULLNAME_COLUMN, rj.getFullname());
+        cv.put(FLAT_BLOCK_COLUMN, rj.getFlatBlock());
+        cv.put(BUILDEING_COLUMN, rj.getBuilding());
+        cv.put(DISTRICT_EN_COLUMN, rj.getDistrictEN());
+        cv.put(ISLAND_COLUMN, rj.getIsland());
+        cv.put(WHICH_COLUMN, rj.getWhich());
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -78,29 +88,32 @@ public class RecentJobDAO {
         long id = db.insert(TABLE_NAME, null, cv);
 
         // 設定編號
-        app.setId(id);
+        rj.setId(id);
         // 回傳結果
         return id;
     }
 
     // 修改記錄
-    public boolean update(WebAppointment app) {
+    public boolean update(LocalRecentJob rj) {
         // 建立準備修改資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(APP_ID, app.getAppId());
-        cv.put(NAME_COLUMN, app.getName());
-        cv.put(PHONE_COLUMN, app.getPhone());
-        cv.put(BUILDING_COLUMN, app.getBuilding());
-        cv.put(BLOCK_COLUMN, app.getBlock());
-        cv.put(DATE_COLUMN, app.getDate());
-        cv.put(REMARK_COLUMN, app.getRemark());
+        cv.put(TITLE_COLUMN, rj.getTitle());
+        cv.put(REMARK_COLUMN, rj.getRemark());
+        cv.put(TSTATUS_COLUMN, rj.getTstatus());
+        cv.put(PHONE_COLUMN, rj.getPhone());
+        cv.put(FULLNAME_COLUMN, rj.getFullname());
+        cv.put(FLAT_BLOCK_COLUMN, rj.getFlatBlock());
+        cv.put(BUILDEING_COLUMN, rj.getBuilding());
+        cv.put(DISTRICT_EN_COLUMN, rj.getDistrictEN());
+        cv.put(ISLAND_COLUMN, rj.getIsland());
+        cv.put(WHICH_COLUMN, rj.getWhich());
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
-        String where = KEY_ID + "=" + app.getId();
+        String where = KEY_ID + "=" + rj.getId();
 
         // 執行修改資料並回傳修改的資料數量是否成功
         return db.update(TABLE_NAME, cv, where, null) > 0;
@@ -114,9 +127,13 @@ public class RecentJobDAO {
         return db.delete(TABLE_NAME, where, null) > 0;
     }
 
+    public void delete(){
+        db.execSQL("delete from "+ TABLE_NAME);
+    }
+
     // 讀取所有資料
-    public List<WebAppointment> getAll() {
-        List<WebAppointment> result = new ArrayList<>();
+    public List<LocalRecentJob> getAll() {
+        List<LocalRecentJob> result = new ArrayList<>();
         Cursor cursor = db.query(
                 TABLE_NAME, null, null, null, null, null, null, null);
 
@@ -128,10 +145,27 @@ public class RecentJobDAO {
         return result;
     }
 
+    // 讀取特定資料
+    public List<LocalRecentJob> getAllByWhich(String which) {
+        List<LocalRecentJob> result = new ArrayList<>();
+
+        String where = WHICH_COLUMN + "=" + "'"+which+"'";
+
+        Cursor cursor = db.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(getRecord(cursor));
+        }
+
+        cursor.close();
+        return result;
+    }
+
     // 取得指定編號的資料物件
-    public WebAppointment get(long id) {
+    public LocalRecentJob get(long id) {
         // 準備回傳結果用的物件
-        WebAppointment app = null;
+        LocalRecentJob app = null;
         // 使用編號為查詢條件
         String where = KEY_ID + "=" + id;
         // 執行查詢
@@ -151,21 +185,24 @@ public class RecentJobDAO {
     }
 
     // 把Cursor目前的資料包裝為物件
-    public WebAppointment getRecord(Cursor cursor) {
+    public LocalRecentJob getRecord(Cursor cursor) {
         // 準備回傳結果用的物件
-        WebAppointment app = new WebAppointment();
+        LocalRecentJob rj = new LocalRecentJob();
 
-        app.setId(cursor.getLong(0));
-        app.setAppId(cursor.getString(1));
-        app.setName(cursor.getString(2));
-        app.setPhone(cursor.getString(3));
-        app.setBuilding(cursor.getString(4));
-        app.setBlock(cursor.getString(5));
-        app.setDate(cursor.getString(6));
-        app.setRemark(cursor.getString(7));
+        rj.setId(cursor.getLong(0));
+        rj.setTitle(cursor.getString(1));
+        rj.setRemark(cursor.getString(2));
+        rj.setTstatus(cursor.getString(3));
+        rj.setPhone(cursor.getString(4));
+        rj.setFullname(cursor.getString(5));
+        rj.setFlatBlock(cursor.getString(6));
+        rj.setBuilding(cursor.getString(7));
+        rj.setDistrictEN(cursor.getString(8));
+        rj.setIsland(cursor.getString(9));
+        rj.setWhich(cursor.getString(10));
 
         // 回傳結果
-        return app;
+        return rj;
     }
 
     // 取得資料數量
@@ -181,8 +218,8 @@ public class RecentJobDAO {
     }
 
     public void sampleData() {
-        WebAppointment w1 = new WebAppointment("", "Alex", "67612428", "Hong Kong", "4B32", "2016-05-07", "Afternoon");
-        insert(w1);
+        LocalRecentJob r1 = new LocalRecentJob();
+        insert(r1);
     }
 
 

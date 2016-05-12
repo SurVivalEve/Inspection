@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.models.Appointment;
 import com.example.inspection.models.History;
 import com.example.inspection.models.Processing;
@@ -44,8 +45,8 @@ import java.util.Objects;
 public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
     private CoordinatorLayout coordinatorLayout;
     private ScrollView scrollView;
-    private Processing processing;
-    private History history;
+    private LocalRecentJob processing;
+    private LocalRecentJob history;
     private Appointment appointment;
     private GoogleMap map;
     private SupportMapFragment mapFragment;
@@ -59,8 +60,8 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_job_detail, container, false);
         // get processing job details from adapter
         Bundle bundle = this.getArguments();
-        processing = (Processing) bundle.getSerializable("processing");
-        history = (History) bundle.getSerializable("history");
+        processing = (LocalRecentJob) bundle.getSerializable("processing");
+        history = (LocalRecentJob) bundle.getSerializable("history");
         appointment = (Appointment) bundle.getSerializable("appointment");
 
         if (processing != null) {

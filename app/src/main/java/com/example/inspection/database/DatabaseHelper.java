@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
 import com.example.inspection.dao.LocalScheduleDAO;
+import com.example.inspection.dao.RecentJobDAO;
 import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.dbmodels.WebAppointment;
 
@@ -38,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(LocalScheduleDAO.CREATE_TABLE);
         db.execSQL(LocalPreMonthScheduleDAO.CREATE_TABLE);
         db.execSQL(LocalNextMonthScheduleDAO.CREATE_TABLE);
+        db.execSQL(RecentJobDAO.CREATE_TABLE);
     }
 
     @Override
@@ -47,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + LocalScheduleDAO.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + LocalPreMonthScheduleDAO.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + LocalNextMonthScheduleDAO.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + RecentJobDAO.TABLE_NAME);
         // 呼叫onCreate建立新版的表格
         onCreate(db);
     }

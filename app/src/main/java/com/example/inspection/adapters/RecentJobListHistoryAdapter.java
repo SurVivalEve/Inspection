@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.inspection.JobDetailFragment;
 import com.example.inspection.MainMenu;
 import com.example.inspection.R;
+import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.models.History;
 import com.example.inspection.models.RecentJob;
 
@@ -26,12 +27,12 @@ public class RecentJobListHistoryAdapter extends RecyclerView.Adapter<RecentJobL
 
     private Context context;
     private LayoutInflater inflater;
-    private List<History> histories;
+    private List<LocalRecentJob> histories;
 
 
-    public RecentJobListHistoryAdapter(Context context, RecentJob recentJob) {
+    public RecentJobListHistoryAdapter(Context context, List<LocalRecentJob> historys) {
         this.context = context;
-        this.histories = recentJob.getHistories();
+        this.histories = historys;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -42,7 +43,7 @@ public class RecentJobListHistoryAdapter extends RecyclerView.Adapter<RecentJobL
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        History p = histories.get(position);
+        LocalRecentJob p = histories.get(position);
         holder.empName.setText("Alex");
         holder.custName.setText(p.getFullname());
         holder.custAddress.setText(p.getBuilding());
@@ -60,7 +61,7 @@ public class RecentJobListHistoryAdapter extends RecyclerView.Adapter<RecentJobL
         //reduce findViewById
         public TextView custName, custPhone, custAddress, empName;
         public CircleImageView custSexImage;
-        public History history;
+        public LocalRecentJob history;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,11 +73,11 @@ public class RecentJobListHistoryAdapter extends RecyclerView.Adapter<RecentJobL
             itemView.setOnClickListener(itemViewClicked);
         }
 
-        public History getHistory() {
+        public LocalRecentJob getHistory() {
             return history;
         }
 
-        public void setHistory(History history) {
+        public void setHistory(LocalRecentJob history) {
             this.history = history;
         }
 

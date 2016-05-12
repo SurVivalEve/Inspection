@@ -13,6 +13,8 @@ import android.util.Log;
 import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
 import com.example.inspection.dao.LocalScheduleDAO;
+import com.example.inspection.dao.RecentJobDAO;
+import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.dbmodels.LocalSchedule;
 import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
@@ -150,11 +152,11 @@ public class SyncManager {
         return result;
     }
 
-    public String syncQuotation(Context context, String appID, List<Uri> uris) {
+    public String syncQuotation(Context context, String appID, List<Uri> uris ) {
 
         try{
             JSONObject toSend = new JSONObject();
-            JSONArray photoArray = new JSONArray();;
+            JSONArray photoArray = new JSONArray();
 
 //            FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
             for (Uri u : uris) {
@@ -165,13 +167,18 @@ public class SyncManager {
                 photos.put("photo",fw.getBase64String());
                 photoArray.put(photos);
             }
+
+
+
             toSend.put("appid",appID);
             toSend.put("photo", photoArray);
 
 
+
+
             HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadPhoto.php", "POST", toSend);
             InputStream is = conn.getInputStream();
-            Log.i("XXX",stream2String(is));
+            Log.i("XXX", stream2String(is));
         }catch (JSONException e) {
             e.printStackTrace();
         }catch (IOException e){
@@ -181,7 +188,7 @@ public class SyncManager {
 
     }
 
-    public String syncAppointment(String empid, String custName, String custPhone, String flatBlock, String building, String appTime) {
+    public String syncAppointment(String empid, String custName, String custPhone, String flatBlock, String building, String appTime, String appid) {
         String result = "";
             try {
                 JSONObject toSend = new JSONObject();
@@ -191,10 +198,15 @@ public class SyncManager {
                 toSend.put("flatBlock", flatBlock);
                 toSend.put("building", building);
                 toSend.put("appointmentTime", appTime);
+                if(appid.equalsIgnoreCase("")) {
+                    toSend.put("appid", JSONObject.NULL);
+                } else {
+                    toSend.put("appid", appid);
+                }
                 HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/addAppointment.php", "POST", toSend);
                 InputStream is = conn.getInputStream();
                 result += stream2String(is);
-                Log.e("Error is : ",result);
+                Log.e("Error is : ", result);
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -203,20 +215,25 @@ public class SyncManager {
         return result;
     }
 
-    public RecentJob syncRecentJob() {
-        RecentJob result = new RecentJob();
+    public boolean syncRecentJob(Context context) {
+//        RecentJob result = new RecentJob();
+        RecentJobDAO dao = new RecentJobDAO(context);
         try {
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "GET", null);
             InputStream is = conn.getInputStream();
             JSONObject json = new JSONObject(stream2String(is));
             //parse json
+
+            //clear database
+            dao.delete();
+
             JSONArray processing = json.optJSONArray("Processing");
 
             if(processing != null) {
 
                 for (int i = 0; i < processing.length(); i++) {
                     JSONObject p = processing.getJSONObject(i);
-                    Processing newC = new Processing(
+                    LocalRecentJob newC = new LocalRecentJob(
                             p.getString("title"),
                             p.getString("remark"),
                             p.getString("tstatus"),
@@ -225,9 +242,11 @@ public class SyncManager {
                             p.getString("flatBlock"),
                             p.getString("building"),
                             p.getString("districtEN"),
-                            p.getString("island")
+                            p.getString("island"),
+                            "processing"
                     );
-                    result.getProcessings().add(newC);
+//                    result.getProcessings().add(newC);
+                    dao.insert(newC);
                 }
             }
 
@@ -237,7 +256,7 @@ public class SyncManager {
 
                 for (int i = 0; i < history.length(); i++) {
                     JSONObject h = history.getJSONObject(i);
-                    History newH = new History(
+                    LocalRecentJob newH = new LocalRecentJob(
                             h.getString("title"),
                             h.getString("remark"),
                             h.getString("tstatus"),
@@ -246,14 +265,17 @@ public class SyncManager {
                             h.getString("flatBlock"),
                             h.getString("building"),
                             h.getString("districtEN"),
-                            h.getString("island")
+                            h.getString("island"),
+                            "history"
                     );
-                    result.getHistories().add(newH);
+//                    result.getHistories().add(newH);
+                    dao.insert(newH);
+
                 }
             }
 
             if(processing == null && history == null) {
-                return null;
+                return false;
             }
 
 
@@ -263,7 +285,7 @@ public class SyncManager {
             Log.e("ex", Log.getStackTraceString(e));
         }
 
-        return result;
+        return true;
     }
 
     public LocalScheduleDAO syncCalendar(){

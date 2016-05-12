@@ -21,12 +21,11 @@ public class RecentJobAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new RecentJobListFragment().newInstance("Processing");
+                return RecentJobListFragment.newInstance("Processing");
             case 1:
-                return new RecentJobListFragment().newInstance("History");
+                return RecentJobListFragment.newInstance("History");
         }
         return null;
-
     }
 
     @Override
