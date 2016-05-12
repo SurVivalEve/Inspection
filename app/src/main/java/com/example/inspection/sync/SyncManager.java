@@ -152,7 +152,9 @@ public class SyncManager {
         return result;
     }
 
-    public String syncQuotation(Context context, String appID, List<Uri> uris ) {
+
+    public String syncQuotation(Context context, String appID, List<Uri> uris, JSONArray invoice, JSONArray orderForm) {
+
 
         try{
             JSONObject toSend = new JSONObject();
@@ -168,17 +170,17 @@ public class SyncManager {
                 photoArray.put(photos);
             }
 
-
-
             toSend.put("appid",appID);
             toSend.put("photo", photoArray);
+            toSend.put("invoice", invoice);
+            toSend.put("orderform", orderForm);
 
 
+            Log.d("tosend", toSend.toString());
+            //HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadPhoto.php", "POST", toSend);
+            //InputStream is = conn.getInputStream();
+            //Log.i("XXX",stream2String(is));
 
-
-            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadPhoto.php", "POST", toSend);
-            InputStream is = conn.getInputStream();
-            Log.i("XXX", stream2String(is));
         }catch (JSONException e) {
             e.printStackTrace();
         }catch (IOException e){

@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ public class SignpadDialog extends DialogFragment {
     private int arg;
     private String title;
     private ImageView signImageView;
+    private Bitmap sign;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,12 +42,13 @@ public class SignpadDialog extends DialogFragment {
         try {
             for (int i = getActivity().getSupportFragmentManager().getFragments().size() - 1; i >= 0; i--) {
                 if (getActivity().getSupportFragmentManager().getFragments().get(i) instanceof QuotationInvoice) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
                     switch (arg) {
                         case 0:
-                            signImageView = (ImageView) getActivity().getSupportFragmentManager().getFragments().get(i).getView().findViewById(R.id.custSign);
+                            signImageView = (ImageView) fm.findFragmentByTag("quotationInvoice").getView().findViewById(R.id.custSign);
                             break;
                         case 1:
-                            signImageView = (ImageView) getActivity().getSupportFragmentManager().getFragments().get(i).getView().findViewById(R.id.empSign);
+                            signImageView = (ImageView) fm.findFragmentByTag("quotationInvoice").getView().findViewById(R.id.empSign);
                             break;
                         default:
                             break;
@@ -92,7 +96,11 @@ public class SignpadDialog extends DialogFragment {
                             Log.d("Signpad Dialog error", "null signautre");
                             Log.d("Detail", e.toString());
                         }
-                        signImageView.setImageBitmap(result);
+                        if(!signaturePad.isEmpty()) {
+                            signImageView.setImageBitmap(result);
+                        } else {
+                            signImageView.setImageResource(android.R.color.transparent);
+                        }
                         dismiss();
                     }
                 });

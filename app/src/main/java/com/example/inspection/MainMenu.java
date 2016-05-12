@@ -19,8 +19,11 @@ import android.widget.ToggleButton;
 import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.service.AppointmentService;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener {
+
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener {
 
     private static String empID = "";
     private ToggleButton toggleButton;
@@ -78,9 +81,15 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     @Override
-    public void sendMessage(String data) {
+    public void sendOrderFormMessage(JSONArray data) {
         QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
-        quotationsMenu.setText(data);
+        quotationsMenu.setOrderForm(data);
+    }
+
+    @Override
+    public void sendInvoicMessage(JSONArray data) {
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.setInvoice(data);
     }
 
     private void setDatabase() {
@@ -207,4 +216,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public static void setEmpID(String empID) {
         MainMenu.empID = empID;
     }
+
+
 }

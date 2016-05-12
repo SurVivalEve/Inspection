@@ -46,7 +46,7 @@ public class CalendarMonthlyFragment extends Fragment {
     private View[] transparentRegion = new View[weekday.length*dayContainer.length];
     private View[] greenRegion = new View[weekday.length*dayContainer.length];
     private View[] item_day = new View[weekday.length*dayContainer.length];
-    private TextView month, pre, next;
+    private TextView month, pre, next, assignDayNum, notAssignDayNum;
     private int currentMonth, currentYear, currentDay, currentWeekDay;
     private LayoutInflater layoutInflater;
     private Schedule[] schedule = new Schedule[3];
@@ -107,6 +107,8 @@ public class CalendarMonthlyFragment extends Fragment {
         month = (TextView) view.findViewById(R.id.month);
         pre = (TextView) view.findViewById(R.id.pre);
         next = (TextView) view.findViewById(R.id.next);
+        assignDayNum = (TextView) view.findViewById(R.id.assignDayNum);
+        notAssignDayNum = (TextView) view.findViewById(R.id.notAssignDayNum);
         weekdayContainerM = (LinearLayout) view.findViewById(R.id.weekdayContainerM);
         for(int i=0; i<6; i++) {
             final int VIEWID = getResources().getIdentifier("dayContainer" + (i + 1), "id", this.getActivity().getPackageName());
@@ -245,6 +247,9 @@ public class CalendarMonthlyFragment extends Fragment {
                                 daySchedule.getAppointments().add(schedule[monthIndex].getAppointments().get(i));
                             }
                         }
+                        assignDayNum.setText("assigned: "+assign);
+                        notAssignDayNum.setText("   not-assigned: "+notAssign);
+
                         //                        Log.d("assigned", assign+"");
                         //                        Log.d("not-assign", notAssign+"");
 
