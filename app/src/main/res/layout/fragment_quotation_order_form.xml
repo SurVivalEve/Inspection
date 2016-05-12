@@ -46,7 +46,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="換鉸工程："
+                        android:text="Changing hinge construction："
                         android:textSize="15dp"/>
 
                     <ImageButton
@@ -54,7 +54,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_new"/>
+                        android:background="@drawable/ic_add_circle_24dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +73,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="開關掣工程："
+                        android:text="Switches construction："
                         android:textSize="15dp"/>
                 </LinearLayout>
 
@@ -92,13 +92,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLength="2"
+                            android:inputType="number"
                             android:hint="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="扇活窗更換上下開關掣"/>
+                            android:text=" live windows change to up-down-switches"/>
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -109,13 +110,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLength="2"
+                            android:inputType="number"
                             android:hint="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="扇活窗更換七字形開關掣"/>
+                            android:text=" live windows change to seven-style-switches"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -128,7 +130,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="膠條工程："
+                        android:text="Plastic strip construction："
                         android:textSize="15dp"/>
 
                 </LinearLayout>
@@ -148,13 +150,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLength="2"
+                            android:inputType="number"
                             android:hint="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="扇活窗更換抗老化活動窗扇膠條"/>
+                            android:text=" live windows change to aging live window's plastic strip"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -167,7 +170,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="其他："
+                        android:text="Others："
                         android:textSize="15dp"/>
 
                     <ImageButton
@@ -175,7 +178,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_new"/>
+                        android:background="@drawable/ic_add_circle_24dp"/>
                 </LinearLayout>
 
                 <LinearLayout

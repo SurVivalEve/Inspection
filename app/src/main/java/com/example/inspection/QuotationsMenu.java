@@ -23,6 +23,9 @@ import android.widget.LinearLayout;
 import com.example.inspection.sync.SyncManager;
 import com.example.inspection.util.FileWrapper;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,6 +48,15 @@ public class QuotationsMenu extends Fragment {
     private List<Bitmap> photoList = new ArrayList<>();
     private List<Uri> photoUriList = new ArrayList<>();
 
+    private JSONArray orderFormJson, invoiceJson;
+
+    public void setOrderForm(JSONArray orderForm){
+        this.orderFormJson = orderForm;
+    }
+
+    public void setInvoice(JSONArray invoice){
+        this.invoiceJson = invoice;
+    }
 
     public void setText(String text) {
         edtAppNo.setText(text);
@@ -90,7 +102,7 @@ public class QuotationsMenu extends Fragment {
             public void onClick(View view) {
                 QuotationInvoice quotationInvoice = new QuotationInvoice();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.main_fragment, quotationInvoice).addToBackStack(null).commit();
+                ft.replace(R.id.main_fragment, quotationInvoice, "quotationInvoice").addToBackStack(null).commit();
             }
         });
         orderForm.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +230,7 @@ public class QuotationsMenu extends Fragment {
         protected String doInBackground(List<Uri>... params) {
             SyncManager syncManager = new SyncManager("uploadPhoto.php");
 
-            return syncManager.syncQuotation(getContext(), "A00000000024", params[0]);
+            return syncManager.syncQuotation(getContext(), "A00000000024", params[0], invoiceJson, orderFormJson);
         }
 
         @Override

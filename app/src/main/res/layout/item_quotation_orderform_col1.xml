@@ -12,7 +12,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_weight="1">
 
         <EditText
@@ -20,39 +20,40 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:maxLength="2"
+            android:inputType="number"
             android:hint=""/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="扇活窗更換"/>
+            android:gravity="center"
+            android:text=" live windows\nchange to "/>
 
         <EditText
             android:id="@+id/col1_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:maxLength="4"
+            android:maxLength="5"
             android:hint="" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="窗鉸共"/>
-
+            android:text="hinge with total"/>
         <EditText
             android:id="@+id/col1_3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:maxLength="2"
+            android:inputType="number"
             android:hint="" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="隻"/>
+            android:text="hinge"/>
     </LinearLayout>
 
     <ImageButton
@@ -60,5 +61,5 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center_vertical"
-        android:background="@mipmap/ic_drop"/>
+        android:background="@drawable/ic_remove_circle_24dp"/>
 </LinearLayout>

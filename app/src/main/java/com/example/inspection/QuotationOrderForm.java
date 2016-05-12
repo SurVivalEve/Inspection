@@ -1,11 +1,14 @@
 package com.example.inspection;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.inspection.util.FileWrapper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -39,10 +48,8 @@ public class QuotationOrderForm extends Fragment {
     private QuotationsListener mCallback;
 
     public interface QuotationsListener {
-        public void sendMessage(String data);
+        public void sendOrderFormMessage(JSONArray jsonArray);
     }
-
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -89,10 +96,6 @@ public class QuotationOrderForm extends Fragment {
         col1_plus = (ImageButton) view.findViewById(R.id.col1_plus);
         col4_plus = (ImageButton) view.findViewById(R.id.col4_plus);
         save = (Button) view.findViewById(R.id.save);
-    }
-
-    public void createView(){
-        col1_plus.performClick();
     }
 
     public void setAllOnClickListener(){
@@ -172,13 +175,206 @@ public class QuotationOrderForm extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String error_message = "";
+                error_message = checkInputFormat();
+                if (error_message == "") {
+                    JSONArray orderForm = new JSONArray();
 
-                mCallback.sendMessage("HelloWorld");
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.remove(fm.findFragmentByTag("quotationOrderForm")).commit();
-                fm.popBackStack();
+                    try {
+                        JSONArray hinge = new JSONArray();
+
+                        for (int i = 0; i < col1_View.size(); i++) {
+                            JSONObject hinge_data = new JSONObject();
+                            JSONArray hinge_data1s = new JSONArray();
+                            for (int k = 0; k < 3; k++) {
+                                JSONObject hinge_data1_data = new JSONObject();
+                                hinge_data1_data.put("data" + (k + 1), col1_ETs.get(i)[k].getText().toString().replace(" ", ""));
+                                hinge_data1s.put(hinge_data1_data);
+                            }
+                            hinge_data.put("data", hinge_data1s);
+                            hinge.put(hinge_data);
+                        }
+
+                        JSONObject col1 = new JSONObject();
+                        if (col1_View.size() == 0) {
+                            col1.put("hinge", JSONObject.NULL);
+                        } else {
+                            col1.put("hinge", hinge);
+                        }
+                        orderForm.put(col1);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get col1 data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //col2
+                    try {
+                        JSONArray switchJsona = new JSONArray();
+
+                        JSONObject switch_data1 = new JSONObject();
+                        if (col2_1.getText().toString().isEmpty()) {
+                            switch_data1.put("data1", JSONObject.NULL);
+                        } else {
+                            switch_data1.put("data1", col2_1.getText().toString().replace(" ", ""));
+                        }
+                        switchJsona.put(switch_data1);
+
+                        JSONObject switch_data2 = new JSONObject();
+                        if (col2_2.getText().toString().isEmpty()) {
+                            switch_data2.put("data2", JSONObject.NULL);
+                        } else {
+                            switch_data2.put("data2", col2_2.getText().toString().replace(" ", ""));
+                        }
+                        switchJsona.put(switch_data2);
+
+                        JSONObject switchJson = new JSONObject();
+                        switchJson.put("switch", switchJsona);
+                        orderForm.put(switchJson);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get col2 data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //col3 data
+                    try {
+                        JSONObject col3 = new JSONObject();
+                        if (col3_1.getText().toString().isEmpty()) {
+                            col3.put("strip", JSONObject.NULL);
+                        } else {
+                            col3.put("strip", col3_1.getText().toString().replace(" ", ""));
+                        }
+                        orderForm.put(col3);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get col3 data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //col4 data
+                    try {
+                        JSONArray others = new JSONArray();
+                        int index = 0;
+                        for (int i = 0; i < col4_View.size(); i++) {
+                            if (!col4_ETs.get(i).getText().toString().isEmpty()) {
+                                JSONObject hinge_data = new JSONObject();
+                                hinge_data.put("data" + (++index), col4_ETs.get(i).getText().toString());
+                                others.put(hinge_data);
+                            }
+                        }
+                        JSONObject col4 = new JSONObject();
+                        if (index == 0) {
+                            col4.put("others", JSONObject.NULL);
+                        } else {
+                            col4.put("others", others);
+                        }
+                        orderForm.put(col4);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get col4 data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //construction fee data
+                    try {
+                        JSONObject constructionfee = new JSONObject();
+                        constructionfee.put("constructionfee", constructionFee.getText().toString().replace(" ", ""));
+                        orderForm.put(constructionfee);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get construction fee data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //earnest data
+                    try {
+                        JSONObject earnestmoney = new JSONObject();
+                        earnestmoney.put("earnestmoney", earnest.getText().toString().replace(" ", ""));
+                        orderForm.put(earnestmoney);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get earnest data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //owe data
+                    try {
+                        JSONObject owemoney = new JSONObject();
+                        owemoney.put("owemoney", owe.getText().toString().replace(" ", ""));
+                        orderForm.put(owemoney);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get owe data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+                    //remark data
+                    try {
+                        JSONObject remarkJson = new JSONObject();
+                        if (remark.getText().toString().isEmpty()) {
+                            remarkJson.put("remark", JSONObject.NULL);
+                        } else {
+                            remarkJson.put("remark", remark.getText().toString());
+                        }
+                        orderForm.put(remarkJson);
+                    } catch (JSONException e) {
+                        Log.d("save onclick error", "get remark data json exception");
+                        Log.d("detail", e.toString());
+                        if(error_message == "")
+                            error_message = "Occur exception when generate json";
+                    }
+
+                    Log.d("order form json", orderForm.toString());
+
+                    if(error_message == "") {
+                        mCallback.sendOrderFormMessage(orderForm);
+
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fm.findFragmentByTag("quotationOrderForm")).commit();
+                        fm.popBackStack();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    public String checkInputFormat(){
+        String error_message = "";
+        if(!isNumeric(owe.getText().toString()) || !isNumeric(earnest.getText().toString()) || !isNumeric(constructionFee.getText().toString())) {
+            error_message = "Amount value only can be type in numeric with no more 2 dec. places!";
+        }
+        if(owe.getText().toString().replace(" ", "").isEmpty()
+                || earnest.getText().toString().replace(" ", "").isEmpty()
+                || constructionFee.getText().toString().replace(" ", "").isEmpty()) {
+            error_message = "All amount value cannot be empty";
+        }
+        if(col4_View.size()!=0){
+            for(int i=0; i<col4_View.size(); i++){
+                if (col4_ETs.get(i).getText().toString().replace(" ", "").isEmpty())
+                    error_message = "each value on additional column in others cannot be empty";
+            }
+        }
+        if(col1_View.size()!=0){
+            for(int i=0; i<col1_View.size(); i++){
+                for(int k=0; k<3; k++) {
+                    //if (col1_ETs.get(i)[k].getText().toString().replace(" ", "").matches("^\\d+$"))
+
+                    if (col1_ETs.get(i)[k].getText().toString().replace(" ", "").isEmpty())
+                        error_message = "each value on additional column in changing hinge construction cannot be empty";
+                }
+            }
+        }
+        return error_message;
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        return str.replace(" ", "").matches("^\\d+(\\.\\d\\d)?$") || str.replace(" ", "").matches("^\\d+(\\.\\d)?$");  //match a number with no more then 2 decimal place
     }
 }

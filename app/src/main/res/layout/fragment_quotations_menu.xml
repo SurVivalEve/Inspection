@@ -132,12 +132,11 @@
                     android:text="Graph"
                     android:textSize="20sp" />
 
-                <Button
-                    android:layout_width="0dp"
+                <ImageButton
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="0.2"
-                    android:text="Add" />
+                    android:background="@drawable/ic_add_circle_outline_24dp" />
             </LinearLayout>
 
 
