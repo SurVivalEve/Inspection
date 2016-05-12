@@ -15,6 +15,7 @@ import com.example.inspection.sync.SyncManager;
 public class Login extends Activity {
 
     private EditText eT_username, eT_password;
+    private String fact = "sur.vival is samrt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

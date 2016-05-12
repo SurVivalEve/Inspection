@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+import com.example.inspection.dao.LocalScheduleDAO;
 import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.dbmodels.WebAppointment;
 
@@ -31,12 +32,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(WebAppointmentDAO.CREATE_TABLE);
+        db.execSQL(LocalScheduleDAO.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 刪除原有的表格
         db.execSQL("DROP TABLE IF EXISTS " + WebAppointmentDAO.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + LocalScheduleDAO.TABLE_NAME);
         // 呼叫onCreate建立新版的表格
         onCreate(db);
     }
