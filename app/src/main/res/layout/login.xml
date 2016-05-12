@@ -52,7 +52,7 @@
                 android:layout_marginRight="10dp"
 				android:textSize="25sp"
                 android:singleLine="true"
-                android:hint="username"
+                android:hint="Username"
                 android:drawablePadding="8dp" />
 
             <EditText
@@ -63,7 +63,7 @@
                 android:layout_marginRight="10dp"
 				android:textSize="25sp"
                 android:singleLine="true"
-                android:hint="password"
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:drawablePadding="8dp" />
 

@@ -1,7 +1,7 @@
 package com.example.inspection;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,26 +13,40 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import com.example.inspection.dao.WebAppointmentDAO;
+import com.example.inspection.service.AppointmentService;
 
 
-public class MainMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener {
 
-    private RecentJobFragment recentJobFragment;
-    private String empID="";
+    private static String empID="";
+    private ToggleButton toggleButton;
+
+    // Local Database init
+    private WebAppointmentDAO webAppDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-        empID = "E00000000006";//getIntent().getExtras().getString("empID");
+//      empID = getIntent().getExtras().getString("empID");
+        empID = "E00000000006";
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this,
+                drawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -40,15 +54,100 @@ public class MainMenu extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setDefaultFragment();
+        setDatabase();
+
+
+        // Test Service (For Debug use)
+//        toggleButton = (ToggleButton) findViewById(R.id.service);
+//        toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//            Intent service = new Intent(MainMenu.this,AppointmentService.class);
+//            Intent service2 = new Intent(MainMenu.this, TestService.class);
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b){
+//                    getApplicationContext().startService(service2);
+//                }else{
+//                    getApplicationContext().stopService(service2);
+//                }
+//            }
+//        });
+
+        Intent intent = new Intent(this,AppointmentService.class);
+        startService(intent);
+
+    }
+
+    @Override
+    public void sendMessage(String data) {
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.setText(data);
+    }
+
+    private void setDatabase() {
+        // 建立資料庫物件
+        webAppDAO = new WebAppointmentDAO(getApplicationContext());
+
+        // 如果資料庫是空的，就建立一些範例資料
+        // 這是為了方便測試用的，完成應用程式以後可以拿掉
+//        if(webAppDAO.getCount()==0)
+//            webAppDAO.sampleData();
+
+
     }
 
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        recentJobFragment = RecentJobFragment.newInstance(1);
-        recentJobFragment = new RecentJobFragment();
-        transaction.replace(R.id.main_fragment, recentJobFragment);
+        RecentJobFragment recentJobFragment = RecentJobFragment.newInstance(1, empID);
+        transaction.replace(R.id.main_fragment, recentJobFragment, "recentjob");
         transaction.commit();
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        switch(item.getItemId()){
+                case R.id.nav_task:
+                    ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_schedule:
+                    ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_quotations:
+                    ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotationsMenu")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_appointment:
+                ft.replace(R.id.main_fragment, AppointmentFragment.newInstance(empID), "appointment")
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_custDetails:
+//            ft.add(R.id.main_fragment, customerFragment, "customer");
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                CustomerFragment customerFragment = new CustomerFragment();
+//                ft.replace(R.id.main_fragment, customerFragment)
+//                    .addToBackStack(null)
+//                    .commit();
+                break;
+            case R.id.nav_custContact:
+
+                break;
+            default:
+                break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
@@ -66,9 +165,6 @@ public class MainMenu extends AppCompatActivity
                 super.onBackPressed();
             }
         }
-
-
-
     }
 
     @Override
@@ -84,62 +180,31 @@ public class MainMenu extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.op_menu_help) {
-            return true;
+        switch (id) {
+            case R.id.op_menu_help:
+                Toast.makeText(MainMenu.this, "Stupid", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return false;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("empID", empID);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        switch(item.getItemId()){
-            case R.id.nav_task:
-                AddTaskFragment addTaskFragment = new AddTaskFragment();
-                ft.replace(R.id.main_fragment, addTaskFragment)
-                    .addToBackStack(null)
-                    .commit();
-                break;
-            case R.id.nav_schedule:
-                CalendarFragment calendarFragment = new CalendarFragment();
-                calendarFragment.setArguments(bundle);
-                ft.replace(R.id.main_fragment, calendarFragment)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case R.id.nav_quotations:
-
-                break;
-            case R.id.nav_appointment:
-
-                break;
-            case R.id.nav_custDetails:
-//            ft.add(R.id.main_fragment, customerFragment, "customer");
-//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                CustomerFragment customerFragment = new CustomerFragment();
-                ft.replace(R.id.main_fragment, customerFragment)
-                    .addToBackStack(null)
-                    .commit();
-                break;
-            case R.id.nav_custContact:
-
-                break;
-            default:
-                break;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.onActivityResult(requestCode,resultCode,data);
     }
 
+    public static String getEmpID() {
+        return empID;
+    }
 
+    public static void setEmpID(String empID) {
+        MainMenu.empID = empID;
+    }
 }

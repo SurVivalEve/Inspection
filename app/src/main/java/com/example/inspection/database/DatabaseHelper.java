@@ -3,101 +3,41 @@ package com.example.inspection.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
-import com.example.inspection.models.Appointment;
-import com.example.inspection.models.Customer;
-import com.example.inspection.models.Schedule;
-import com.example.inspection.models.Task;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
+import com.example.inspection.dao.WebAppointmentDAO;
+import com.example.inspection.dbmodels.WebAppointment;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    static final String dbName="fypDB";
-    static final String CustomerTable="Customer";
-    static final String colCustomerID="CustomerID";
-    static final String colCustomerJson="CustomerJson";
+    public static final String DATABASE_NAME = "fyp.db";
+    public static final int VERSION = 1;
+    private static SQLiteDatabase db;
 
-    static final String appointmentTable="Appointment";
-    static final String colAppointmentID="AppointmentID";
-    static final String colAppointmentJson="AppointmentJson";
-    static final String colCustomer="Customer";
-
-    static final String taskTable="Task";
-    static final String colTaskID="TaskID";
-    static final String colTaskJson="TaskJson";
-    static final String colAppointment="Appointment";
-
-    static final String scheduleTable="Schedule";
-    static final String colScheduleID="ScheduleID";
-    static final String colScheduleJson="ScheduleJson";
-
-    public DatabaseHelper(Context context){
-        super(context, dbName, null, 1);
+    public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
+        super(context, name, factory, version);
     }
 
-    public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE "+CustomerTable+" ("+
-                colCustomerID+" TEXT PRIMARY KEY , "+
-                colCustomerJson+" TEXT );");
-        db.execSQL("CREATE TABLE "+appointmentTable+" ("+
-                colAppointmentID+" TEXT PRIMARY KEY , "+
-                colAppointmentJson+" TEXT , "+
-                colCustomer+" TEXT NOT NULL , FOREIGN KEY ("+colCustomer+") REFERENCES"+
-                CustomerTable+" ("+colCustomerID+"));");
-        db.execSQL("CREATE TABLE " + taskTable + " (" +
-                colTaskID + " TEXT PRIMARY KEY , " +
-                colTaskJson + " TEXT , " +
-                colAppointment + " TEXT NOT NULL , FOREIGN KEY (" + colAppointment + ") REFERENCES" +
-                appointmentTable + " (" + colAppointmentID + "));");
-        db.execSQL("CREATE TABLE " + scheduleTable + " (" +
-                colScheduleID + " TEXT PRIMARY KEY , " +
-                colScheduleJson + " TEXT );");
+    public static SQLiteDatabase getDatabase(Context context){
+        if(db == null || !db.isOpen()){
+            db = new DatabaseHelper(context,
+                                    DATABASE_NAME,
+                                    null,
+                                    VERSION).getWritableDatabase();
+        }
+        return db;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(WebAppointmentDAO.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-
-    public String customerToJson(Customer customer){
-        Gson gson = new Gson();
-        return gson.toJson(customer);
-    }
-
-    public Customer jsonToCustomer(String json){
-        Gson gson = new Gson();
-        return (Customer) gson.fromJson(json, Customer.class);
-    }
-
-    public String appointmentToJson(Appointment appointment){
-        Gson gson = new Gson();
-        return gson.toJson(appointment);
-    }
-
-    public Appointment jsonToAppointment(String json){
-        Gson gson = new Gson();
-        return (Appointment) gson.fromJson(json, Appointment.class);
-    }
-
-    public String taskToJson(Task task){
-        Gson gson = new Gson();
-        return gson.toJson(task);
-    }
-
-    public Task jsonToTask(String json){
-        Gson gson = new Gson();
-        return (Task) gson.fromJson(json, Task.class);
-    }
-
-    public String scheduleToJson(Schedule schedule){
-        Gson gson = new Gson();
-        return gson.toJson(schedule);
-    }
-
-    public Schedule jsonToSchedule(String json){
-        Gson gson = new Gson();
-        return (Schedule) gson.fromJson(json, Schedule.class);
+        // 刪除原有的表格
+        db.execSQL("DROP TABLE IF EXISTS " + WebAppointmentDAO.TABLE_NAME);
+        // 呼叫onCreate建立新版的表格
+        onCreate(db);
     }
 }

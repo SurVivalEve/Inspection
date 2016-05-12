@@ -21,26 +21,48 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.inspection.adapters.CustomerListAdapter;
+import com.example.inspection.dbmodels.WebAppointment;
+import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
 import com.example.inspection.sync.SyncManager;
 
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by Sur.Vival on 29/2/2016.
- */
 public class AddTaskFragment extends Fragment implements View.OnClickListener {
     private EditText custName, custPhoneNumber, building, block, appDate, appTime;
     private Button btnAddTask;
     private CoordinatorLayout coordinatorLayout;
     private String[] inputData;
+    private WebAppointment webApp;
+
+    public static final String EMP_ID = "empid";
+
+    public static AddTaskFragment newInstance(String id) {
+        AddTaskFragment fragment = new AddTaskFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_task, container, false);
         init(view);
+        try {
+            webApp = (WebAppointment) this.getArguments().getSerializable("data");
+            if (webApp != null) {
+                custName.setText(webApp.getName());
+                custPhoneNumber.setText(webApp.getPhone());
+                building.setText(webApp.getBuilding());
+                block.setText(webApp.getBlock());
+                appDate.setText(webApp.getDate());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -80,11 +102,12 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                 showTime(view);
                 break;
             case R.id.btnAddTask:
-                String[] data = {custName.getText().toString(),
-                                 custPhoneNumber.getText().toString(),
-                                 block.getText().toString(),
-                                 building.getText().toString(),
-                                 appDate.getText().toString().concat(" "+appTime.getText().toString()) };
+                String[] data = {this.getArguments().getString(EMP_ID),
+                        custName.getText().toString(),
+                        custPhoneNumber.getText().toString(),
+                        block.getText().toString(),
+                        building.getText().toString(),
+                        appDate.getText().toString().concat(" " + appTime.getText().toString())};
                 inputData = data.clone();
                 new addTask().execute(data);
             default:
@@ -110,8 +133,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 
             publishProgress(progress_status);
             SystemClock.sleep(1000);
-
-            return syncManager.syncAppointment("E00000000006",params[0],params[1],params[2],params[3],params[4]);
+            return syncManager.syncAppointment(params[0], params[1], params[2], params[3], params[4], params[5]);
         }
 
 
@@ -126,8 +148,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
         protected void onPostExecute(String s) {
             bar.setVisibility(View.GONE);
 
-            if(s.equalsIgnoreCase("true")) {
-                snackbar = Snackbar.make(coordinatorLayout,"Updated",Snackbar.LENGTH_LONG);
+            if (s.equalsIgnoreCase("true")) {
+                snackbar = Snackbar.make(coordinatorLayout, "Updated", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
                 View sbView = snackbar.getView();
@@ -137,8 +159,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                 snackbar.show();
 
             } else {
-                snackbar = Snackbar.make(coordinatorLayout,"Update Failed",Snackbar.LENGTH_LONG);
-                snackbar.setAction("RETRY",new View.OnClickListener() {
+                snackbar = Snackbar.make(coordinatorLayout, "Update Failed", Snackbar.LENGTH_LONG);
+                snackbar.setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         new addTask().execute(inputData);

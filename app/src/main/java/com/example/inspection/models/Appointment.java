@@ -14,12 +14,21 @@ public class Appointment implements Serializable {
     private String district;
     private Date date;
     private String empID;
+    private String empName;
     private Customer customer;
 
     public Appointment() {}
 
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
     public Appointment(String id, String status, String remark, String taskID
-        , String flatBlock, String building, String district, Date date, String empID, Customer customer) {
+        , String flatBlock, String building, String district, Date date, String empID, String empName, Customer customer) {
         this.id = id;
         this.status = status;
         this.remark = remark;
@@ -29,6 +38,7 @@ public class Appointment implements Serializable {
         this.district = district;
         this.date = date;
         this.empID = empID;
+        this.empName = empName;
         this.customer = customer;
     }
 

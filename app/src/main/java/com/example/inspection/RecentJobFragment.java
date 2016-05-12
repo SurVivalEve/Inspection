@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 import com.example.inspection.adapters.RecentJobAdapter;
 
 public class RecentJobFragment extends Fragment {
-    public static final String ARGS_PAGE = "args_page";
+    public static final String PAGE = "page";
+    public static final String EMP_ID = "empid";
 
-    public static RecentJobFragment newInstance(int page) {
-        Bundle args = new Bundle();
-        args.putInt(ARGS_PAGE, page);
+    public static RecentJobFragment newInstance(int page, String id) {
         RecentJobFragment fragment = new RecentJobFragment();
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putInt(PAGE, page);
+        bundle.putString(EMP_ID, id);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
