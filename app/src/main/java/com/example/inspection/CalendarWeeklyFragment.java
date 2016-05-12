@@ -77,16 +77,7 @@ public class CalendarWeeklyFragment extends Fragment {
 
     private void init(View view){
         empID = getArguments().getString("empID");
-        LocalScheduleDAO schDAO = new LocalScheduleDAO(getActivity().getApplicationContext());
-        Schedule sch = new Schedule();
-        try {
-            sch = schDAO.toSchedule(schDAO.getAll());
-        } catch (Exception e){
-            Log.d("cur scheduledao error", "toschedule error");
-            Log.d("Details", e.toString());
-            setSchedule(new Schedule());
-        }
-        setSchedule(sch);
+        refreshSchedule();
 
         weekDetailScroll = (ScrollView) view.findViewById(R.id.weekDetailScroll);
         weekdayContainerW = (LinearLayout) view.findViewById(R.id.weekdayContainerW);
@@ -143,6 +134,19 @@ public class CalendarWeeklyFragment extends Fragment {
             }
             item_weekday.setLayoutParams(weekdayParam);
         }
+    }
+
+    public void refreshSchedule(){
+        LocalScheduleDAO schDAO = new LocalScheduleDAO(getActivity().getApplicationContext());
+        Schedule sch = new Schedule();
+        try {
+            sch = schDAO.toSchedule(schDAO.getAll());
+        } catch (Exception e){
+            Log.d("cur scheduledao error", "toschedule error");
+            Log.d("Details", e.toString());
+            setSchedule(new Schedule());
+        }
+        setSchedule(sch);
     }
 
     public void createView() {
@@ -243,6 +247,22 @@ public class CalendarWeeklyFragment extends Fragment {
                 }
             }
         }
+        for(int i=0; i<24; i++) {
+            boolean result = true;
+            int[] h = new int[7];
+            for(int k=0; k<7; k++) {
+                h[k] = emptyViews[i + 24 * k].getLayoutParams().height;
+            }
+            for(int k=1; k<7; k++){
+                if (h[k] != h[0])
+                    result = false;
+            }
+            if(result == true) {
+                for (int k = 0; k < 7; k++) {
+                    emptyViews[i + 24 * k].getLayoutParams().height = displayHeight / 10;
+                }
+            }
+        }
     }
 
     private int getAppointmentNum(int month, int day, int period){
@@ -267,32 +287,4 @@ public class CalendarWeeklyFragment extends Fragment {
         return this.schedule;
     }
 
-    private class GetSchedule extends AsyncTask<Void, Void, Schedule> {
-
-        @Override
-        protected Schedule doInBackground(Void... params) {
-            Schedule result = new Schedule();
-            String month = "";
-            currentMonth = Calendar.getInstance().get(Calendar.MONTH); // 0-11 = Jan to Dec
-            currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-            //get current schedule data
-            if(currentMonth+1<10)
-                month="0"+(currentMonth+1);
-            else
-                month = currentMonth+1+"";
-            SyncManager syncManager = new SyncManager("getSchedule.php?empID=" + empID + "&YM="+currentYear+"-"+month, getActivity().getApplicationContext());
-            LocalScheduleDAO schDAO = syncManager.syncCalendar();
-            result= schDAO.toSchedule(schDAO.getAll());
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Schedule result) {
-            super.onPostExecute(result);
-            setSchedule(result);
-            createView();
-        }
-    }
 }
