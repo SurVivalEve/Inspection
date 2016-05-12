@@ -28,6 +28,24 @@ public class LocalSchedule implements Serializable {
     public LocalSchedule() {
     }
 
+    public LocalSchedule(String appointmentID, String astatus, String aremark, String taskID, String flatBlock,
+                         String building, String districtEN, String appointmentTime, String empID, String empName,
+                         String custID, String custFullName, String custPhone) {
+        this.appointmentID = appointmentID;
+        this.astatus = astatus;
+        this.aremark = aremark;
+        this.taskID = taskID;
+        this.flatBlock = flatBlock;
+        this.building = building;
+        this.districtEN = districtEN;
+        this.appointmentTime = appointmentTime;
+        this.empID = empID;
+        this.empName = empName;
+        this.custID = custID;
+        this.custFullName = custFullName;
+        this.custPhone = custPhone;
+    }
+
     public LocalSchedule(long id, String appointmentID, String astatus, String aremark, String taskID, String flatBlock,
                          String building, String districtEN, String appointmentTime, String empID, String empName,
                          String custID, String custFullName, String custPhone) {

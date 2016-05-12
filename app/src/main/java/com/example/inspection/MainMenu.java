@@ -22,7 +22,7 @@ import com.example.inspection.service.AppointmentService;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener {
 
-    private static String empID="";
+    private static String empID = "";
     private ToggleButton toggleButton;
 
     // Local Database init
@@ -72,7 +72,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //            }
 //        });
 
-        Intent intent = new Intent(this,AppointmentService.class);
+        Intent intent = new Intent(this, AppointmentService.class);
         startService(intent);
 
     }
@@ -109,23 +109,23 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         // Handle navigation view item clicks here.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        switch(item.getItemId()){
-                case R.id.nav_task:
-                    ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
-                            .addToBackStack(null)
-                            .commit();
-                    break;
-                case R.id.nav_schedule:
-                    ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
-                            .addToBackStack(null)
-                            .commit();
-                    break;
-                case R.id.nav_quotations:
-                    ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotationsMenu")
-                            .addToBackStack(null)
-                            .commit();
-                    break;
-                case R.id.nav_appointment:
+        switch (item.getItemId()) {
+            case R.id.nav_task:
+                ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_schedule:
+                ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_quotations:
+                ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotationsMenu")
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_appointment:
                 ft.replace(R.id.main_fragment, AppointmentFragment.newInstance(empID), "appointment")
                         .addToBackStack(null)
                         .commit();
@@ -171,7 +171,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.option_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -197,7 +197,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onActivityResult(requestCode, resultCode, data);
 
         QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
-        quotationsMenu.onActivityResult(requestCode,resultCode,data);
+        quotationsMenu.onActivityResult(requestCode, resultCode, data);
     }
 
     public static String getEmpID() {

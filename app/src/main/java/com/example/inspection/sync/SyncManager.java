@@ -1,12 +1,19 @@
 package com.example.inspection.sync;
 
 import android.content.Context;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Base64;
+
+
 import android.util.Log;
 
+import com.example.inspection.dao.LocalNextMonthScheduleDAO;
+import com.example.inspection.dao.LocalPreMonthScheduleDAO;
+import com.example.inspection.dao.LocalScheduleDAO;
+import com.example.inspection.dbmodels.LocalSchedule;
 import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
 import com.example.inspection.models.History;
@@ -39,9 +46,15 @@ public class SyncManager {
     private static final String GET_URL = "http://58.177.9.234/fyp/json/";
 
     private static String appendUrl = "";
+    private static Context context;
 
     public SyncManager(String url) {
         this.appendUrl = url;
+    }
+
+    public SyncManager(String url, Context context) {
+        this.appendUrl = url;
+        this.context = context;
     }
 
     private HttpURLConnection getHttpConn(String url, String method, JSONObject params) {
@@ -253,64 +266,157 @@ public class SyncManager {
         return result;
     }
 
-    public Schedule syncCalendar(){
-        List<Appointment> result = new ArrayList<Appointment>();
-        int[] assign = new int[31];
-        int[] notAssign = new int[31];
-        for(int i=0; i<31; i++){
-            assign[i] = 0;
-            notAssign[i] = 0;
-        }
+    public LocalScheduleDAO syncCalendar(){
+        LocalScheduleDAO schDAO = new LocalScheduleDAO(context);
+        String receive = "";
         try {
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "GET", null);
             InputStream is = conn.getInputStream();
-            String receive = stream2String(is);
-            if(!receive.equalsIgnoreCase("false")){
+            receive = stream2String(is);
+            if(receive.equalsIgnoreCase("false")) {
+                schDAO.delete();
+            } else {
                 JSONObject json = new JSONObject(receive);
                 //parse json
                 JSONArray schedule = json.optJSONArray("Schedule");
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                for (int i = 0; i < schedule.length(); i++) {
-                    JSONObject s = schedule.getJSONObject(i);
-                    Date appointmentTime = formatter.parse(s.getString("appointmentTime"));
-                    String empID = "", taskID = "", empName = "";
-                    if (!s.isNull("empID")) {
-                        empID = s.getString("empID");
-                        empName = s.getString("empName");
-                        assign[appointmentTime.getDate() - 1]++;
-                    } else {
-                        notAssign[appointmentTime.getDate() - 1]++;
+                if (schedule != null) {
+                    schDAO.delete();
+                    for (int i = 0; i < schedule.length(); i++) {
+                        JSONObject s = schedule.getJSONObject(i);
+                        String empID = "", taskID = "", empName = "", aremark = "";
+                        if (!s.isNull("empID")) {
+                            empID = s.getString("empID");
+                            empName = s.getString("empName");
+                        }
+                        if (!s.isNull("taskID"))
+                            taskID = s.getString("taskID");
+                        if (!s.isNull("aremark"))
+                            aremark = s.getString("aremark");
+                        LocalSchedule sch = new LocalSchedule(
+                                s.getString("appointmentID"),
+                                s.getString("astatus"),
+                                aremark,
+                                taskID,
+                                s.getString("flatBlock"),
+                                s.getString("building"),
+                                s.getString("districtEN"),
+                                s.getString("appointmentTime"),
+                                empID,
+                                empName,
+                                s.getString("custID"),
+                                s.getString("cust_fullname"),
+                                s.getString("cust_phone")
+                        );
+                        schDAO.insert(sch);
                     }
-                    if(s.isNull("taskID"))
-                        taskID = s.getString("taskID");
-                    Customer cust = new Customer(
-                            s.getString("custID"),
-                            s.getString("cust_fullname"),
-                            s.getString("cust_phone"),
-                            Customer.Sex.valueOf("M"),
-                            ""//customer email
-                    );
-                    Appointment apt = new Appointment(
-                            s.getString("appointmentID"),
-                            s.getString("astatus"),
-                            s.getString("aremark"),
-                            taskID,
-                            s.getString("flatBlock"),
-                            s.getString("building"),
-                            s.getString("districtEN"),
-                            appointmentTime,
-                            empID,
-                            empName,
-                            cust
-                    );
-                    result.add(apt);
                 }
             }
         } catch (Exception e) {
             Log.e("ex", Log.getStackTraceString(e));
         }
+        return schDAO;
+    }
 
-        return new Schedule(result, assign, notAssign);
+    public LocalPreMonthScheduleDAO syncPreMonthCalendar(){
+        LocalPreMonthScheduleDAO schDAO = new LocalPreMonthScheduleDAO(context);
+        String receive = "";
+        try {
+            HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "GET", null);
+            InputStream is = conn.getInputStream();
+            receive = stream2String(is);
+            if(receive.equalsIgnoreCase("false")) {
+                schDAO.delete();
+            } else {
+                JSONObject json = new JSONObject(receive);
+                //parse json
+                JSONArray schedule = json.optJSONArray("Schedule");
+                if (schedule != null) {
+                    schDAO.delete();
+                    for (int i = 0; i < schedule.length(); i++) {
+                        JSONObject s = schedule.getJSONObject(i);
+                        String empID = "", taskID = "", empName = "", aremark = "";
+                        if (!s.isNull("empID")) {
+                            empID = s.getString("empID");
+                            empName = s.getString("empName");
+                        }
+                        if (!s.isNull("taskID"))
+                            taskID = s.getString("taskID");
+                        if (!s.isNull("aremark"))
+                            aremark = s.getString("aremark");
+                        LocalSchedule sch = new LocalSchedule(
+                                s.getString("appointmentID"),
+                                s.getString("astatus"),
+                                aremark,
+                                taskID,
+                                s.getString("flatBlock"),
+                                s.getString("building"),
+                                s.getString("districtEN"),
+                                s.getString("appointmentTime"),
+                                empID,
+                                empName,
+                                s.getString("custID"),
+                                s.getString("cust_fullname"),
+                                s.getString("cust_phone")
+                        );
+                        schDAO.insert(sch);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ex", Log.getStackTraceString(e));
+        }
+        return schDAO;
+    }
+
+    public LocalNextMonthScheduleDAO syncNextMonthCalendar(){
+        LocalNextMonthScheduleDAO schDAO = new LocalNextMonthScheduleDAO(context);
+        String receive = "";
+        try {
+            HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "GET", null);
+            InputStream is = conn.getInputStream();
+            receive = stream2String(is);
+            if(receive.equalsIgnoreCase("false")) {
+                schDAO.delete();
+            } else {
+                JSONObject json = new JSONObject(receive);
+                //parse json
+                JSONArray schedule = json.optJSONArray("Schedule");
+                if (schedule != null) {
+                    schDAO.delete();
+                    for (int i = 0; i < schedule.length(); i++) {
+                        JSONObject s = schedule.getJSONObject(i);
+                        String empID = "", taskID = "", empName = "", aremark = "";
+                        if (!s.isNull("empID")) {
+                            empID = s.getString("empID");
+                            empName = s.getString("empName");
+                        }
+                        if (!s.isNull("taskID"))
+                            taskID = s.getString("taskID");
+                        if (!s.isNull("aremark"))
+                            aremark = s.getString("aremark");
+                        LocalSchedule sch = new LocalSchedule(
+                                s.getString("appointmentID"),
+                                s.getString("astatus"),
+                                aremark,
+                                taskID,
+                                s.getString("flatBlock"),
+                                s.getString("building"),
+                                s.getString("districtEN"),
+                                s.getString("appointmentTime"),
+                                empID,
+                                empName,
+                                s.getString("custID"),
+                                s.getString("cust_fullname"),
+                                s.getString("cust_phone")
+                        );
+                        schDAO.insert(sch);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ex", Log.getStackTraceString(e));
+        }
+        return schDAO;
     }
 
     private static String stream2String(InputStream stream) {
