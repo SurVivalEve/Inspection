@@ -108,6 +108,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     .commit();
                 break;
             case R.id.nav_schedule:
+//                ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
+//                        .addToBackStack(null)
+//                        .commit();
                 ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
                         .addToBackStack(null)
                         .commit();
@@ -163,7 +166,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.option_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

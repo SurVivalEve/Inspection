@@ -8,22 +8,20 @@ import android.util.Log;
 
 import com.example.inspection.database.DatabaseHelper;
 import com.example.inspection.dbmodels.LocalSchedule;
-import com.example.inspection.dbmodels.WebAppointment;
 import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
 import com.example.inspection.models.Schedule;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LocalScheduleDAO implements Serializable {
+public class LocalNextMonthScheduleDAO implements Serializable {
 
-    public static final String TABLE_NAME = "LocalSchedule";
+    public static final String TABLE_NAME = "LocalNextMonthSchedule";
 
     public static final String KEY_ID = "id";
 
@@ -60,7 +58,7 @@ public class LocalScheduleDAO implements Serializable {
 
     private SQLiteDatabase db;
 
-    public LocalScheduleDAO(Context context) { db = DatabaseHelper.getDatabase(context); }
+    public LocalNextMonthScheduleDAO(Context context) { db = DatabaseHelper.getDatabase(context); }
 
     public void close() {
         db.close();
