@@ -13,8 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -22,7 +20,7 @@ import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.service.AppointmentService;
 
 
-public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener {
 
     private static String empID="";
     private ToggleButton toggleButton;
@@ -60,19 +58,29 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
 
         // Test Service (For Debug use)
-        toggleButton = (ToggleButton) findViewById(R.id.service);
-        toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            Intent service = new Intent(MainMenu.this,AppointmentService.class);
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    getApplicationContext().startService(service);
-                }else{
-                    getApplicationContext().stopService(service);
-                }
-            }
-        });
+//        toggleButton = (ToggleButton) findViewById(R.id.service);
+//        toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//            Intent service = new Intent(MainMenu.this,AppointmentService.class);
+//            Intent service2 = new Intent(MainMenu.this, TestService.class);
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b){
+//                    getApplicationContext().startService(service2);
+//                }else{
+//                    getApplicationContext().stopService(service2);
+//                }
+//            }
+//        });
 
+        Intent intent = new Intent(this,AppointmentService.class);
+        startService(intent);
+
+    }
+
+    @Override
+    public void sendMessage(String data) {
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.setText(data);
     }
 
     private void setDatabase() {
@@ -81,8 +89,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         // 如果資料庫是空的，就建立一些範例資料
         // 這是為了方便測試用的，完成應用程式以後可以拿掉
-        if(webAppDAO.getCount()==0)
-            webAppDAO.sampleData();
+//        if(webAppDAO.getCount()==0)
+//            webAppDAO.sampleData();
 
 
     }
@@ -102,22 +110,22 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         switch(item.getItemId()){
-            case R.id.nav_task:
-                ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
-                    .addToBackStack(null)
-                    .commit();
-                break;
-            case R.id.nav_schedule:
-                ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case R.id.nav_quotations:
-                ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotations")
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case R.id.nav_appointment:
+                case R.id.nav_task:
+                    ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_schedule:
+                    ft.replace(R.id.main_fragment, CalendarFragment.newInstance(empID), "schedule")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_quotations:
+                    ft.replace(R.id.main_fragment, QuotationsMenu.newInstance(empID), "quotationsMenu")
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                case R.id.nav_appointment:
                 ft.replace(R.id.main_fragment, AppointmentFragment.newInstance(empID), "appointment")
                         .addToBackStack(null)
                         .commit();
@@ -182,6 +190,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.onActivityResult(requestCode,resultCode,data);
     }
 
     public static String getEmpID() {

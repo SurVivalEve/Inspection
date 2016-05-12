@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class WebAppointment implements Serializable {
     public long id;
+    public String appId;
     public String name;
     public String phone;
     public String building;
@@ -17,8 +18,8 @@ public class WebAppointment implements Serializable {
     public WebAppointment() {
     }
 
-    public WebAppointment(long id, String name, String phone, String building, String block, String date, String remark) {
-        this.id = id;
+    public WebAppointment(String appId, String name, String phone, String building, String block, String date, String remark) {
+        this.appId = appId;
         this.name = name;
         this.phone = phone;
         this.building = building;
@@ -33,6 +34,14 @@ public class WebAppointment implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getName() {

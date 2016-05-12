@@ -32,22 +32,26 @@
             android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/edtAppNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Appointment No." />
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/findAppointment"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="Choose" />
+                android:layout_weight="1"
+                android:src="@drawable/ic_search_24dp"
+                android:background="@drawable/border_for_button"
+                android:layout_marginBottom="6dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -65,45 +69,55 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.8"
+                    android:gravity="center|left"
+                    android:layout_weight="0.7"
                     android:text="Photos"
                     android:textSize="20sp" />
 
-                <Button
+                <ImageButton
+                    android:id="@+id/addFromGallery"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="0.2"
-                    android:text="Add" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_folder_open_24dp"
+                    android:background="#FFFFFF"
+                    android:layout_margin="3dp"/>
+
+                <ImageButton
+                    android:id="@+id/addFromCamera"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_photo_camera_24dp"
+                    android:background="#FFFFFF"
+                    android:layout_margin="3dp"/>
+
+                <ImageButton
+                    android:id="@+id/delPhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_remove_circle_outline_24dp"
+                    android:background="#FFFFFF"
+                    android:layout_margin="3dp"/>
             </LinearLayout>
 
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
-                android:orientation="horizontal">
+                android:layout_height="78dp">
 
-                <ImageView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/photoContainer"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
 
-            </LinearLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,8 +127,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
                     android:layout_weight="0.8"
                     android:text="Graph"
                     android:textSize="20sp" />
@@ -169,20 +182,27 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Invoice"/>
+                    android:text="Invoice"
+                    android:background="@drawable/border_for_button"
+                    android:layout_margin="2dp"/>
                 <Button
                     android:id="@+id/orderForm"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Order Form"/>
+                    android:text="Order Form"
+                    android:background="@drawable/border_for_button"
+                    android:layout_margin="2dp"/>
             </LinearLayout>
 
             <Button
+                android:id="@+id/btnUpdateQuotation"
                 android:layout_weight="0.7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Update"/>
+                android:text="Update"
+                android:background="@drawable/border_for_button"
+                android:layout_margin="2dp"/>
         </LinearLayout>
 
 

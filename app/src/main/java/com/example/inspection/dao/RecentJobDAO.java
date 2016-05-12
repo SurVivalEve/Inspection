@@ -7,18 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.inspection.database.DatabaseHelper;
 import com.example.inspection.dbmodels.WebAppointment;
-import com.example.inspection.models.Appointment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Sur.Vival on 7/5/2016.
+ * Created by Sur.Vival on 12/5/2016.
  */
-public class WebAppointmentDAO {
+public class RecentJobDAO {
 
     // 表格名稱
-    public static final String TABLE_NAME = "WebAppointment";
+    public static final String TABLE_NAME = "RecentJob";
 
     // 編號表格欄位名稱，固定不變
     public static final String KEY_ID = "id";
@@ -185,5 +184,6 @@ public class WebAppointmentDAO {
         WebAppointment w1 = new WebAppointment("", "Alex", "67612428", "Hong Kong", "4B32", "2016-05-07", "Afternoon");
         insert(w1);
     }
+
 
 }

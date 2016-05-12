@@ -1,5 +1,10 @@
 package com.example.inspection.sync;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 
 import com.example.inspection.models.Appointment;
@@ -9,6 +14,7 @@ import com.example.inspection.models.Processing;
 import com.example.inspection.models.RecentJob;
 import com.example.inspection.models.Schedule;
 import com.example.inspection.models.Task;
+import com.example.inspection.util.FileWrapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +23,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -70,6 +77,20 @@ public class SyncManager {
         return conn;
     }
 
+
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
+    {
+        ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+        image.compress(compressFormat, quality, byteArrayOS);
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
     public String syncLogin(String username, String password) {
         String result = "";
         try {
@@ -114,6 +135,37 @@ public class SyncManager {
         }
 
         return result;
+    }
+
+    public String syncQuotation(Context context, String appID, List<Uri> uris) {
+
+        try{
+            JSONObject toSend = new JSONObject();
+            JSONArray photoArray = new JSONArray();;
+
+//            FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
+            for (Uri u : uris) {
+                FileWrapper fw = new FileWrapper(context,u);
+//                fw.copyForm(b, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
+
+                JSONObject photos = new JSONObject();
+                photos.put("photo",fw.getBase64String());
+                photoArray.put(photos);
+            }
+            toSend.put("appid",appID);
+            toSend.put("photo", photoArray);
+
+
+            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadPhoto.php", "POST", toSend);
+            InputStream is = conn.getInputStream();
+            Log.i("XXX",stream2String(is));
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     public String syncAppointment(String empid, String custName, String custPhone, String flatBlock, String building, String appTime) {

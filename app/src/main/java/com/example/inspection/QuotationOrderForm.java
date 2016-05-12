@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class QuotationOrderForm extends Fragment {
@@ -26,6 +27,35 @@ public class QuotationOrderForm extends Fragment {
     private ArrayList<Button> col4_dels = new ArrayList<>();
     private Button col1_plus, col4_plus, save;
     private LayoutInflater layoutInflater;
+
+    private QuotationsListener mCallback;
+
+    public interface QuotationsListener {
+        public void sendMessage(String data);
+    }
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (QuotationsListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement QuotationsListener");
+        }
+
+    }
+
+    @Override
+    public void onDetach() {
+        mCallback = null;
+        super.onDetach();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -115,6 +145,11 @@ public class QuotationOrderForm extends Fragment {
             @Override
             public void onClick(View view) {
 
+                mCallback.sendMessage("HelloWorld");
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.remove(fm.findFragmentByTag("quotationOrderForm")).commit();
+                fm.popBackStack();
             }
         });
     }
