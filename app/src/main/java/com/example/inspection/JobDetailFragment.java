@@ -190,7 +190,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
                 bundle.putString("appid",data[9]);
                 quotationsMenu.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_fragment, quotationsMenu, "createFragment")
+                        .replace(R.id.main_fragment, quotationsMenu, "quotationsMenu")
                         .addToBackStack(null)
                         .commit();
 

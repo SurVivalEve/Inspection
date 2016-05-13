@@ -224,7 +224,7 @@ public class CalendarWeeklyFragment extends Fragment {
                     if(schedule.getAppointments().get(i).getEmpID().equalsIgnoreCase(""))
                         assignedBy.setText("non-assigned");
                     else
-                        assignedBy.setText(schedule.getAppointments().get(i).getEmpName().split(" ")[0]);
+                        assignedBy.setText(schedule.getAppointments().get(i).getEmpName());
                     final int index = i;
                     item_appointment_view.setOnClickListener(new View.OnClickListener() {
                         @Override

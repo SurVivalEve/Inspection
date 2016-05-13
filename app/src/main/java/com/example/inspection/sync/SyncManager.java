@@ -178,11 +178,10 @@ public class SyncManager {
 
                 JSONObject graphs = new JSONObject();
                 graphs.put("graph",fw.getBase64String());
-                photoArray.put(graphs);
+                graphArray.put(graphs);
             }
 
-            toSend.put("appid",appID);
-            Log.d("photoarray", photoArray.toString());
+            toSend.put("appid", appID);
             if(!photoArray.toString().equalsIgnoreCase("[]")) {
                 toSend.put("photo", photoArray);
             }

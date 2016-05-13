@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -23,11 +24,13 @@ import com.example.inspection.service.AppointmentService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
 
     private static String empID = "";
+    private TextView staffID;
     private ToggleButton toggleButton;
 
     // Local Database init
@@ -38,8 +41,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-//      empID = getIntent().getExtras().getString("empID");
-        empID = "E00000000006";
+      empID = getIntent().getExtras().getString("empID");
+//        empID = "E00000000006";
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,6 +60,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        staffID = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtStaffID);
+        staffID.setText(empID);
 
         setDefaultFragment();
         setDatabase();
@@ -199,7 +205,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.op_menu_help:
-                Toast.makeText(MainMenu.this, "Stupid", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenu.this, "HelloWorld", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 return false;

@@ -15,7 +15,6 @@ import com.example.inspection.sync.SyncManager;
 public class Login extends Activity {
 
     private EditText eT_username, eT_password;
-    private String fact = "sur.vival is samrt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +32,15 @@ public class Login extends Activity {
     }
 
     public void doLogin(View view) {
-        Intent i = new Intent(this, MainMenu.class);
-        i.putExtra("empID", "E00000000006");
-        startActivity(i);
+//        Intent i = new Intent(this, MainMenu.class);
+//        i.putExtra("empID", "E00000000006");
+//        startActivity(i);
 
-//        if(eT_username.getText().toString().equalsIgnoreCase("")||eT_password.getText().toString().equalsIgnoreCase("")){
-//            Toast.makeText(this, "Please Enter username and password", Toast.LENGTH_LONG).show();
-//        } else {
-//            Intent i = new Intent(this, MainMenu.class);
-//            startActivity(i);
-//            new getLoginResult().execute(eT_username.getText().toString(), eT_password.getText().toString());
-//        }
+        if(eT_username.getText().toString().equalsIgnoreCase("")||eT_password.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(this, "Please Enter username and password", Toast.LENGTH_LONG).show();
+        } else {
+            new getLoginResult().execute(eT_username.getText().toString(), eT_password.getText().toString());
+        }
 
     }
 

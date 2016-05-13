@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,17 +71,20 @@ public class QuotationsMenu extends Fragment {
     }
 
     public void setGraphList(Bitmap bitmap) {
-        graphList.add(bitmap);
+        if(bitmap != null) {
+            graphList.add(bitmap);
 
-        ImageView imageView = new ImageView(getContext());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, ViewGroup.LayoutParams.MATCH_PARENT);
-        lp.setMargins(0, 0, 50, 0);
-        imageView.setLayoutParams(lp);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            ImageView imageView = new ImageView(getContext());
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, ViewGroup.LayoutParams.MATCH_PARENT);
+            lp.setMargins(0, 0, 50, 0);
+            imageView.setLayoutParams(lp);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        imageView.setImageBitmap(bitmap);
-        graphContainer.addView(imageView);
-
+            imageView.setImageBitmap(bitmap);
+            graphContainer.addView(imageView);
+        } else {
+            Log.d("bitmap", "empty bitmap");
+        }
     }
 
     public static QuotationsMenu newInstance(String id) {

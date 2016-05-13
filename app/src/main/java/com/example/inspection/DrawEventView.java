@@ -272,7 +272,7 @@ public class DrawEventView extends View{
                 Log.d("FLFL", "RectF: " + canvas.getClipBounds());
 //            canvas.setBitmap(bitmap);
                 pastFlag = 1;
-            } else if (flag == 2) {//&& pastFlag !=2){
+            } else if (flag == 2&& pastFlag !=2){
                 //set data to db
                 gson = new GsonBuilder().create();
 
