@@ -55,7 +55,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="0.3"
+            android:layout_weight="0.7"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,16 +104,15 @@
 
 
             <HorizontalScrollView
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="78dp">
+                android:layout_height="0dp">
 
                 <LinearLayout
                     android:id="@+id/photoContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
-
 
                 </LinearLayout>
 
@@ -133,40 +132,41 @@
                     android:textSize="20sp" />
 
                 <ImageButton
+                    android:id="@+id/addGraph"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:background="@drawable/ic_add_circle_outline_24dp" />
+                <ImageButton
+                    android:id="@+id/delGraph"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_remove_circle_outline_24dp"
+                    android:background="#FFFFFF"
+                    android:layout_margin="3dp"/>
             </LinearLayout>
 
 
-            <LinearLayout
+            <HorizontalScrollView
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
-                android:orientation="horizontal">
+                android:layout_height="0dp">
 
-                <ImageView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/graphContainer"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/edward" />
-            </LinearLayout>
+            </HorizontalScrollView>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="0.7"
+            android:layout_weight="0.3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

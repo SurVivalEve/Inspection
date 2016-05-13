@@ -49,7 +49,6 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
         holder.custAddress.setText(p.getBuilding());
         holder.custPhone.setText(p.getPhone());
         holder.setProcessing(p);
-
     }
 
     @Override

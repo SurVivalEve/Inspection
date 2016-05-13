@@ -51,6 +51,7 @@ public class CalendarWeeklyFragment extends Fragment {
     private int[] dayInWeekdayContainerW = new int[weekday.length];
     private int[] monthInWeekdayContainerW = new int[weekday.length];
     private int heightOfDayContainerView = 0;
+    private TextView[] times = new TextView[25];
 
     private static String empID = "";
 
@@ -194,7 +195,8 @@ public class CalendarWeeklyFragment extends Fragment {
             }
             timeMarkText.setGravity(Gravity.RIGHT);
             timeMarkText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-            timeMarkText.setText(timeMarks[i]+"  ");
+            timeMarkText.setText(timeMarks[i] + "  ");
+            times[i] = timeMarkText;
             timeMark.addView(timeMarkText);
         }
         for(int i=0; i< schedule.getAppointments().size(); i++) {
@@ -260,9 +262,11 @@ public class CalendarWeeklyFragment extends Fragment {
             if(result == true) {
                 for (int k = 0; k < 7; k++) {
                     emptyViews[i + 24 * k].getLayoutParams().height = displayHeight / 10;
+                    times[i].getLayoutParams().height = displayHeight / 10 +4;
                 }
             }
         }
+        times[24].getLayoutParams().height = displayHeight / 10 /3 ;
     }
 
     private int getAppointmentNum(int month, int day, int period){

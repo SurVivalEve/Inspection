@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,18 +36,21 @@ public class QuotationsMenu extends Fragment {
 
     private static final String TEMP_IMG = "tempImg";
     private Button invoice, orderForm, update;
-    private ImageButton btnGallery, btnCamera, delPhoto;
-    private LinearLayout photoContainer;
+    private ImageButton btnGallery, btnCamera, delPhoto, addGraph, delGraph;
+    private LinearLayout photoContainer, graphContainer;
     private EditText edtAppNo;
 
     public static final String EMP_ID = "empid";
     public static final int CAMERA_REQUEST = 1;
     public static final int GALLERY_REQUEST = 2;
 
+    private String empID = "";
+
     private String picturePath = null;
 
     private List<Bitmap> photoList = new ArrayList<>();
     private List<Uri> photoUriList = new ArrayList<>();
+    private List<Bitmap> graphList = new ArrayList<>();
 
     private JSONArray orderFormJson, invoiceJson;
 
@@ -60,6 +64,20 @@ public class QuotationsMenu extends Fragment {
 
     public void setText(String text) {
         edtAppNo.setText(text);
+    }
+
+    public void setGraphList(Bitmap bitmap) {
+        graphList.add(bitmap);
+
+        ImageView imageView = new ImageView(getContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.setMargins(0, 0, 50, 0);
+        imageView.setLayoutParams(lp);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        imageView.setImageBitmap(bitmap);
+        graphContainer.addView(imageView);
+
     }
 
     public static QuotationsMenu newInstance(String id) {
@@ -80,19 +98,25 @@ public class QuotationsMenu extends Fragment {
     }
 
     private void init(View view) {
+        empID = getArguments().getString(EMP_ID);
         update = (Button) view.findViewById(R.id.btnUpdateQuotation);
         edtAppNo = (EditText) view.findViewById(R.id.edtAppNo);
         invoice = (Button) view.findViewById(R.id.invoice);
         orderForm = (Button) view.findViewById(R.id.orderForm);
-        photoContainer = (LinearLayout) view.findViewById(R.id.photoContainer);
+
         btnCamera = (ImageButton) view.findViewById(R.id.addFromCamera);
         btnGallery = (ImageButton) view.findViewById(R.id.addFromGallery);
         delPhoto = (ImageButton) view.findViewById(R.id.delPhoto);
+        addGraph = (ImageButton) view.findViewById(R.id.addGraph);
+        delGraph = (ImageButton) view.findViewById(R.id.delGraph);
+
+        graphContainer = (LinearLayout) view.findViewById(R.id.graphContainer);
+        photoContainer = (LinearLayout) view.findViewById(R.id.photoContainer);
+
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new syncQuotation().execute(photoUriList);
             }
         });
@@ -143,7 +167,22 @@ public class QuotationsMenu extends Fragment {
             }
         });
 
+        addGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.main_fragment, DrawFragment.newInstance(empID), "draw").addToBackStack(null).commit();
+            }
+        });
 
+        delGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (graphContainer.getChildCount() > 0)
+                    graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
+                graphList.remove(graphList.size()-1);
+            }
+        });
     }
 
     @Override
@@ -230,7 +269,7 @@ public class QuotationsMenu extends Fragment {
         protected String doInBackground(List<Uri>... params) {
             SyncManager syncManager = new SyncManager("uploadPhoto.php");
 
-            return syncManager.syncQuotation(getContext(), "A00000000024", params[0], invoiceJson, orderFormJson);
+            return syncManager.syncQuotation(getContext(), "A00000000024", params[0], invoiceJson, orderFormJson, graphList);
         }
 
         @Override

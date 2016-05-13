@@ -1,6 +1,7 @@
 package com.example.inspection;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener {
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
 
     private static String empID = "";
     private ToggleButton toggleButton;
@@ -217,5 +218,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         MainMenu.empID = empID;
     }
 
-
+    @Override
+    public void sendGraphMessage(Bitmap bitmap) {
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.setGraphList(bitmap);
+    }
 }

@@ -153,12 +153,13 @@ public class SyncManager {
     }
 
 
-    public String syncQuotation(Context context, String appID, List<Uri> uris, JSONArray invoice, JSONArray orderForm) {
+    public String syncQuotation(Context context, String appID, List<Uri> uris, JSONArray invoice, JSONArray orderForm, List<Bitmap> graphList) {
 
 
         try{
             JSONObject toSend = new JSONObject();
             JSONArray photoArray = new JSONArray();
+            JSONArray graphArray = new JSONArray();
 
 //            FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
             for (Uri u : uris) {
@@ -170,8 +171,24 @@ public class SyncManager {
                 photoArray.put(photos);
             }
 
+            FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
+
+            for (Bitmap b : graphList) {
+                fw.copyForm(b, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
+
+                JSONObject graphs = new JSONObject();
+                graphs.put("graph",fw.getBase64String());
+                photoArray.put(graphs);
+            }
+
             toSend.put("appid",appID);
-            toSend.put("photo", photoArray);
+            Log.d("photoarray", photoArray.toString());
+            if(!photoArray.toString().equalsIgnoreCase("[]")) {
+                toSend.put("photo", photoArray);
+            }
+            if(graphList.size() > 0){
+                toSend.put("graph", graphArray);
+            }
             toSend.put("invoice", invoice);
             toSend.put("orderform", orderForm);
 
@@ -441,6 +458,73 @@ public class SyncManager {
             Log.e("ex", Log.getStackTraceString(e));
         }
         return schDAO;
+    }
+
+    public String loadDraw(){
+        String receive = "";
+        String url = "http://58.177.9.234/fyp/test/";
+        try {
+            HttpURLConnection conn = getHttpConn(url + appendUrl, "GET", null);
+            InputStream is = conn.getInputStream();
+            receive = stream2String(is);
+
+        } catch (Exception e) {
+            Log.e("ex", Log.getStackTraceString(e));
+        }
+        Log.d("FLFL", "Get: " + receive);
+        return receive;
+    }
+
+    public String loadDraw(int id){
+        String receive = "";
+        String url = "http://58.177.9.234/fyp/test/";
+        try {
+            JSONObject toSend = new JSONObject();
+            toSend.put("id", id);
+            HttpURLConnection conn = getHttpConn(url + appendUrl, "POST", toSend);
+            InputStream is = conn.getInputStream();
+            receive = stream2String(is);
+
+        } catch (Exception e) {
+            Log.e("ex", Log.getStackTraceString(e));
+        }
+        Log.d("FLFL", "Get: " + receive);
+        return receive;
+    }
+
+    public void syncDraw(String pathsJson, String paintsColorJson, String paintsWidthJson, String paintsEffectJson, String bitmapString, String name) {
+        String url = "http://58.177.9.234/fyp/test/";
+        try {
+            JSONObject toSend = new JSONObject();
+            toSend.put("path", pathsJson);
+            toSend.put("name", name);
+            toSend.put("color", paintsColorJson);
+            toSend.put("width", paintsWidthJson);
+            toSend.put("effect", paintsEffectJson);
+            toSend.put("bitmapString", bitmapString);
+            HttpURLConnection conn = getHttpConn(url + appendUrl, "POST", toSend);
+            InputStream is = conn.getInputStream();
+            Log.d("FLFL", stream2String(is));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String initDrawNag(){
+        String receive = "";
+        String url = "http://58.177.9.234/fyp/test/";
+        try {
+            HttpURLConnection conn = getHttpConn(url + appendUrl, "GET", null);
+            InputStream is = conn.getInputStream();
+            receive = stream2String(is);
+
+        } catch (Exception e) {
+            Log.e("ex", Log.getStackTraceString(e));
+        }
+        Log.d("FLFL", "Get: " + receive);
+        return receive;
     }
 
     private static String stream2String(InputStream stream) {
