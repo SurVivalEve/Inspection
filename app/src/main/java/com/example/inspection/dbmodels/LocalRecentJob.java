@@ -17,11 +17,12 @@ public class LocalRecentJob implements Serializable {
     private String districtEN;
     private String island;
     private String which;
+    private String appid;
 
     public LocalRecentJob() {
     }
 
-    public LocalRecentJob(String title, String remark, String tstatus, String phone, String fullname, String flatBlock, String building, String districtEN, String island, String which) {
+    public LocalRecentJob(String title, String remark, String tstatus, String phone, String fullname, String flatBlock, String building, String districtEN, String island, String which, String appid) {
         this.title = title;
         this.remark = remark;
         this.tstatus = tstatus;
@@ -32,6 +33,8 @@ public class LocalRecentJob implements Serializable {
         this.districtEN = districtEN;
         this.island = island;
         this.which = which;
+        this.appid = appid;
+
     }
 
     public long getId() {
@@ -120,5 +123,13 @@ public class LocalRecentJob implements Serializable {
 
     public void setWhich(String which) {
         this.which = which;
+    }
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid;
     }
 }

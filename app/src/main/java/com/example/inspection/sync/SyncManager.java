@@ -177,9 +177,9 @@ public class SyncManager {
 
 
             Log.d("tosend", toSend.toString());
-            //HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadPhoto.php", "POST", toSend);
-            //InputStream is = conn.getInputStream();
-            //Log.i("XXX",stream2String(is));
+            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadQuotation.php", "POST", toSend);
+            InputStream is = conn.getInputStream();
+            Log.i("XXX",stream2String(is));
 
         }catch (JSONException e) {
             e.printStackTrace();
@@ -245,7 +245,8 @@ public class SyncManager {
                             p.getString("building"),
                             p.getString("districtEN"),
                             p.getString("island"),
-                            "processing"
+                            "processing",
+                            p.getString("appointmentID")
                     );
 //                    result.getProcessings().add(newC);
                     dao.insert(newC);
@@ -268,7 +269,8 @@ public class SyncManager {
                             h.getString("building"),
                             h.getString("districtEN"),
                             h.getString("island"),
-                            "history"
+                            "history",
+                            h.getString("appointmentID")
                     );
 //                    result.getHistories().add(newH);
                     dao.insert(newH);

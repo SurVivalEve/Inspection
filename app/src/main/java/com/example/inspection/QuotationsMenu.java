@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class QuotationsMenu extends Fragment {
 
     private static final String TEMP_IMG = "tempImg";
     private Button invoice, orderForm, update;
-    private ImageButton btnGallery, btnCamera, delPhoto;
+    private ImageButton btnGallery, btnCamera, delPhoto, findAppointment;
     private LinearLayout photoContainer;
     private EditText edtAppNo;
 
@@ -88,6 +89,17 @@ public class QuotationsMenu extends Fragment {
         btnCamera = (ImageButton) view.findViewById(R.id.addFromCamera);
         btnGallery = (ImageButton) view.findViewById(R.id.addFromGallery);
         delPhoto = (ImageButton) view.findViewById(R.id.delPhoto);
+        findAppointment = (ImageButton) view.findViewById(R.id.findAppointment);
+
+
+        try {
+            String appid = (String) this.getArguments().get("appid");
+            if (appid != null) {
+                edtAppNo.setText(appid);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +155,19 @@ public class QuotationsMenu extends Fragment {
             }
         });
 
+        findAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = ((MainMenu)getActivity()).getEmpID();
+                RecentJobFragment recentJobFragment = RecentJobFragment.newInstance(1, id);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_fragment, recentJobFragment, "recentjob")
+                        .addToBackStack(null)
+                        .commit();
+
+
+            }
+        });
 
     }
 

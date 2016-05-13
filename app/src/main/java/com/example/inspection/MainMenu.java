@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.inspection.dao.WebAppointmentDAO;
+import com.example.inspection.models.RecentJob;
 import com.example.inspection.service.AppointmentService;
 
 import org.json.JSONArray;
@@ -119,6 +120,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         switch (item.getItemId()) {
+            case R.id.nav_recent:
+                ft.replace(R.id.main_fragment, getSupportFragmentManager().findFragmentByTag("recentjob"))
+                        .addToBackStack(null)
+                        .commit();
+                break;
             case R.id.nav_task:
                 ft.replace(R.id.main_fragment, AddTaskFragment.newInstance(empID), "addtask")
                         .addToBackStack(null)
