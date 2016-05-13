@@ -51,7 +51,7 @@ public class AppointmentService extends Service {
 
         WebSocket ws = null;
         try {
-            ws = new WebSocketFactory().createSocket("ws://192.168.1.2:8080", 5000);
+            ws = new WebSocketFactory().createSocket("ws://58.177.9.234:8080", 5000);
             ws.addListener(new WebSocketAdapter(){
                 @Override
                 public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception {
@@ -95,8 +95,6 @@ public class AppointmentService extends Service {
 
                         }
                     }
-
-
                 }
 
             });

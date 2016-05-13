@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_recent"
+            android:icon="@drawable/ic_play_install_24dp"
+            android:title="Recent Job" />
+        <item
             android:id="@+id/nav_task"
             android:icon="@drawable/ic_menu_task"
             android:title="Add Task" />

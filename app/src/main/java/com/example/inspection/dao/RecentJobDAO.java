@@ -34,6 +34,7 @@ public class RecentJobDAO {
     public static final String DISTRICT_EN_COLUMN = "district";
     public static final String ISLAND_COLUMN = "island";
     public static final String WHICH_COLUMN = "which";
+    public static final String APP_ID = "appid";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
@@ -48,7 +49,8 @@ public class RecentJobDAO {
                     BUILDEING_COLUMN + " TEXT NOT NULL, " +
                     DISTRICT_EN_COLUMN + " TEXT NOT NULL, " +
                     ISLAND_COLUMN + " TEXT NOT NULL, " +
-                    WHICH_COLUMN + " TEXT NOT NULL)";
+                    WHICH_COLUMN + " TEXT NOT NULL, " +
+                    APP_ID + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -80,6 +82,7 @@ public class RecentJobDAO {
         cv.put(DISTRICT_EN_COLUMN, rj.getDistrictEN());
         cv.put(ISLAND_COLUMN, rj.getIsland());
         cv.put(WHICH_COLUMN, rj.getWhich());
+        cv.put(APP_ID, rj.getAppid());
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -110,6 +113,7 @@ public class RecentJobDAO {
         cv.put(DISTRICT_EN_COLUMN, rj.getDistrictEN());
         cv.put(ISLAND_COLUMN, rj.getIsland());
         cv.put(WHICH_COLUMN, rj.getWhich());
+        cv.put(APP_ID, rj.getAppid());
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
@@ -200,6 +204,7 @@ public class RecentJobDAO {
         rj.setDistrictEN(cursor.getString(8));
         rj.setIsland(cursor.getString(9));
         rj.setWhich(cursor.getString(10));
+        rj.setAppid(cursor.getString(11));
 
         // 回傳結果
         return rj;

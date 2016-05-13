@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,10 @@ public class QuotationsMenu extends Fragment {
 
     private static final String TEMP_IMG = "tempImg";
     private Button invoice, orderForm, update;
-    private ImageButton btnGallery, btnCamera, delPhoto, addGraph, delGraph;
+
+    private ImageButton btnGallery, btnCamera, delPhoto, addGraph, delGraph, findAppointment;
     private LinearLayout photoContainer, graphContainer;
+
     private EditText edtAppNo;
 
     public static final String EMP_ID = "empid";
@@ -54,11 +57,11 @@ public class QuotationsMenu extends Fragment {
 
     private JSONArray orderFormJson, invoiceJson;
 
-    public void setOrderForm(JSONArray orderForm){
+    public void setOrderForm(JSONArray orderForm) {
         this.orderFormJson = orderForm;
     }
 
-    public void setInvoice(JSONArray invoice){
+    public void setInvoice(JSONArray invoice) {
         this.invoiceJson = invoice;
     }
 
@@ -107,11 +110,24 @@ public class QuotationsMenu extends Fragment {
         btnCamera = (ImageButton) view.findViewById(R.id.addFromCamera);
         btnGallery = (ImageButton) view.findViewById(R.id.addFromGallery);
         delPhoto = (ImageButton) view.findViewById(R.id.delPhoto);
+
         addGraph = (ImageButton) view.findViewById(R.id.addGraph);
         delGraph = (ImageButton) view.findViewById(R.id.delGraph);
 
         graphContainer = (LinearLayout) view.findViewById(R.id.graphContainer);
         photoContainer = (LinearLayout) view.findViewById(R.id.photoContainer);
+
+        findAppointment = (ImageButton) view.findViewById(R.id.findAppointment);
+
+
+        try {
+            String appid = (String) this.getArguments().get("appid");
+            if (appid != null) {
+                edtAppNo.setText(appid);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         update.setOnClickListener(new View.OnClickListener() {
@@ -175,12 +191,24 @@ public class QuotationsMenu extends Fragment {
             }
         });
 
+        findAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = ((MainMenu) getActivity()).getEmpID();
+                RecentJobFragment recentJobFragment = RecentJobFragment.newInstance(1, id);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_fragment, recentJobFragment, "recentjob")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         delGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (graphContainer.getChildCount() > 0)
                     graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
-                graphList.remove(graphList.size()-1);
+                graphList.remove(graphList.size() - 1);
             }
         });
     }

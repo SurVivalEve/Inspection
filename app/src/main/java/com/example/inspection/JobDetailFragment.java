@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
     private SupportMapFragment mapFragment;
     private Double tpLat = 22.293104, toLng = 114.172586;
-    private String[] data = new String[9];
+    private String[] data = new String[10];
 
 
     @Nullable
@@ -74,6 +75,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
             data[6] = processing.getDistrictEN();
             data[7] = processing.getIsland();
             data[8] = processing.getBuilding();
+            data[9] = processing.getAppid();
         } else if (history != null) {
             data[0] = history.getTitle();
             data[1] = history.getRemark();
@@ -84,6 +86,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
             data[6] = history.getDistrictEN();
             data[7] = history.getIsland();
             data[8] = history.getBuilding();
+            data[9] = history.getAppid();
         } else if (appointment != null) {
             data[0] = appointment.getId();
             data[1] = appointment.getRemark();
@@ -101,7 +104,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private void init(View view, final String[] data) {
+    private void init(View view,  final String[] data) {
 
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.job_details_layout);
         ((TextView) view.findViewById(R.id.jtitle)).setText(data[0]);
@@ -115,6 +118,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
         scrollView = (ScrollView) view.findViewById(R.id.detail_scroll);
         ImageView imageView = (ImageView) view.findViewById(R.id.transparent_image);
         ImageView imagecall = (ImageView) view.findViewById(R.id.jobdetails_image_call);
+        Button btnCreateQuotation = (Button) view.findViewById(R.id.btnCreateQuotation);
 
         // for older verison Android device
 //        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
@@ -171,8 +175,25 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
         imagecall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentDial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+data[3]));
+                Intent intentDial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + data[3]));
                 startActivity(intentDial);
+            }
+        });
+
+        btnCreateQuotation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = ((MainMenu)getActivity()).getEmpID();
+
+                QuotationsMenu quotationsMenu = QuotationsMenu.newInstance(id);
+                Bundle bundle = new Bundle();
+                bundle.putString("appid",data[9]);
+                quotationsMenu.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_fragment, quotationsMenu, "createFragment")
+                        .addToBackStack(null)
+                        .commit();
+
             }
         });
 

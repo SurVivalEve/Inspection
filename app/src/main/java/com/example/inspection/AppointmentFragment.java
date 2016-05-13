@@ -73,6 +73,8 @@ public class AppointmentFragment extends Fragment {
 
                 webAppointments = webAppDAO.getAll();
                 rv.setAdapter(new AppointmentAdapter(getContext(), webAppointments));
+
+                laySwip.setRefreshing(false);
             }
         });
     }
