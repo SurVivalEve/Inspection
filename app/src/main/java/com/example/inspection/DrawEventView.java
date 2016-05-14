@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.inspection.util.FileWrapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 
-public class DrawEventView extends View{
+public class DrawEventView extends View {
     Context context;
     Canvas mCanvas;
     Paint tempPaint = new Paint();
@@ -112,11 +113,13 @@ public class DrawEventView extends View{
 
     }
 
-    public Bitmap preparedToSendBitmap(){
+    public Bitmap preparedToSendBitmap() {
         //preparedToSendBitmap
         try {
             int i = 0;
             preparedToSendBitmap = Bitmap.createBitmap(1080, 1464, Bitmap.Config.ARGB_8888);
+
+
 
             mCanvas = new Canvas(preparedToSendBitmap);
             for (Path p : paths) {
@@ -131,40 +134,40 @@ public class DrawEventView extends View{
             if (y < 0)
                 y = (int) Math.floor(top);
 
-            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
+            FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "photo");
+            fw.copyForm(preparedToSendBitmap, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
+//            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
             //mCanvas.clipRect(left+150f, top+150f, right-150f, bottom-150f);
-            return preparedToSendBitmap;
-        }catch (Exception e){
+            return fw.getBitmap();
+        } catch (Exception e) {
             return null;
         }
     }
 
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)
-    {
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
 
-    public static Bitmap decodeBase64(String input)
-    {
+    public static Bitmap decodeBase64(String input) {
         byte[] decodedBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
-    public void initLayer(LayoutInflater layoutInflater, LayoutInflater inflater, ViewGroup container, LinearLayout lllayer){
+    public void initLayer(LayoutInflater layoutInflater, LayoutInflater inflater, ViewGroup container, LinearLayout lllayer) {
         this.layoutInflater = layoutInflater;
         this.inflater = inflater;
         this.lllayer = lllayer;
     }
 
-    public void addLayer(ArrayList<Path> ps, ArrayList<Paint> pas){
+    public void addLayer(ArrayList<Path> ps, ArrayList<Paint> pas) {
         FragmentManager fm = ((MainMenu) getContext()).getSupportFragmentManager();
         LinearLayout lye = (LinearLayout) fm.findFragmentByTag("draw").getView().findViewById(R.id.lllayer);
         lye.removeAllViews();
         layerCount = 0;
-        for(int i=0; i<ps.size(); i++) {
+        for (int i = 0; i < ps.size(); i++) {
 
             Bitmap bm = Bitmap.createBitmap(1080, 1464, Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(bm);
@@ -193,7 +196,7 @@ public class DrawEventView extends View{
         }
     }
 
-    public void delLayer(){
+    public void delLayer() {
         try {
             paths.remove(selectedIndex);
             paints.remove(selectedIndex);
@@ -223,13 +226,15 @@ public class DrawEventView extends View{
             }
             selectedIndex = -1;
             invalidate();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
-    public void saveBitmap(){
+    public void saveBitmap() {
         try {
             int i = 0;
             bitmap = Bitmap.createBitmap(1080, 1464, Bitmap.Config.ARGB_8888);
+
 
             mCanvas = new Canvas(bitmap);
             for (Path p : paths) {
@@ -246,10 +251,12 @@ public class DrawEventView extends View{
 
             bitmap = Bitmap.createBitmap(bitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
             //mCanvas.clipRect(left+150f, top+150f, right-150f, bottom-150f);
-        } catch(Exception e){}
+        } catch (Exception e) {
+        }
     }
 
-    int seletedFlag =0;
+    int seletedFlag = 0;
+
     @Override
     protected void onDraw(Canvas canvas) {
         try {
@@ -272,7 +279,7 @@ public class DrawEventView extends View{
                 Log.d("FLFL", "RectF: " + canvas.getClipBounds());
 //            canvas.setBitmap(bitmap);
                 pastFlag = 1;
-            } else if (flag == 2&& pastFlag !=2){
+            } else if (flag == 2 && pastFlag != 2) {
                 //set data to db
                 gson = new GsonBuilder().create();
 
@@ -331,10 +338,12 @@ public class DrawEventView extends View{
 
             }
             Log.d("HIHI", "onDraw" + flag);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
-    public void undo(){
-        if(paths.size()>0) {
+
+    public void undo() {
+        if (paths.size() > 0) {
             paths.remove(paths.size() - 1);
             paints.remove(paints.size() - 1);
             flag = 1;
@@ -353,7 +362,7 @@ public class DrawEventView extends View{
 
         Log.d("FLFL", "Flag: 3...size" + pathArray.size());
 
-        for(int i=0; i< pathArray.size(); i+=4) {
+        for (int i = 0; i < pathArray.size(); i += 4) {
             computeRectF(gson.fromJson(pathArray.get(i), Float.class), gson.fromJson(pathArray.get(i + 2), Float.class),
                     gson.fromJson(pathArray.get(i + 1), Float.class), gson.fromJson(pathArray.get(i + 3), Float.class));
 
@@ -381,22 +390,22 @@ public class DrawEventView extends View{
         invalidate();
     }
 
-    private void computeRectF(Float rx, Float x, Float ry, Float y){
-        if(rx >= x){
-            if(left == null && right == null) {
+    private void computeRectF(Float rx, Float x, Float ry, Float y) {
+        if (rx >= x) {
+            if (left == null && right == null) {
                 left = x;
-                right =rx;
-            }else {
+                right = rx;
+            } else {
                 if (left >= x)
                     left = x;
                 if (right <= rx)
                     right = rx;
             }
-        }else {
-            if(left == null && right == null) {
+        } else {
+            if (left == null && right == null) {
                 left = rx;
                 right = x;
-            }else {
+            } else {
                 if (left >= rx || left == null)
                     left = rx;
                 if (right <= x || right == null)
@@ -404,21 +413,21 @@ public class DrawEventView extends View{
             }
         }
 
-        if(ry >= y){
-            if(top == null && bottom == null){
+        if (ry >= y) {
+            if (top == null && bottom == null) {
                 top = y;
                 bottom = ry;
-            }else {
+            } else {
                 if (top >= y)
                     top = y;
                 if (bottom <= ry)
                     bottom = ry;
             }
-        }else {
-            if(top ==null && bottom ==null){
+        } else {
+            if (top == null && bottom == null) {
                 top = ry;
                 bottom = y;
-            }else {
+            } else {
                 if (top >= ry)
                     top = ry;
                 if (bottom <= y)
@@ -444,12 +453,11 @@ public class DrawEventView extends View{
     }
 
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         x = event.getX();
         y = event.getY();
-        if(flag==1)
+        if (flag == 1)
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     tempPath.moveTo(x, y);

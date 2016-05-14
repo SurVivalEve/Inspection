@@ -53,8 +53,8 @@ public class QuotationsMenu extends Fragment {
     private String picturePath = null;
 
     private List<Bitmap> photoList = new ArrayList<>();
-    private List<Uri> photoUriList = new ArrayList<>();
-    private List<Bitmap> graphList = new ArrayList<>();
+    private static List<Uri> photoUriList = new ArrayList<>();
+    private static List<Bitmap> graphList = new ArrayList<>();
 
     private JSONArray orderFormJson, invoiceJson;
 
@@ -146,7 +146,13 @@ public class QuotationsMenu extends Fragment {
             public void onClick(View view) {
                 QuotationInvoice quotationInvoice = new QuotationInvoice();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.main_fragment, quotationInvoice, "quotationInvoice").addToBackStack(null).commit();
+
+
+                if(getActivity().getSupportFragmentManager().findFragmentByTag("quotationInvoice")!=null){
+                    ft.show(getActivity().getSupportFragmentManager().findFragmentByTag("quotationInvoice"));
+                } else {
+                    ft.add(R.id.main_fragment, quotationInvoice, "quotationInvoice").addToBackStack(null).commit();
+                }
             }
         });
         orderForm.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +160,13 @@ public class QuotationsMenu extends Fragment {
             public void onClick(View view) {
                 QuotationOrderForm quotationOrderForm = new QuotationOrderForm();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.add(R.id.main_fragment, quotationOrderForm, "quotationOrderForm").addToBackStack(null).commit();
+
+
+                if(getActivity().getSupportFragmentManager().findFragmentByTag("quotationOrderForm")!=null){
+                    ft.show(getActivity().getSupportFragmentManager().findFragmentByTag("quotationOrderForm"));
+                } else {
+                    ft.add(R.id.main_fragment, quotationOrderForm, "quotationOrderForm").addToBackStack(null).commit();
+                }
             }
         });
 
@@ -178,20 +190,36 @@ public class QuotationsMenu extends Fragment {
             }
         });
 
-        delPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (photoContainer.getChildCount() > 0)
-                    photoContainer.removeViewAt(photoContainer.getChildCount() - 1);
-                photoUriList.remove(photoUriList.size());
-            }
-        });
-
         addGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.main_fragment, DrawFragment.newInstance(empID), "draw").addToBackStack(null).commit();
+            }
+        });
+
+        delPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    if (photoContainer.getChildCount() > 0) {
+                        photoContainer.removeViewAt(photoContainer.getChildCount()-1);
+                        photoUriList.remove(photoUriList.size());
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        delGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (graphContainer.getChildCount() > 0) {
+                    graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
+                    graphList.remove(graphList.size());
+                }
             }
         });
 
@@ -204,15 +232,6 @@ public class QuotationsMenu extends Fragment {
                         .replace(R.id.main_fragment, recentJobFragment, "recentjob")
                         .addToBackStack(null)
                         .commit();
-            }
-        });
-
-        delGraph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (graphContainer.getChildCount() > 0)
-                    graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
-                graphList.remove(graphList.size() - 1);
             }
         });
     }
@@ -248,18 +267,24 @@ public class QuotationsMenu extends Fragment {
 //                Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, selectedImage);
 
                 imageView.setImageBitmap(tempPhoto.getBitmap());
-                photoContainer.addView(imageView);
 
+
+                photoContainer.addView(imageView);
                 photoUriList.add(clone.getUri());
 
 
             } else if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
 
                 Uri selectedImage = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, selectedImage);
-                imageView.setImageBitmap(bitmap);
-                photoContainer.addView(imageView);
+                Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, selectedImage);
+                imageView.setImageBitmap(bm);
 
+                if (!bm.isRecycled()){
+                    bm.isRecycled();
+                    System.gc();
+                }
+
+                photoContainer.addView(imageView);
                 photoUriList.add(Uri.parse(getRealPathFromURI(selectedImage)));
 
 //                String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -273,6 +298,7 @@ public class QuotationsMenu extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private String getRealPathFromURI(Uri contentURI) {

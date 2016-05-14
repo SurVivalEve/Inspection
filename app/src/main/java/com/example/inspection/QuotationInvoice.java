@@ -166,7 +166,7 @@ public class QuotationInvoice extends Fragment {
 
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
-                        ft.remove(fm.findFragmentByTag("quotationInvoice")).commit();
+                        ft.hide(fm.findFragmentByTag("quotationInvoice")).commit();
                         fm.popBackStack();
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();

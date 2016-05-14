@@ -217,7 +217,7 @@ public class SyncManager {
                 toSend.put("building", building);
                 toSend.put("appointmentTime", appTime);
                 if(appid.equalsIgnoreCase("")) {
-                    toSend.put("appid", JSONObject.NULL);
+                    toSend.put("appid", "");
                 } else {
                     toSend.put("appid", appid);
                 }

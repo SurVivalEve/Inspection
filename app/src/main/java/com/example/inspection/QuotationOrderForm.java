@@ -261,7 +261,7 @@ public class QuotationOrderForm extends Fragment {
 
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
-                        ft.remove(fm.findFragmentByTag("quotationOrderForm")).commit();
+                        ft.hide(fm.findFragmentByTag("quotationOrderForm")).commit();
                         fm.popBackStack();
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
