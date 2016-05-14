@@ -126,12 +126,12 @@ public class CalendarWeeklyFragment extends Fragment {
             if(currentWeekDay == i) {
                 //set bold and underline to today
                 weekday[i].setTypeface(null, Typeface.BOLD);
-                String today = new String(weeks[i] + "\n " + dayString);
+                String today = new String(weeks[i] + "\n" + dayString);
                 SpannableString s_today = new SpannableString(today);
                 s_today.setSpan(new UnderlineSpan(), 0, today.length(), 0);
                 weekday[i].setText(s_today);
             } else {
-                weekday[i].setText(weeks[i] + "\n " + dayString);
+                weekday[i].setText(weeks[i] + "\n" + dayString);
             }
             item_weekday.setLayoutParams(weekdayParam);
         }
@@ -221,10 +221,16 @@ public class CalendarWeeklyFragment extends Fragment {
                     if(min<10)
                         minString = "0"+minString;
                     time.setText(hourString + ":" + minString);
-                    if(schedule.getAppointments().get(i).getEmpID().equalsIgnoreCase(""))
-                        assignedBy.setText("non-assigned");
-                    else
-                        assignedBy.setText(schedule.getAppointments().get(i).getEmpName());
+                    String empName = "";
+                    if(!schedule.getAppointments().get(i).getEmpID().equalsIgnoreCase("")) {
+                        for(int m=1; m<schedule.getAppointments().get(i).getEmpName().split(" ").length; m++){
+                            empName += schedule.getAppointments().get(i).getEmpName().split(" ")[m];
+                            if(m!=schedule.getAppointments().get(i).getEmpName().split(" ").length-1)
+                                empName += " ";
+                        }
+                    }
+                    assignedBy.setText(empName);
+
                     final int index = i;
                     item_appointment_view.setOnClickListener(new View.OnClickListener() {
                         @Override

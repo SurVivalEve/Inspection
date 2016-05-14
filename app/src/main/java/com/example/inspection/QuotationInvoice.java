@@ -110,49 +110,32 @@ public class QuotationInvoice extends Fragment {
                 if (error_message == "") {
                     JSONArray invoiceJsonArray = new JSONArray();
                     JSONObject invoice = new JSONObject();
-                    //remark data
+
                     try {
+                        //remark
                         if (remark.getText().toString().isEmpty()) {
                             invoice.put("remark", JSONObject.NULL);
                         } else {
                             invoice.put("remark", remark.getText().toString());
                         }
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get remark data json exception");
-                        Log.d("detail", e.toString());
-                    }
-                    //amount data
-                    try {
+
+                        //amount
                         invoice.put("amount", amount.getText().toString().replace(" ", ""));
-                    } catch (JSONException e) {
-                        Log.d("save onclick error", "get amount data json exception");
-                        Log.d("detail", e.toString());
-                    }
-                    //custsign photo
-                    try {
+
+                        //custsign photo
                         FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "sign");
                         fw.copyForm(((BitmapDrawable) custSign.getDrawable()).getBitmap(), Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
                         invoice.put("custsign", fw.getBase64String());
-                    } catch (ClassCastException e){
-                        e.printStackTrace();
-                        error_message = "Customer signature cannot be empty!";
-                    }  catch (JSONException e) {
-                        Log.d("save onclick error", "get custsign photo json exception");
-                        Log.d("detail", e.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //custsign photo
-                    try {
-                        FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "sign");
+
+                        //custsign photo
                         fw.copyForm(((BitmapDrawable) empSign.getDrawable()).getBitmap(), Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
                         invoice.put("empsign", fw.getBase64String());
+
                     } catch (ClassCastException e){
                         e.printStackTrace();
-                        if(error_message == "")
-                            error_message = "Employee signature cannot be empty!";
+                        error_message = "All signature cannot be empty!";
                     }  catch (JSONException e) {
-                        Log.d("save onclick error", "get custsign photo json exception");
+                        Log.d("save onclick error", "get json exception");
                         Log.d("detail", e.toString());
                     } catch (IOException e) {
                         e.printStackTrace();

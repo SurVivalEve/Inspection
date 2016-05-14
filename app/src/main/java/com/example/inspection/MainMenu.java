@@ -29,8 +29,8 @@ import org.w3c.dom.Text;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
 
-    private static String empID = "";
-    private TextView staffID;
+    private static String empID = "E00000000006", empName="Tin Yeah";
+    private TextView staffID, staffName;
     private ToggleButton toggleButton;
 
     // Local Database init
@@ -41,8 +41,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-      empID = getIntent().getExtras().getString("empID");
-//        empID = "E00000000006";
+        empID = getIntent().getExtras().getString("empID");
+        empName = getIntent().getExtras().getString("empName");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,6 +63,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         staffID = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtStaffID);
         staffID.setText(empID);
+        staffName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtStaffName);
+        staffName.setText(empName);
 
         setDefaultFragment();
         setDatabase();

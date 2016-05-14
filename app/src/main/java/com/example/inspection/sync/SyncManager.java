@@ -105,16 +105,18 @@ public class SyncManager {
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
-    public String syncLogin(String username, String password) {
-        String result = "";
+    public String[] syncLogin(String username, String password) {
+        String result[] = new String[2];
         try {
             JSONObject toSend = new JSONObject();
             toSend.put("username", username);
             toSend.put("password", password);
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
-            result += stream2String(is);
-            Log.d("Result is", result);
+            String recieve = stream2String(is);
+            Log.d("result", recieve);
+            result[0] = recieve.substring(0, 12);
+            result[1] = recieve.substring(12);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {

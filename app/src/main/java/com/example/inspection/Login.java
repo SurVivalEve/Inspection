@@ -44,28 +44,29 @@ public class Login extends Activity {
 
     }
 
-    public void login(String empID) {
+    public void login(String empID, String empName) {
         if(!empID.equalsIgnoreCase("false") && empID.substring(0 ,1).equalsIgnoreCase("E")) {
             Intent i = new Intent(this, MainMenu.class);
             i.putExtra("empID", empID);
+            i.putExtra("empName", empName);
             startActivity(i);
         } else {
             Toast.makeText(this, "Wrong username or password!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private class getLoginResult extends AsyncTask<String, Void, String> {
+    private class getLoginResult extends AsyncTask<String, Void, String[]> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String[] doInBackground(String... params) {
             SyncManager syncManager = new SyncManager("login.php");
             return syncManager.syncLogin(params[0],params[1]);
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String[] result) {
             super.onPostExecute(result);
-            login(result);
+            login(result[0], result[1]);
         }
     }
 }
