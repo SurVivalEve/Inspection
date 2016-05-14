@@ -53,7 +53,8 @@
 				android:textSize="25sp"
                 android:singleLine="true"
                 android:hint="Username"
-                android:drawablePadding="8dp" />
+                android:drawablePadding="8dp"
+                android:text="emp15@fyp.com"/>
 
             <EditText
                 android:id="@+id/eT_password"
@@ -65,7 +66,8 @@
                 android:singleLine="true"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:drawablePadding="8dp" />
+                android:drawablePadding="8dp"
+                android:text="password"/>
 
         </LinearLayout>
         

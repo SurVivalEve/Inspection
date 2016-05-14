@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathEffect;
@@ -20,6 +21,7 @@ import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,6 +49,7 @@ public class DrawEventView extends View {
     Paint tempPaint = new Paint();
     Path tempPath = new Path();
     Paint paint = new Paint();
+    Paint dotPaint = new Paint();
     Path path = new Path();
     Float rx, ry, x, y, bottom = null, left = null, right = null, top = null;
     ArrayList<Path> paths;
@@ -77,6 +80,11 @@ public class DrawEventView extends View {
     int layerCount = 0;
     protected int flag = 1;
     private int pastFlag = 1;
+    int scrHeight;
+    int scrWidth;
+    int mode;
+    boolean drawDot = false;
+
 
     public DrawEventView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -97,6 +105,15 @@ public class DrawEventView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5f);
 
+        dotPaint = new Paint();
+        dotPaint.setAntiAlias(true);
+        dotPaint.setColor(Color.BLACK);
+        dotPaint.setStrokeJoin(Paint.Join.ROUND);
+        dotPaint.setStyle(Paint.Style.STROKE);
+        dotPaint.setStrokeWidth(5f);
+        PathEffect effects = new DashPathEffect(new float[] { 8, 10}, 1);
+        dotPaint.setPathEffect(effects);
+
         paths = new ArrayList<Path>();
         paints = new ArrayList<Paint>();
         pathsCollection = new ArrayList<Float>();
@@ -111,17 +128,42 @@ public class DrawEventView extends View {
 
         setDrawingCacheEnabled(true);
 
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        scrHeight = displaymetrics.heightPixels;
+        scrWidth = displaymetrics.widthPixels;
+
+    }
+
+
+    private Bitmap enlargeWithWhiteSpace(Bitmap bitmap){
+        if(bitmap.getHeight()<200 || bitmap.getWidth()<200) {
+            float x, y;
+            if (bitmap.getHeight() < 200)
+                y = 200;
+            else
+                y = bitmap.getHeight();
+            if (bitmap.getWidth() < 200)
+                x = 200;
+            else
+                x = bitmap.getWidth();
+            Bitmap bmp = Bitmap.createBitmap(Math.round(x), Math.round(y), bitmap.getConfig());
+            Canvas canvas = new Canvas(bmp);
+            canvas.drawBitmap(bitmap, ((x - bitmap.getWidth()) / 2), ((y - bitmap.getHeight()) / 2), null);
+            return bmp;
+        } else {
+            return bitmap;
+        }
     }
 
     public Bitmap preparedToSendBitmap() {
         //preparedToSendBitmap
         try {
             int i = 0;
-            preparedToSendBitmap = Bitmap.createBitmap(1080, 1464, Bitmap.Config.ARGB_8888);
-
-
-
+            preparedToSendBitmap = Bitmap.createBitmap(scrWidth, scrHeight, Bitmap.Config.ARGB_8888);
+            Log.d("xxx", "width: " + scrWidth + " height: " + scrHeight);
             mCanvas = new Canvas(preparedToSendBitmap);
+            mCanvas.drawARGB(0, 225, 225, 255);
             for (Path p : paths) {
                 mCanvas.drawPath(p, paints.get(i));
                 i++;
@@ -130,16 +172,21 @@ public class DrawEventView extends View {
             x = (int) Math.floor(left) - 50;
             y = (int) Math.floor(top) - 50;
             if (x < 0)
-                x = (int) Math.floor(left);
+                x = 0;
             if (y < 0)
-                y = (int) Math.floor(top);
-//
+                y = 0;
+              Log.d("xxx", "x: " + x +"y: " + y + "w: " + ((int) (Math.ceil(right) - Math.floor(left)) + 50) + "h: " + ((int) (Math.ceil(bottom) - Math.floor(top)) + 50));
 //            FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "photo");
 //            fw.copyForm(preparedToSendBitmap, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
+//            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
+            Log.d("xxx", "x: " + (int) Math.floor((left)) +"y: " + (int) Math.floor(top) + "w: " + (int) (Math.ceil(right) - Math.floor(left)) + "h: " + (int) (Math.ceil(bottom) - Math.floor(top)));
+
+            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, (int) Math.floor((left)), (int) Math.floor(top), (int) (Math.ceil(right) - Math.floor(left)), (int) (Math.ceil(bottom) - Math.floor(top)));
+
             //mCanvas.clipRect(left+150f, top+150f, right-150f, bottom-150f);
-            return preparedToSendBitmap;
+            return enlargeWithWhiteSpace(preparedToSendBitmap);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -210,7 +257,7 @@ public class DrawEventView extends View {
             paintsEffectCollection = new ArrayList<PathEffect>();
             //re-assign
             int delPathIndex = selectedIndex;
-            for (int i = 0; i < layerCount; i++) {
+            for (int i = 0; i < layerCount-1; i++) {
                 if (delPathIndex != i) {
                     pathsCollection.add(tPaths[(i * 4)]);
                     pathsCollection.add(tPaths[(i * 4) + 1]);
@@ -224,6 +271,7 @@ public class DrawEventView extends View {
                 }
 
             }
+            layerCount--;
             selectedIndex = -1;
             invalidate();
         } catch (Exception e) {
@@ -346,10 +394,104 @@ public class DrawEventView extends View {
         if (paths.size() > 0) {
             paths.remove(paths.size() - 1);
             paints.remove(paints.size() - 1);
+            Float[] tPaths = (Float[]) pathsCollection.toArray(new Float[pathsCollection.size()]);
+            Integer[] tColors = (Integer[]) paintsColorCollection.toArray(new Integer[paintsColorCollection.size()]);
+            Float[] tWidths = (Float[]) paintsWidthCollection.toArray(new Float[paintsWidthCollection.size()]);
+            PathEffect[] tEffects = (PathEffect[]) paintsEffectCollection.toArray(new PathEffect[paintsEffectCollection.size()]);
+            pathsCollection = new ArrayList<Float>();
+            paintsColorCollection = new ArrayList();
+            paintsWidthCollection = new ArrayList<Float>();
+            paintsEffectCollection = new ArrayList<PathEffect>();
+            //re-assign
+            int undoPathIndex = selectedIndex;
+            for (int i = 0; i < layerCount-1; i++) {
+                if (undoPathIndex != i) {
+                    pathsCollection.add(tPaths[(i * 4)]);
+                    pathsCollection.add(tPaths[(i * 4) + 1]);
+                    pathsCollection.add(tPaths[(i * 4) + 2]);
+                    pathsCollection.add(tPaths[(i * 4) + 3]);
+                }
+                if (undoPathIndex != i) {
+                    paintsColorCollection.add(tColors[i]);
+                    paintsWidthCollection.add(tWidths[i]);
+                    paintsEffectCollection.add(tEffects[i]);
+                }
+
+            }
+            layerCount--;
             flag = 1;
             invalidate();
         }
     }
+
+    public void changeMode(int m){
+        mode = m;
+    }
+
+    public Path parallellMode(float x1, float y1, float x2, float y2){
+        Path p = new Path();
+        Log.d("par", "ori: x1 " + x1 + " y1 " + y1 + " x2 " + x2 + " y2 " + y2);
+        if(selectedIndex!=-1){
+            Float[] tPaths = (Float[]) pathsCollection.toArray(new Float[pathsCollection.size()]);
+            rx = tPaths[selectedIndex];
+            ry = tPaths[selectedIndex+1];
+            x = tPaths[selectedIndex+2];
+            y = tPaths[selectedIndex+3];
+            Log.d("par", "ori: rx " + rx + " ry " + ry + " x " + x + " y " + y);
+            float slope = (ry-y)/(rx-x);
+
+            rx = x1;
+            ry = y1;
+            x = x2;
+            y = (slope*x2 - slope*x1 + y1);
+            Log.d("par", "after: rx " + rx + " ry " + ry + " x " + x + " y " + y);
+            Log.d("par", "after: x1 " + x1 + " y1 " + y1 + " x2 " + x2 + " y2 " + y2);
+        } else {
+            rx = x1;
+            ry = y1;
+            x = x2;
+            y = y2;
+        }
+        p.moveTo(rx, ry);
+        p.lineTo(x, y);
+
+        return p;
+    }//mode:1
+
+    public Path lockMode(float x1, float y1, float x2, float y2){
+        Path p = new Path();
+        if(selectedIndex!=-1){
+            Float[] tPaths = (Float[]) pathsCollection.toArray(new Float[pathsCollection.size()]);
+            rx = tPaths[selectedIndex];
+            ry = tPaths[selectedIndex+1];
+            x = tPaths[selectedIndex+2];
+            y = tPaths[selectedIndex+3];
+            float dist = (float) Math.sqrt(Math.pow(rx-x1,2)+Math.pow(ry-y1,2));
+            float rDist = (float) Math.sqrt(Math.pow(x-x1,2)+Math.pow(y-y1,2));
+            Log.d("pow", Math.pow(2, 3) + "");
+
+            if(dist<rDist){
+                x1 = rx;
+                y1 = ry;
+            }else{
+                x1 = x;
+                y1 = y;
+            }
+
+
+            p.moveTo(x1, y1);
+            p.lineTo(x2, y2);
+            return p;
+        }
+        p.moveTo(x1, y1);
+        p.lineTo(x2, y2);
+        return p;
+    }//mode:2
+
+    public void setDrawDot(){
+        drawDot = true;
+    }
+
 
     public void insertSample() {
         gson = new GsonBuilder().create();
@@ -396,9 +538,9 @@ public class DrawEventView extends View {
                 left = x;
                 right = rx;
             } else {
-                if (left >= x)
+                if (left >= x || left == null)
                     left = x;
-                if (right <= rx)
+                if (right <= rx || right == null)
                     right = rx;
             }
         } else {
@@ -418,9 +560,9 @@ public class DrawEventView extends View {
                 top = y;
                 bottom = ry;
             } else {
-                if (top >= y)
+                if (top >= y || top == null)
                     top = y;
-                if (bottom <= ry)
+                if (bottom <= ry || bottom == null)
                     bottom = ry;
             }
         } else {
@@ -428,9 +570,9 @@ public class DrawEventView extends View {
                 top = ry;
                 bottom = y;
             } else {
-                if (top >= ry)
+                if (top >= ry || top == null)
                     top = ry;
-                if (bottom <= y)
+                if (bottom <= y || bottom == null)
                     bottom = y;
             }
         }
@@ -457,6 +599,16 @@ public class DrawEventView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         x = event.getX();
         y = event.getY();
+        if(y < 0)
+            y = 0f;
+        if(x <0)
+            x = 0f;
+        if(x>scrWidth)
+            x = Float.parseFloat(String.valueOf(scrWidth));
+        if(y>scrHeight)
+            y = Float.parseFloat(String.valueOf(scrHeight));
+
+
         if (flag == 1)
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -470,9 +622,21 @@ public class DrawEventView extends View {
                     Log.d("HIHI", "x:" + x + ", y:" + y + " M");
                     break;
                 case MotionEvent.ACTION_UP:
-                    path.moveTo(rx, ry);
-                    Log.d("HIHI", "rx:" + rx + ", ry:" + ry + " UP");
-                    path.lineTo(x, y);
+                    switch (mode){
+                        case 1:
+                            path = parallellMode(rx,ry,x,y);
+                            selectedIndex = -1;
+                            break;
+                        case 2:
+                            path = lockMode(rx,ry,x,y);
+                            selectedIndex = -1;
+                            break;
+                        default:
+                            path.moveTo(rx, ry);
+                            Log.d("HIHI", "rx:" + rx + ", ry:" + ry + " UP");
+                            path.lineTo(x, y);
+                    }
+
                     pathsCollection.add(rx);
                     pathsCollection.add(ry);
                     pathsCollection.add(x);
@@ -481,6 +645,10 @@ public class DrawEventView extends View {
                     Log.d("HIHI", "x:" + x + ", y:" + y + " UP");
                     Log.d("HIHI", paths.add(new Path(path)) + "");
                     Paint pa = new Paint(paint);
+                    if(drawDot == true) {
+                        pa = new Paint(dotPaint);
+                        drawDot = false;
+                    }
                     Log.d("HIHI", paints.add(pa) + " ");
                     Log.d("paint", pa.getPathEffect() + "");
                     paintsColorCollection.add(pa.getColor()); //int
