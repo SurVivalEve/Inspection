@@ -10,6 +10,7 @@ import android.util.Base64;
 
 import android.util.Log;
 
+import com.example.inspection.DrawEventView;
 import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
 import com.example.inspection.dao.LocalScheduleDAO;
@@ -153,7 +154,7 @@ public class SyncManager {
     }
 
 
-    public String syncQuotation(Context context, String appID, List<Uri> uris, JSONArray invoice, JSONArray orderForm, List<Bitmap> graphList) {
+    public String syncQuotation(Context context, String appID, List<Uri> uris, List<Bitmap> graphList, JSONArray invoice, JSONArray orderForm) {
 
 
         try{
@@ -167,25 +168,28 @@ public class SyncManager {
 //                fw.copyForm(b, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
 
                 JSONObject photos = new JSONObject();
-                photos.put("photo",fw.getBase64String());
+                photos.put("photo","1");
                 photoArray.put(photos);
             }
 
             FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
-
+            JSONObject graphs = new JSONObject();
+            int count = 1;
             for (Bitmap b : graphList) {
-                fw.copyForm(b, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-
-                JSONObject graphs = new JSONObject();
-                graphs.put("graph",fw.getBase64String());
+//                fw.copyForm(b, Bitmap.CompressFormat.PNG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
+                String base = DrawEventView.encodeToBase64(b, Bitmap.CompressFormat.PNG, 100);
+//                graphs.put("graph"+count,"1");
+//                count++;
+                graphs.put("graph",DrawEventView.encodeToBase64(b, Bitmap.CompressFormat.PNG, 100));
                 graphArray.put(graphs);
             }
 
+
             toSend.put("appid", appID);
-            if(!photoArray.toString().equalsIgnoreCase("[]")) {
+            if(uris.size()!=0) {
                 toSend.put("photo", photoArray);
             }
-            if(graphList.size() > 0){
+            if(graphList.size()!=0){
                 toSend.put("graph", graphArray);
             }
             toSend.put("invoice", invoice);
@@ -193,13 +197,13 @@ public class SyncManager {
 
 
             Log.d("tosend", toSend.toString());
-//            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadQuotation.php", "POST", toSend);
-//            InputStream is = conn.getInputStream();
-//            Log.i("XXX",stream2String(is));
+            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadQuotation.php", "POST", toSend);
+            InputStream is = conn.getInputStream();
+            Log.i("XXX",stream2String(is));
 
         }catch (JSONException e) {
             e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

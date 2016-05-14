@@ -100,6 +100,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         quotationsMenu.setInvoice(data);
     }
 
+    @Override
+    public void sendGraphMessage(Bitmap encodePhoto) {
+        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
+        quotationsMenu.setGraphList(encodePhoto);
+    }
+
     private void setDatabase() {
         // 建立資料庫物件
         webAppDAO = new WebAppointmentDAO(getApplicationContext());
@@ -230,9 +236,5 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         MainMenu.empID = empID;
     }
 
-    @Override
-    public void sendGraphMessage(Bitmap bitmap) {
-        QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
-        quotationsMenu.setGraphList(bitmap);
-    }
+
 }

@@ -137,7 +137,8 @@ public class QuotationsMenu extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new syncQuotation().execute(photoUriList);
+                String appid = edtAppNo.getText().toString();
+                new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
             }
         });
 
@@ -224,9 +225,13 @@ public class QuotationsMenu extends Fragment {
         delGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (graphContainer.getChildCount() > 0) {
-                    graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
-                    graphList.remove(graphList.size());
+                try{
+                    if(graphContainer.getChildCount() > 0) {
+                        graphContainer.removeViewAt(photoContainer.getChildCount()-1);
+                        graphList.remove(graphList.size());
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -323,7 +328,7 @@ public class QuotationsMenu extends Fragment {
         return result;
     }
 
-    private class syncQuotation extends AsyncTask<List<Uri>, Integer, String> {
+    private class syncQuotation extends AsyncTask<Object, Integer, String> {
 
 
         @Override
@@ -332,10 +337,10 @@ public class QuotationsMenu extends Fragment {
         }
 
         @Override
-        protected String doInBackground(List<Uri>... params) {
+        protected String doInBackground(Object... params) {
             SyncManager syncManager = new SyncManager("uploadPhoto.php");
 
-            return syncManager.syncQuotation(getContext(), "A00000000024", params[0], invoiceJson, orderFormJson, graphList);
+            return syncManager.syncQuotation(getContext(), ((String)params[0]), ((List<Uri>)params[1]), ((List<Bitmap>)params[2]), ((JSONArray)params[3]), ((JSONArray)params[4]));
         }
 
         @Override
