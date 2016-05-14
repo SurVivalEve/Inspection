@@ -133,12 +133,12 @@ public class DrawEventView extends View {
                 x = (int) Math.floor(left);
             if (y < 0)
                 y = (int) Math.floor(top);
-
-            FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "photo");
-            fw.copyForm(preparedToSendBitmap, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-//            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
+//
+//            FileWrapper fw = new FileWrapper(getContext(), FileWrapper.Storage.INTERNAL, "photo");
+//            fw.copyForm(preparedToSendBitmap, Bitmap.CompressFormat.JPEG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
+            preparedToSendBitmap = Bitmap.createBitmap(preparedToSendBitmap, x, y, (int) (Math.ceil(right) - Math.floor(left)) + 50, (int) (Math.ceil(bottom) - Math.floor(top)) + 50);
             //mCanvas.clipRect(left+150f, top+150f, right-150f, bottom-150f);
-            return fw.getBitmap();
+            return preparedToSendBitmap;
         } catch (Exception e) {
             return null;
         }

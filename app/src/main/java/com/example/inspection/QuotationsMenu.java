@@ -145,27 +145,35 @@ public class QuotationsMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 QuotationInvoice quotationInvoice = new QuotationInvoice();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment fragment = fm.findFragmentByTag("quotationInvoice");
 
-
-                if(getActivity().getSupportFragmentManager().findFragmentByTag("quotationInvoice")!=null){
-                    ft.show(getActivity().getSupportFragmentManager().findFragmentByTag("quotationInvoice"));
-                } else {
-                    ft.add(R.id.main_fragment, quotationInvoice, "quotationInvoice").addToBackStack(null).commit();
+                if(fragment == null){
+                    ft.add(R.id.main_fragment,quotationInvoice,"quotationInvoice")
+                        .addToBackStack(null)
+                        .commit();
+                }else {
+                    ft.show(fragment).commit();
                 }
+
+
             }
         });
         orderForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 QuotationOrderForm quotationOrderForm = new QuotationOrderForm();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment fragment = fm.findFragmentByTag("quotationOrderForm");
 
-
-                if(getActivity().getSupportFragmentManager().findFragmentByTag("quotationOrderForm")!=null){
-                    ft.show(getActivity().getSupportFragmentManager().findFragmentByTag("quotationOrderForm"));
-                } else {
-                    ft.add(R.id.main_fragment, quotationOrderForm, "quotationOrderForm").addToBackStack(null).commit();
+                if(fragment == null){
+                    ft.add(R.id.main_fragment,quotationOrderForm,"quotationOrderForm")
+                            .addToBackStack(null)
+                            .commit();
+                }else {
+                    ft.show(fragment).commit();
                 }
             }
         });

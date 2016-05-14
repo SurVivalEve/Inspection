@@ -91,7 +91,7 @@
                             android:id="@+id/addFromGallery"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="3dp"
+                            android:layout_marginRight="3dp"
                             android:layout_weight="0.1"
                             android:background="#FFFFFF"
                             android:src="@drawable/ic_folder_open_24dp" />
@@ -100,7 +100,7 @@
                             android:id="@+id/addFromCamera"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="3dp"
+                            android:layout_marginRight="3dp"
                             android:layout_weight="0.1"
                             android:background="#FFFFFF"
                             android:src="@drawable/ic_photo_camera_24dp" />
@@ -109,7 +109,7 @@
                             android:id="@+id/delPhoto"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="3dp"
+                            android:layout_marginRight="3dp"
                             android:layout_weight="0.1"
                             android:background="#FFFFFF"
                             android:src="@drawable/ic_remove_circle_outline_24dp" />
@@ -146,15 +146,17 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.8"
+                            android:layout_weight="8"
                             android:gravity="center|left"
                             android:text="Graph"
                             android:textSize="20sp" />
 
                         <ImageButton
                             android:id="@+id/addGraph"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="3dp"
+                            android:layout_weight="1"
                             android:layout_gravity="right"
                             android:background="@drawable/ic_add_circle_outline_24dp" />
 
@@ -162,8 +164,8 @@
                             android:id="@+id/delGraph"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_margin="3dp"
-                            android:layout_weight="0.1"
+                            android:layout_marginRight="3dp"
+                            android:layout_weight="1"
                             android:background="#FFFFFF"
                             android:src="@drawable/ic_remove_circle_outline_24dp" />
                     </LinearLayout>

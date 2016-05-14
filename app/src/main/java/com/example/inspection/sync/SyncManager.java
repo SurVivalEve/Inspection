@@ -193,9 +193,9 @@ public class SyncManager {
 
 
             Log.d("tosend", toSend.toString());
-            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadQuotation.php", "POST", toSend);
-            InputStream is = conn.getInputStream();
-            Log.i("XXX",stream2String(is));
+//            HttpURLConnection conn = getHttpConn("http://58.177.9.234/fyp/json/uploadQuotation.php", "POST", toSend);
+//            InputStream is = conn.getInputStream();
+//            Log.i("XXX",stream2String(is));
 
         }catch (JSONException e) {
             e.printStackTrace();
