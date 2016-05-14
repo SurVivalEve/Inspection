@@ -338,7 +338,7 @@ public class QuotationsMenu extends Fragment {
 
         @Override
         protected String doInBackground(Object... params) {
-            SyncManager syncManager = new SyncManager("uploadPhoto.php");
+            SyncManager syncManager = new SyncManager("uploadQuotation.php");
 
             return syncManager.syncQuotation(getContext(), ((String)params[0]), ((List<Uri>)params[1]), ((List<Bitmap>)params[2]), ((JSONArray)params[3]), ((JSONArray)params[4]));
         }
