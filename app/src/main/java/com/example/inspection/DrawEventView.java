@@ -84,6 +84,7 @@ public class DrawEventView extends View {
     int scrWidth;
     int mode;
     boolean drawDot = false;
+    private float x1=0,x2=0,y1=0,y2=0;
 
 
     public DrawEventView(Context context, AttributeSet attrs) {
@@ -433,10 +434,10 @@ public class DrawEventView extends View {
         Log.d("par", "ori: x1 " + x1 + " y1 " + y1 + " x2 " + x2 + " y2 " + y2);
         if(selectedIndex!=-1){
             Float[] tPaths = (Float[]) pathsCollection.toArray(new Float[pathsCollection.size()]);
-            rx = tPaths[selectedIndex];
-            ry = tPaths[selectedIndex+1];
-            x = tPaths[selectedIndex+2];
-            y = tPaths[selectedIndex+3];
+            rx = tPaths[selectedIndex*4];
+            ry = tPaths[selectedIndex*4+1];
+            x = tPaths[selectedIndex*4+2];
+            y = tPaths[selectedIndex*4+3];
             Log.d("par", "ori: rx " + rx + " ry " + ry + " x " + x + " y " + y);
             float slope = (ry-y)/(rx-x);
 
@@ -451,6 +452,10 @@ public class DrawEventView extends View {
             ry = y1;
             x = x2;
             y = y2;
+            this.x1 = rx;
+            this.y1 = ry;
+            this.x2 = x;
+            this.y2 = y;
         }
         p.moveTo(rx, ry);
         p.lineTo(x, y);
@@ -462,10 +467,14 @@ public class DrawEventView extends View {
         Path p = new Path();
         if(selectedIndex!=-1){
             Float[] tPaths = (Float[]) pathsCollection.toArray(new Float[pathsCollection.size()]);
-            rx = tPaths[selectedIndex];
-            ry = tPaths[selectedIndex+1];
-            x = tPaths[selectedIndex+2];
-            y = tPaths[selectedIndex+3];
+            rx = tPaths[selectedIndex*4];
+            ry = tPaths[selectedIndex*4+1];
+            x = tPaths[selectedIndex*4+2];
+            y = tPaths[selectedIndex*4+3];
+            for(int i=0; i<tPaths.length/4; i++){
+                Log.d("xxx"+selectedIndex,"x1:"+tPaths[i*4]+" y1:"+tPaths[i*4+1]+" x:"+tPaths[i*4+2]+" y:"+tPaths[i*4+3]);
+            }
+            Log.d("xxx"+selectedIndex,"x1:"+rx+" y1:"+ry+" x:"+x+" y:"+y);
             float dist = (float) Math.sqrt(Math.pow(rx-x1,2)+Math.pow(ry-y1,2));
             float rDist = (float) Math.sqrt(Math.pow(x-x1,2)+Math.pow(y-y1,2));
             Log.d("pow", Math.pow(2, 3) + "");
@@ -473,9 +482,17 @@ public class DrawEventView extends View {
             if(dist<rDist){
                 x1 = rx;
                 y1 = ry;
+                this.x1 = rx;
+                this.y1 = ry;
+                this.x2 = x2;
+                this.y2 = y2;
             }else{
                 x1 = x;
                 y1 = y;
+                this.x1 = x;
+                this.y1 = y;
+                this.x2 = x2;
+                this.y2 = y2;
             }
 
 
@@ -637,10 +654,17 @@ public class DrawEventView extends View {
                             path.lineTo(x, y);
                     }
 
-                    pathsCollection.add(rx);
-                    pathsCollection.add(ry);
-                    pathsCollection.add(x);
-                    pathsCollection.add(y);
+                    if(mode == 1 || mode ==2) {
+                        pathsCollection.add(x1);
+                        pathsCollection.add(y1);
+                        pathsCollection.add(x2);
+                        pathsCollection.add(y2);
+                    } else {
+                        pathsCollection.add(rx);
+                        pathsCollection.add(ry);
+                        pathsCollection.add(x);
+                        pathsCollection.add(y);
+                    }
                     computeRectF(rx, x, ry, y);
                     Log.d("HIHI", "x:" + x + ", y:" + y + " UP");
                     Log.d("HIHI", paths.add(new Path(path)) + "");
