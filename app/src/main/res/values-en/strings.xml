@@ -28,8 +28,8 @@
     <string name="frag_add_task_phone_number_hint">Phone Number</string>
     <string name="frag_add_task_building_hint">Building</string>
     <string name="frag_add_task_block_hint">Block</string>
-    <string name="frag_add_task_appointment_date_hint">Appointment Date</string>
-    <string name="frag_add_task_appointment_time_hint">Appointment Time</string>
+    <string name="frag_add_task_appointment_date_hint">Appointment Date (YYYY-M-DD)</string>
+    <string name="frag_add_task_appointment_time_hint">Appointment Time (24-Hour)</string>
     <string name="frag_add_task_button">Add Task</string>
 
     <string name="frag_calendar_pre">\u003c pre</string>

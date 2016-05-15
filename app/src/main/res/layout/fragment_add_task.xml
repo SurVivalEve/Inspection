@@ -37,6 +37,8 @@
                 android:id="@+id/custName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textPersonName"
                 android:hint="@string/frag_add_task_customer_name_hint" />
         </android.support.design.widget.TextInputLayout>
 
@@ -49,6 +51,8 @@
                 android:id="@+id/custPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="phone"
                 android:hint="@string/frag_add_task_phone_number_hint" />
         </android.support.design.widget.TextInputLayout>
 
@@ -67,6 +71,7 @@
                     android:id="@+id/custAddressBuilding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
                     android:hint="@string/frag_add_task_building_hint" />
             </android.support.design.widget.TextInputLayout>
 
@@ -80,6 +85,8 @@
                     android:id="@+id/custAddressBlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:singleLine="true"
                     android:hint="@string/frag_add_task_block_hint" />
             </android.support.design.widget.TextInputLayout>
 
@@ -95,6 +102,8 @@
                 android:id="@+id/appointmentDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="date"
                 android:hint="@string/frag_add_task_appointment_date_hint"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -107,6 +116,8 @@
                 android:id="@+id/appointmentTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="time"
                 android:hint="@string/frag_add_task_appointment_time_hint"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -114,14 +125,15 @@
             android:id="@+id/btnAddTask"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:theme="@style/MyButton"
+            android:textColor="#FFFFFF"
             android:text="@string/frag_add_task_button"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+            android:id="@+id/progressBarForAddTask"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

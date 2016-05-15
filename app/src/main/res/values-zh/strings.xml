@@ -28,8 +28,8 @@
     <string name="frag_add_task_phone_number_hint">電話號碼</string>
     <string name="frag_add_task_building_hint">地址</string>
     <string name="frag_add_task_block_hint">單位</string>
-    <string name="frag_add_task_appointment_date_hint">預約日期</string>
-    <string name="frag_add_task_appointment_time_hint">預約時間</string>
+    <string name="frag_add_task_appointment_date_hint">預約日期 (YYYY-M-DD)</string>
+    <string name="frag_add_task_appointment_time_hint">預約時間 (24小時制)</string>
     <string name="frag_add_task_button">加入</string>
 
     <string name="frag_calendar_pre">\u003c 上個月</string>

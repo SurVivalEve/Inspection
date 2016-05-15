@@ -40,6 +40,7 @@
                     android:id="@+id/remark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:hint="@string/frag_quotation_invoice_remark_hint" />
             </android.support.design.widget.TextInputLayout>
 
@@ -52,6 +53,8 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
                     android:hint="@string/frag_quotation_invoice_amount_hint" />
             </android.support.design.widget.TextInputLayout>
 
