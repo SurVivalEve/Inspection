@@ -1,4 +1,4 @@
-package com.example.inspection;
+package com.example.inspection.Dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import com.example.inspection.QuotationInvoice;
+import com.example.inspection.R;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 public class SignpadDialog extends DialogFragment {

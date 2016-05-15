@@ -35,9 +35,8 @@ import java.util.Stack;
 
 public class CalendarMonthlyFragment extends Fragment {
 
-    private String[] weeks = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-    private String[] months = new String[]{"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+    private String[] weeks;
+    private String[] months;
     private LinearLayout weekdayContainerM;
     private TextView[] weekday = new TextView[7];
     private LinearLayout[] dayContainer = new LinearLayout[6];
@@ -76,6 +75,8 @@ public class CalendarMonthlyFragment extends Fragment {
     }
 
     private void init(View view){
+        weeks = getActivity().getResources().getStringArray(R.array.frag_calendar_weeks);
+        months = getActivity().getResources().getStringArray(R.array.frag_calendar_months);
         empID = getArguments().getString("empID");
         refreshSchedule();
 

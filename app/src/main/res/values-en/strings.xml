@@ -55,7 +55,7 @@
     <string name="frag_calendar_month">Month</string>
     <string name="frag_calendar_next">next \u003e</string>
     <string name="frag_calendar_assigned">Assigned:</string>
-    <string name="frag_calendar_not_assigned">Not-assigned</string>
+    <string name="frag_calendar_not_assigned">Not-assigned:</string>
 
     <string name="item_appointment_view_time">time</string>
     <string name="item_weekly_appointment_view_handler">handler</string>
@@ -76,6 +76,23 @@
     <string name="frag_quotation_invoice_signature_employee">Employee:</string>
     <string name="frag_quotation_invoice_save">save</string>
 
+    <string name="frag_quotation_order_form_title">Order Form</string>
+    <string name="frag_quotation_order_form_col1_title">Changing hinge construction：</string>
+    <string name="frag_quotation_order_form_col1_1">Windows</string>
+    <string name="frag_quotation_order_form_col1_2">Hinge Type Total</string>
+    <string name="frag_quotation_order_form_col1_3"></string>
+    <string name="frag_quotation_order_form_col2_title">Switches construction：</string>
+    <string name="frag_quotation_order_form_col2_1">Up-DOwn-Switches</string>
+    <string name="frag_quotation_order_form_col2_2">Seven-Style-Switchess</string>
+    <string name="frag_quotation_order_form_col3_title">Strip construction：</string>
+    <string name="frag_quotation_order_form_col3_1">Anti-aging movable sash strip</string>
+    <string name="frag_quotation_order_form_col4_title">Others：</string>
+    <string name="frag_quotation_order_form_construction_fee_hint">Construction fee (HKD)</string>
+    <string name="frag_quotation_order_form_earnest_money_hint">Earnest money (HKD)</string>
+    <string name="frag_quotation_order_form_owe_money_hint">Owe money (HKD)</string>
+    <string name="frag_quotation_order_form_remark_hint">Remark</string>
+    <string name="frag_quotation_order_form_button">Save</string>
+
     <string name="item_appointment_accept">Accept</string>
     <string name="item_appointment_cancel">Cancel</string>
 
@@ -84,4 +101,59 @@
     <string name="switch_language">Switch language</string>
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
+    <string name="logout">Logout</string>
+
+    <string-array name="frag_recent_job_adapter_titles">
+        <item>@string/recent_job_adapter_title1</item>
+        <item>@string/recent_job_adapter_title2</item>
+    </string-array>
+
+    <string name="recent_job_adapter_title1">Processing</string>
+    <string name="recent_job_adapter_title2">History</string>
+
+    <string-array name="frag_monthly_calendar_weeks">
+        <item>@string/weeks_sun</item>
+        <item>@string/weeks_mon</item>
+        <item>@string/weeks_tue</item>
+        <item>@string/weeks_wed</item>
+        <item>@string/weeks_thu</item>
+        <item>@string/weeks_fri</item>
+        <item>@string/weeks_sat</item>
+    </string-array>
+
+    <string name="weeks_sun">Sun</string>
+    <string name="weeks_mon">Mon</string>
+    <string name="weeks_tue">Tue</string>
+    <string name="weeks_wed">Wed</string>
+    <string name="weeks_thu">Thu</string>
+    <string name="weeks_fri">Fri</string>
+    <string name="weeks_sat">Sat</string>
+
+    <string-array name="frag_monthly_calendar_months">
+        <item>@string/month_january</item>
+        <item>@string/month_february</item>
+        <item>@string/month_march</item>
+        <item>@string/month_april</item>
+        <item>@string/month_may</item>
+        <item>@string/month_june</item>
+        <item>@string/month_july</item>
+        <item>@string/month_august</item>
+        <item>@string/month_september</item>
+        <item>@string/month_october</item>
+        <item>@string/month_november</item>
+        <item>@string/month_december</item>
+    </string-array>
+
+    <string name="month_january">January</string>
+    <string name="month_february">February</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_september">September</string>
+    <string name="month_october">October</string>
+    <string name="month_november">November</string>
+    <string name="month_december">December</string>
 </resources>

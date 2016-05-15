@@ -16,7 +16,7 @@
     <string name="nav_list_quotation">報價表</string>
     <string name="nav_list_appointment">預約</string>
 
-    <string name="nav_list_title_customer">僱客</string>
+    <string name="nav_list_title_customer">顧客</string>
     <string name="nav_list_customer_detail">詳情</string>
     <string name="nav_list_customer_contact">聯絡</string>
 
@@ -32,7 +32,7 @@
     <string name="frag_job_detail_status">未確定</string>
     <string name="frag_job_detail_card_title_phone">電話號碼 :</string>
     <string name="frag_job_detail_phone">67612428</string>
-    <string name="frag_job_detail_card_title_name">僱客名稱 :</string>
+    <string name="frag_job_detail_card_title_name">顧客名稱 :</string>
     <string name="frag_job_detail_name">陳彼得</string>
     <string name="frag_job_detail_card_title_address">地址 :</string>
     <string name="frag_job_detail_address">鰂魚涌海灣街1號華懋交易廣場14樓1403-1405</string>
@@ -43,7 +43,7 @@
     <string name="frag_job_detail_button">報價</string>
 
     <string name="frag_add_task_title">新工作</string>
-    <string name="frag_add_task_customer_name_hint">僱客名稱</string>
+    <string name="frag_add_task_customer_name_hint">顧客名稱</string>
     <string name="frag_add_task_phone_number_hint">電話號碼</string>
     <string name="frag_add_task_building_hint">地址</string>
     <string name="frag_add_task_block_hint">單位</string>
@@ -53,9 +53,9 @@
 
     <string name="frag_calendar_pre">\u003c 上個月</string>
     <string name="frag_calendar_month">月</string>
-    <string name="frag_calendar_next">\u003c 下個月</string>
+    <string name="frag_calendar_next">下個月 \u003e</string>
     <string name="frag_calendar_assigned">已分配:</string>
-    <string name="frag_calendar_not_assigned">未分配</string>
+    <string name="frag_calendar_not_assigned">未分配:</string>
 
     <string name="item_weekly_appointment_view_time">時間</string>
     <string name="item_weekly_appointment_view_handler">負責人</string>
@@ -65,16 +65,33 @@
     <string name="frag_quotation_menu_photo">相片</string>
     <string name="frag_quotation_menu_graph">繪圖</string>
     <string name="frag_quotation_menu_invoice">發票</string>
-    <string name="frag_quotation_menu_order_form">僱客訂製單</string>
+    <string name="frag_quotation_menu_order_form">顧客訂製單</string>
     <string name="frag_quotation_menu_update">更新</string>
 
     <string name="frag_quotation_invoice_title">發票</string>
     <string name="frag_quotation_invoice_remark_hint">備註</string>
     <string name="frag_quotation_invoice_amount_hint">價錢 (HKD)</string>
     <string name="frag_quotation_invoice_signature">簽署</string>
-    <string name="frag_quotation_invoice_signature_customer">僱客:</string>
+    <string name="frag_quotation_invoice_signature_customer">顧客:</string>
     <string name="frag_quotation_invoice_signature_employee">員工:</string>
     <string name="frag_quotation_invoice_save">儲存</string>
+
+    <string name="frag_quotation_order_form_title">顧客訂製單</string>
+    <string name="frag_quotation_order_form_col1_title">換鉸工程：</string>
+    <string name="frag_quotation_order_form_col1_1">扇活窗更換</string>
+    <string name="frag_quotation_order_form_col1_2">窗鉸共</string>
+    <string name="frag_quotation_order_form_col1_3">隻</string>
+    <string name="frag_quotation_order_form_col2_title">開關掣工程：</string>
+    <string name="frag_quotation_order_form_col2_1">扇活窗更換上下開關掣</string>
+    <string name="frag_quotation_order_form_col2_2">扇活窗更換七字形開關掣</string>
+    <string name="frag_quotation_order_form_col3_title">膠條工程：</string>
+    <string name="frag_quotation_order_form_col3_1">扇活窗更換抗老化活動窗扇膠條</string>
+    <string name="frag_quotation_order_form_col4_title">其他：</string>
+    <string name="frag_quotation_order_form_construction_fee_hint">工程費 (HKD)</string>
+    <string name="frag_quotation_order_form_earnest_money_hint">來定 (HKD)</string>
+    <string name="frag_quotation_order_form_owe_money_hint">尚欠 (HKD)</string>
+    <string name="frag_quotation_order_form_remark_hint">備註</string>
+    <string name="frag_quotation_order_form_button">儲存</string>
 
     <string name="item_appointment_accept">接受</string>
     <string name="item_appointment_cancel">取消</string>
@@ -82,4 +99,59 @@
     <string name="switch_language">切換語言</string>
     <string name="english">英語</string>
     <string name="chinese">中文</string>
+    <string name="logout">登出</string>
+
+    <string-array name="frag_recent_job_adapter_titles">
+        <item>@string/recent_job_adapter_title1</item>
+        <item>@string/recent_job_adapter_title2</item>
+    </string-array>
+
+    <string name="recent_job_adapter_title1">進行中</string>
+    <string name="recent_job_adapter_title2">歷史</string>
+
+    <string-array name="frag_calendar_weeks">
+        <item>@string/week_sun</item>
+        <item>@string/week_mon</item>
+        <item>@string/week_tue</item>
+        <item>@string/week_wed</item>
+        <item>@string/week_thu</item>
+        <item>@string/week_fri</item>
+        <item>@string/week_sat</item>
+    </string-array>
+
+    <string name="week_sun">日</string>
+    <string name="week_mon">一</string>
+    <string name="week_tue">二</string>
+    <string name="week_wed">三</string>
+    <string name="week_thu">四</string>
+    <string name="week_fri">五</string>
+    <string name="week_sat">六</string>
+
+    <string-array name="frag_calendar_months">
+        <item>@string/month_january</item>
+        <item>@string/month_february</item>
+        <item>@string/month_march</item>
+        <item>@string/month_april</item>
+        <item>@string/month_may</item>
+        <item>@string/month_june</item>
+        <item>@string/month_july</item>
+        <item>@string/month_august</item>
+        <item>@string/month_september</item>
+        <item>@string/month_october</item>
+        <item>@string/month_november</item>
+        <item>@string/month_december</item>
+    </string-array>
+
+    <string name="month_january">一月</string>
+    <string name="month_february">二月</string>
+    <string name="month_march">三月</string>
+    <string name="month_april">四月</string>
+    <string name="month_may">五月</string>
+    <string name="month_june">六月</string>
+    <string name="month_july">七月</string>
+    <string name="month_august">八月</string>
+    <string name="month_september">九月</string>
+    <string name="month_october">十月</string>
+    <string name="month_november">十一月</string>
+    <string name="month_december">十二月</string>
 </resources>

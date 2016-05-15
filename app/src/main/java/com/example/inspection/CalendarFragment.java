@@ -49,7 +49,7 @@ public class CalendarFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         init(view);
-        new GetSchedule().execute();
+        //new GetSchedule().execute();
 
         //TODO: on item click listeners
         return view;
