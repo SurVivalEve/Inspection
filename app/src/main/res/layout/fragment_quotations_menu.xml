@@ -74,7 +74,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email Address" />
+                    android:hint="@string/frag_quotation_menu_email_address_hint" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>

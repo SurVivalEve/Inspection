@@ -440,11 +440,28 @@ public class DrawEventView extends View {
             y = tPaths[selectedIndex*4+3];
             Log.d("par", "ori: rx " + rx + " ry " + ry + " x " + x + " y " + y);
             float slope = (ry-y)/(rx-x);
-
+            float sqrdist = (x2-x1)*(x2-x1)+(y2-y1)*(y2-y1);
+            double a = slope*slope+1;
+            double b = -2*a*rx;
+            double c = rx*rx*a-sqrdist;
+            Log.d("xxx", "a="+a+" ,b="+b+" ,c="+c);
+            double resultx1 =  (-b+Math.sqrt(b*b-4*a*c))/(2*a);
+            double resultx2 =  (-b-Math.sqrt(b*b-4*a*c))/(2*a);
+            Log.d("xxx", "x1="+resultx1+" , x2="+resultx2);
             rx = x1;
             ry = y1;
-            x = x2;
-            y = (slope*x2 - slope*x1 + y1);
+//            x = x2;
+//            y = (slope*x2 - slope*x1 + y1);
+            if(resultx1>resultx2) {
+                x=(float) resultx1;
+            } else {
+                x=(float) resultx2;
+            }
+            y=slope*(x-rx)+ry;
+            this.x1 = rx;
+            this.y1 = ry;
+            this.x2 = x;
+            this.y2 = y;
             Log.d("par", "after: rx " + rx + " ry " + ry + " x " + x + " y " + y);
             Log.d("par", "after: x1 " + x1 + " y1 " + y1 + " x2 " + x2 + " y2 " + y2);
         } else {
