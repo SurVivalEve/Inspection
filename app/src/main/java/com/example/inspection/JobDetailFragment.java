@@ -89,8 +89,8 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
             data[7] = history.getIsland();
             data[8] = history.getBuilding();
             data[9] = history.getAppid();
-            data[10] = processing.getApptime();
-            data[11] = processing.getEmail();
+            data[10] = history.getApptime();
+            data[11] = history.getEmail();
         } else if (appointment != null) {
             data[0] = appointment.getId();
             data[1] = appointment.getRemark();
@@ -194,6 +194,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
                 QuotationsMenu quotationsMenu = QuotationsMenu.newInstance(id);
                 Bundle bundle = new Bundle();
                 bundle.putString("appid",data[9]);
+                bundle.putString("email",data[11]);
                 quotationsMenu.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_fragment, quotationsMenu, "quotationsMenu")

@@ -141,6 +141,9 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                             appTime.getText().toString().matches(TIME24HOURS_PATTERN)&&
                             custPhoneNumber.getText().toString().matches(PHONE_PATTERN)) {
 
+                        if(appEmail.getText().toString().equalsIgnoreCase(""))
+                            appEmail.setText("N/A");
+
                         String[] data = {this.getArguments().getString(EMP_ID),
                                 custName.getText().toString().trim(),
                                 custPhoneNumber.getText().toString().trim(),

@@ -154,7 +154,7 @@ public class SyncManager {
     }
 
 
-    public String syncQuotation(Context context, String appID, List<Uri> uris, List<Bitmap> graphList, JSONArray invoice, JSONArray orderForm) {
+    public String syncQuotation(Context context, String appID, String email, List<Uri> uris, List<Bitmap> graphList, JSONArray invoice, JSONArray orderForm) {
         String result = "false";
 
         try {
@@ -184,6 +184,7 @@ public class SyncManager {
 
 
             toSend.put("appid", appID);
+            toSend.put("email", email);
             if (uris.size() != 0) {
                 toSend.put("photo", photoArray);
             }
@@ -194,12 +195,11 @@ public class SyncManager {
             toSend.put("orderform", orderForm);
 
 
-            Log.d("tosend", toSend.toString());
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
             result = stream2String(is);
-            Log.i("result", result);
             return result;
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -219,12 +219,12 @@ public class SyncManager {
             toSend.put("flatBlock", flatBlock);
             toSend.put("building", building);
             toSend.put("appointmentTime", appTime);
-            toSend.put("email", email);
             if (appid.equalsIgnoreCase("")) {
                 toSend.put("appid", "");
             } else {
                 toSend.put("appid", appid);
             }
+            toSend.put("email", email);
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
             result = stream2String(is);
