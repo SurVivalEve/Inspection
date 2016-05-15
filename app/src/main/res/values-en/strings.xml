@@ -67,6 +67,7 @@
 
     <string name="frag_quotation_menu_title">Quotation</string>
     <string name="frag_quotation_menu_appointment_number_hint">Appointment No.</string>
+    <string name="frag_quotation_menu_email_address_hint">Email Address</string>
     <string name="frag_quotation_menu_photo">Photos</string>
     <string name="frag_quotation_menu_graph">Graphs</string>
     <string name="frag_quotation_menu_invoice">Invoice</string>

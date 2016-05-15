@@ -67,6 +67,7 @@
 
     <string name="frag_quotation_menu_title">報價表</string>
     <string name="frag_quotation_menu_appointment_number_hint">預約編號</string>
+    <string name="frag_quotation_menu_email_address_hint">電郵地址</string>
     <string name="frag_quotation_menu_photo">相片</string>
     <string name="frag_quotation_menu_graph">繪圖</string>
     <string name="frag_quotation_menu_invoice">發票</string>
