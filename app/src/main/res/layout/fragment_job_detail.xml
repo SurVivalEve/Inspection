@@ -158,6 +158,39 @@
                         android:textColor="@color/secondary"
                         android:textSize="14sp" />
 
+                    <TextView
+                        android:text="Appointment Time"
+                        android:id="@+id/card_apptime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textColor="@color/text"
+                        android:textSize="20sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/dividers" />
+
+                    <TextView
+                        tools:text="2016-05-15 08:26:00"
+                        android:id="@+id/apptime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="20"
+                        android:textColor="@color/secondary"
+                        android:textSize="14sp" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -245,6 +278,39 @@
                     <TextView
                         tools:text="@string/frag_job_detail_name"
                         android:id="@+id/fullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="20"
+                        android:textColor="@color/secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Email"
+                        android:id="@+id/card_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textColor="@color/text"
+                        android:textSize="20sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3px"
+                        android:background="@color/dividers" />
+
+                    <TextView
+                        tools:text="123@123.com"
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"

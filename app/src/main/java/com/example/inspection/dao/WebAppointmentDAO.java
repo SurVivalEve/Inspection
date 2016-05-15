@@ -31,6 +31,7 @@ public class WebAppointmentDAO {
     public static final String BLOCK_COLUMN = "block";
     public static final String DATE_COLUMN = "date";
     public static final String REMARK_COLUMN = "remark";
+    public static final String EMAIL_COLUMN = "email";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
@@ -42,7 +43,8 @@ public class WebAppointmentDAO {
                     BUILDING_COLUMN + " TEXT NOT NULL, " +
                     BLOCK_COLUMN + " TEXT NOT NULL, " +
                     DATE_COLUMN + " TEXT NOT NULL, " +
-                    REMARK_COLUMN + " TEXT)";
+                    REMARK_COLUMN + " TEXT NOT NULL, " +
+                    EMAIL_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -71,6 +73,7 @@ public class WebAppointmentDAO {
         cv.put(BLOCK_COLUMN, app.getBlock());
         cv.put(DATE_COLUMN, app.getDate());
         cv.put(REMARK_COLUMN, app.getRemark());
+        cv.put(EMAIL_COLUMN, app.getEmail());
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -98,6 +101,7 @@ public class WebAppointmentDAO {
         cv.put(BLOCK_COLUMN, app.getBlock());
         cv.put(DATE_COLUMN, app.getDate());
         cv.put(REMARK_COLUMN, app.getRemark());
+        cv.put(EMAIL_COLUMN, app.getEmail());
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
@@ -164,6 +168,7 @@ public class WebAppointmentDAO {
         app.setBlock(cursor.getString(5));
         app.setDate(cursor.getString(6));
         app.setRemark(cursor.getString(7));
+        app.setEmail(cursor.getString(8));
 
         // 回傳結果
         return app;
@@ -182,8 +187,6 @@ public class WebAppointmentDAO {
     }
 
     public void sampleData() {
-        WebAppointment w1 = new WebAppointment("", "Alex", "67612428", "Hong Kong", "4B32", "2016-05-07", "Afternoon");
-        insert(w1);
     }
 
 }

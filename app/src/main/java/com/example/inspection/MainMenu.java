@@ -34,9 +34,10 @@ import java.util.Locale;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
 
-    private static String empID = "E00000000006", empName="Tin Yeah";
+    private static String empID = "E00000000006", empName="On9 Edward";
     private TextView staffID, staffName;
     private ToggleButton toggleButton;
+    private DrawerLayout drawer;
 
     // Local Database init
     private WebAppointmentDAO webAppDAO;
@@ -51,7 +52,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -95,6 +96,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     }
 
+    public void setDrawerLock(boolean x) {
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
     @Override
     public void sendOrderFormMessage(JSONArray data) {
         QuotationsMenu quotationsMenu = (QuotationsMenu) getSupportFragmentManager().findFragmentByTag("quotationsMenu");
@@ -116,12 +121,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private void setDatabase() {
         // 建立資料庫物件
         webAppDAO = new WebAppointmentDAO(getApplicationContext());
-
-        // 如果資料庫是空的，就建立一些範例資料
-        // 這是為了方便測試用的，完成應用程式以後可以拿掉
-//        if(webAppDAO.getCount()==0)
-//            webAppDAO.sampleData();
-
 
     }
 
@@ -249,6 +248,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     public static void setEmpID(String empID) {
         MainMenu.empID = empID;
+    }
+
+    public static String getEmpName() {
+        return empName;
+    }
+
+    public static void setEmpName(String empName) {
+        MainMenu.empName = empName;
     }
 
     public void switchLanguage(String language) {

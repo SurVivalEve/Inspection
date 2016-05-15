@@ -77,7 +77,8 @@ public class AppointmentService extends Service {
                                 o.getString("building"),
                                 o.getString("flatBlock"),
                                 o.getString("date"),
-                                o.getString("remark")
+                                o.getString("remark"),
+                                o.getString("email")
                         );
                         WebAppointmentDAO webAppDAO = new WebAppointmentDAO(getApplicationContext());
 

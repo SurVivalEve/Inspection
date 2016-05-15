@@ -16,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,6 +106,8 @@ public class QuotationsMenu extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quotations_menu, container, false);
         setRetainInstance(true);
         init(view);
+
+        ((MainMenu)getActivity()).setDrawerLock(true);
 
         return view;
     }
@@ -218,8 +221,9 @@ public class QuotationsMenu extends Fragment {
             public void onClick(View v) {
                 try{
                     if (photoContainer.getChildCount() > 0) {
+                        photoUriList.remove(photoUriList.size()-1);
                         photoContainer.removeViewAt(photoContainer.getChildCount()-1);
-                        photoUriList.remove(photoUriList.size());
+
                     }
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -233,8 +237,9 @@ public class QuotationsMenu extends Fragment {
             public void onClick(View v) {
                 try{
                     if(graphContainer.getChildCount() > 0) {
-                        graphContainer.removeViewAt(photoContainer.getChildCount()-1);
-                        graphList.remove(graphList.size());
+                        graphList.remove(graphList.size()-1);
+                        graphContainer.removeViewAt(graphContainer.getChildCount()-1);
+
                     }
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -354,7 +359,7 @@ public class QuotationsMenu extends Fragment {
             super.onPostExecute(s);
 
             if(s.equalsIgnoreCase("false")) {
-                snackbar = Snackbar.make(coordinatorLayout, "Update fail", Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(coordinatorLayout, "Update Fail", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
                 View sbView = snackbar.getView();

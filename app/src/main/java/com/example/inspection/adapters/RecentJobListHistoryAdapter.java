@@ -44,7 +44,7 @@ public class RecentJobListHistoryAdapter extends RecyclerView.Adapter<RecentJobL
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         LocalRecentJob p = histories.get(position);
-        holder.empName.setText("Alex");
+        holder.empName.setText(((MainMenu)context).getEmpName());
         holder.custName.setText(p.getFullname());
         holder.custAddress.setText(p.getBuilding());
         holder.custPhone.setText(p.getPhone());

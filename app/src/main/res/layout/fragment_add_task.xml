@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/addTaskLayout"
@@ -119,6 +120,20 @@
                 android:singleLine="true"
                 android:inputType="time"
                 android:hint="@string/frag_add_task_appointment_time_hint"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/appointmentEmailWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appointmentEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textWebEmailAddress"
+                android:hint="Email Address"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button

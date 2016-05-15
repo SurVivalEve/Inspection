@@ -44,7 +44,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Appointment a = appointments.get(position);
-        holder.empName.setText("Edward");
+        holder.empName.setText(a.getEmpName());
         holder.custName.setText(a.getCustomer().getFullname());
         holder.custPhone.setText(a.getCustomer().getPhone());
         holder.custAddress.setText(a.getBuilding().concat(" "+a.getFlatBlock()));

@@ -173,11 +173,11 @@ public class SyncManager {
             }
 
             FileWrapper fw = new FileWrapper(context, FileWrapper.Storage.INTERNAL, "photo");
-            JSONObject graphs = new JSONObject();
+
             for (Bitmap b : graphList) {
 //                fw.copyForm(b, Bitmap.CompressFormat.PNG, 100, FileWrapper.Behavior.CREATE_ALWAYS);
-                String base = DrawEventView.encodeToBase64(b, Bitmap.CompressFormat.PNG, 100);
-//
+//                String base = DrawEventView.encodeToBase64(b, Bitmap.CompressFormat.PNG, 100);
+                JSONObject graphs = new JSONObject();
                 graphs.put("graph", DrawEventView.encodeToBase64(b, Bitmap.CompressFormat.PNG, 100));
                 graphArray.put(graphs);
             }
@@ -197,10 +197,9 @@ public class SyncManager {
             Log.d("tosend", toSend.toString());
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
-            Log.i("XXX", stream2String(is));
             result = stream2String(is);
+            Log.i("result", result);
             return result;
-
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -220,6 +219,7 @@ public class SyncManager {
             toSend.put("flatBlock", flatBlock);
             toSend.put("building", building);
             toSend.put("appointmentTime", appTime);
+            toSend.put("email", 1);
             if (appid.equalsIgnoreCase("")) {
                 toSend.put("appid", "");
             } else {
@@ -252,13 +252,22 @@ public class SyncManager {
             JSONArray processing = json.optJSONArray("Processing");
 
             if (processing != null) {
-
                 for (int i = 0; i < processing.length(); i++) {
                     JSONObject p = processing.getJSONObject(i);
+                    String title = "N/A", remark = "N/A", status = "N/A", email="N/A";
+                    if(!p.isNull("title"))
+                        title = p.getString("title");
+                    if(!p.isNull("remark"))
+                        remark = p.getString("remark");
+                    if(!p.isNull("tstatus"))
+                        status = p.getString("tstatus");
+                    if(!p.isNull("email"))
+                        email = p.getString("email");
+
                     LocalRecentJob newC = new LocalRecentJob(
-                            p.getString("title"),
-                            p.getString("remark"),
-                            p.getString("tstatus"),
+                            title,
+                            remark,
+                            status,
                             p.getString("phone"),
                             p.getString("fullname"),
                             p.getString("flatBlock"),
@@ -266,7 +275,9 @@ public class SyncManager {
                             p.getString("districtEN"),
                             p.getString("island"),
                             "processing",
-                            p.getString("appointmentID")
+                            p.getString("appointmentID"),
+                            p.getString("appointmentTime"),
+                            email
                     );
 //                    result.getProcessings().add(newC);
                     dao.insert(newC);
@@ -279,18 +290,29 @@ public class SyncManager {
 
                 for (int i = 0; i < history.length(); i++) {
                     JSONObject h = history.getJSONObject(i);
+                    String title = "N/A", remark = "N/A", status = "N/A", email="N/A";
+                    if(!h.isNull("title"))
+                        title = h.getString("title");
+                    if(!h.isNull("remark"))
+                        remark = h.getString("remark");
+                    if(!h.isNull("tstatus"))
+                        status = h.getString("tstatus");
+                    if(!h.isNull("email"))
+                        email = h.getString("email");
                     LocalRecentJob newH = new LocalRecentJob(
-                            h.getString("title"),
-                            h.getString("remark"),
-                            h.getString("tstatus"),
+                            title,
+                            remark,
+                            status,
                             h.getString("phone"),
                             h.getString("fullname"),
                             h.getString("flatBlock"),
                             h.getString("building"),
                             h.getString("districtEN"),
                             h.getString("island"),
-                            "history",
-                            h.getString("appointmentID")
+                            "processing",
+                            h.getString("appointmentID"),
+                            h.getString("appointmentTime"),
+                            email
                     );
 //                    result.getHistories().add(newH);
                     dao.insert(newH);

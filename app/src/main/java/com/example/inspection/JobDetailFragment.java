@@ -52,7 +52,7 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
     private SupportMapFragment mapFragment;
     private Double tpLat = 22.293104, toLng = 114.172586;
-    private String[] data = new String[10];
+    private String[] data = new String[15];
 
 
     @Nullable
@@ -76,6 +76,8 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
             data[7] = processing.getIsland();
             data[8] = processing.getBuilding();
             data[9] = processing.getAppid();
+            data[10] = processing.getApptime();
+            data[11] = processing.getEmail();
         } else if (history != null) {
             data[0] = history.getTitle();
             data[1] = history.getRemark();
@@ -87,6 +89,8 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
             data[7] = history.getIsland();
             data[8] = history.getBuilding();
             data[9] = history.getAppid();
+            data[10] = processing.getApptime();
+            data[11] = processing.getEmail();
         } else if (appointment != null) {
             data[0] = appointment.getId();
             data[1] = appointment.getRemark();
@@ -115,6 +119,8 @@ public class JobDetailFragment extends Fragment implements OnMapReadyCallback {
         ((TextView) view.findViewById(R.id.address)).setText(data[5]);
         ((TextView) view.findViewById(R.id.district)).setText(data[6]);
         ((TextView) view.findViewById(R.id.island)).setText(data[7]);
+        ((TextView) view.findViewById(R.id.apptime)).setText(data[10]);
+        ((TextView) view.findViewById(R.id.email)).setText(data[11]);
         scrollView = (ScrollView) view.findViewById(R.id.detail_scroll);
         ImageView imageView = (ImageView) view.findViewById(R.id.transparent_image);
         ImageView imagecall = (ImageView) view.findViewById(R.id.jobdetails_image_call);

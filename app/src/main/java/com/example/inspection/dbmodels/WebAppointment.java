@@ -14,11 +14,12 @@ public class WebAppointment implements Serializable {
     public String block;
     public String date;
     public String remark;
+    public String email;
 
     public WebAppointment() {
     }
 
-    public WebAppointment(String appId, String name, String phone, String building, String block, String date, String remark) {
+    public WebAppointment(String appId, String name, String phone, String building, String block, String date, String remark, String email) {
         this.appId = appId;
         this.name = name;
         this.phone = phone;
@@ -26,6 +27,7 @@ public class WebAppointment implements Serializable {
         this.block = block;
         this.date = date;
         this.remark = remark;
+        this.email = email;
     }
 
     public long getId() {
@@ -90,5 +92,13 @@ public class WebAppointment implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

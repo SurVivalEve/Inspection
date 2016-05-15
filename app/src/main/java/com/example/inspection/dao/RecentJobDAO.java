@@ -35,13 +35,15 @@ public class RecentJobDAO {
     public static final String ISLAND_COLUMN = "island";
     public static final String WHICH_COLUMN = "which";
     public static final String APP_ID = "appid";
+    public static final String APP_TIME = "apptime";
+    public static final String EMAIL = "email";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    TITLE_COLUMN + " TEXT NOT NULL, " +
-                    REMARK_COLUMN + " TEXT NOT NULL, " +
+                    TITLE_COLUMN + " TEXT, " +
+                    REMARK_COLUMN + " TEXT, " +
                     TSTATUS_COLUMN + " TEXT, " +
                     PHONE_COLUMN + " TEXT NOT NULL, " +
                     FULLNAME_COLUMN + " TEXT NOT NULL, " +
@@ -50,7 +52,9 @@ public class RecentJobDAO {
                     DISTRICT_EN_COLUMN + " TEXT NOT NULL, " +
                     ISLAND_COLUMN + " TEXT NOT NULL, " +
                     WHICH_COLUMN + " TEXT NOT NULL, " +
-                    APP_ID + " TEXT NOT NULL)";
+                    APP_ID + " TEXT NOT NULL, " +
+                    APP_TIME + " TEXT NOT NULL, " +
+                    EMAIL + " TEXT)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -83,6 +87,8 @@ public class RecentJobDAO {
         cv.put(ISLAND_COLUMN, rj.getIsland());
         cv.put(WHICH_COLUMN, rj.getWhich());
         cv.put(APP_ID, rj.getAppid());
+        cv.put(APP_TIME, rj.getApptime());
+        cv.put(EMAIL, rj.getEmail());
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -114,6 +120,8 @@ public class RecentJobDAO {
         cv.put(ISLAND_COLUMN, rj.getIsland());
         cv.put(WHICH_COLUMN, rj.getWhich());
         cv.put(APP_ID, rj.getAppid());
+        cv.put(APP_TIME, rj.getApptime());
+        cv.put(EMAIL, rj.getEmail());
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
@@ -205,6 +213,8 @@ public class RecentJobDAO {
         rj.setIsland(cursor.getString(9));
         rj.setWhich(cursor.getString(10));
         rj.setAppid(cursor.getString(11));
+        rj.setApptime(cursor.getString(12));
+        rj.setEmail(cursor.getString(13));
 
         // 回傳結果
         return rj;

@@ -18,11 +18,13 @@ public class LocalRecentJob implements Serializable {
     private String island;
     private String which;
     private String appid;
+    private String apptime;
+    private String email;
 
     public LocalRecentJob() {
     }
 
-    public LocalRecentJob(String title, String remark, String tstatus, String phone, String fullname, String flatBlock, String building, String districtEN, String island, String which, String appid) {
+    public LocalRecentJob(String title, String remark, String tstatus, String phone, String fullname, String flatBlock, String building, String districtEN, String island, String which, String appid, String apptime, String email) {
         this.title = title;
         this.remark = remark;
         this.tstatus = tstatus;
@@ -34,7 +36,8 @@ public class LocalRecentJob implements Serializable {
         this.island = island;
         this.which = which;
         this.appid = appid;
-
+        this.apptime = apptime;
+        this.email = email;
     }
 
     public long getId() {
@@ -131,5 +134,21 @@ public class LocalRecentJob implements Serializable {
 
     public void setAppid(String appid) {
         this.appid = appid;
+    }
+
+    public String getApptime() {
+        return apptime;
+    }
+
+    public void setApptime(String apptime) {
+        this.apptime = apptime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

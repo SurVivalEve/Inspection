@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class AddTaskFragment extends Fragment implements View.OnClickListener {
-    private EditText custName, custPhoneNumber, building, block, appDate, appTime;
+    private EditText custName, custPhoneNumber, building, block, appDate, appTime, appEmail;
     private Button btnAddTask;
     private CoordinatorLayout coordinatorLayout;
     private String[] inputData;
@@ -70,6 +70,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                 building.setText(webApp.getBuilding());
                 block.setText(webApp.getBlock());
                 appDate.setText(webApp.getDate());
+                appEmail.setText(webApp.getEmail());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,6 +96,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
         block = (EditText) view.findViewById(R.id.custAddressBlock);
         appDate = (EditText) view.findViewById(R.id.appointmentDate);
         appTime = (EditText) view.findViewById(R.id.appointmentTime);
+        appEmail = (EditText) view.findViewById(R.id.appointmentEmail);
         btnAddTask = (Button) view.findViewById(R.id.btnAddTask);
         bar = (ProgressBar) view.findViewById(R.id.progressBarForAddTask);
 

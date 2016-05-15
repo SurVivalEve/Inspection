@@ -44,7 +44,7 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         LocalRecentJob p = processings.get(position);
-        holder.empName.setText("Alex");
+        holder.empName.setText(((MainMenu)context).getEmpName());
         holder.custName.setText(p.getFullname());
         holder.custAddress.setText(p.getBuilding());
         holder.custPhone.setText(p.getPhone());
