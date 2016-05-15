@@ -47,7 +47,7 @@ public class RecentJobFragment extends Fragment {
         //Fragment+ViewPager+FragmentViewPager
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_recent_job);
 
-        RecentJobAdapter adapter = new RecentJobAdapter(getChildFragmentManager(),getContext());
+        RecentJobAdapter adapter = new RecentJobAdapter(getChildFragmentManager(),getContext(), getResources().getStringArray(R.array.frag_recent_job_adapter_titles));
 
         viewPager.setAdapter(adapter);
 
@@ -110,14 +110,14 @@ public class RecentJobFragment extends Fragment {
                     public void onClick(View v) {
                         new GetPersonalSchedule().execute(String.valueOf(getArguments().get(EMP_ID)));
 
-                        viewPager.setAdapter(new RecentJobAdapter(getChildFragmentManager(),getContext()));
+                        viewPager.setAdapter(new RecentJobAdapter(getChildFragmentManager(),getContext(), getResources().getStringArray(R.array.frag_recent_job_adapter_titles)));
                     }
                 });
 
                 snackbar.show();
             }
 
-            RecentJobAdapter adapter = new RecentJobAdapter(getChildFragmentManager(),getContext());
+            RecentJobAdapter adapter = new RecentJobAdapter(getChildFragmentManager(),getContext(), getResources().getStringArray(R.array.frag_recent_job_adapter_titles));
 
             viewPager.setAdapter(adapter);
 

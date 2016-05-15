@@ -29,15 +29,14 @@ import java.util.Stack;
 
 public class CalendarWeeklyFragment extends Fragment {
 
-    private String[] weeks = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    private String[] weeks;
     private String[] timeMarks = new String[]{"00", "01", "02", "03", "04", "05", "06",
             "07", "08", "09", "10", "11", "12", "13", "14", "15", "16",
             "17", "18", "19", "20", "21", "22", "23", "00"};
     private LinearLayout weekdayContainerW, timeMark;
-    private ScrollView weekDetailScroll;
     private TextView[] weekday = new TextView[7];
     private LinearLayout[] dayDetailContainer = new LinearLayout[7];
-    private View[] emptyViews = new View[(timeMarks.length-1)*weeks.length];
+    private View[] emptyViews = new View[(timeMarks.length-1)*7];
     private int currentMonth, currentYear, currentDay, currentWeekDay;
     private LayoutInflater layoutInflater;
     private Schedule schedule = new Schedule();
@@ -71,10 +70,11 @@ public class CalendarWeeklyFragment extends Fragment {
     }
 
     private void init(View view){
+        weeks = getActivity().getResources().getStringArray(R.array.frag_calendar_weeks);
+
         empID = getArguments().getString("empID");
         refreshSchedule();
 
-        weekDetailScroll = (ScrollView) view.findViewById(R.id.weekDetailScroll);
         weekdayContainerW = (LinearLayout) view.findViewById(R.id.weekdayContainerW);
         timeMark = (LinearLayout) view.findViewById(R.id.timeMark);
         for(int i=0; i<7; i++) {

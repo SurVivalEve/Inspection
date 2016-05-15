@@ -42,7 +42,7 @@
             <menu>
                 <item
                     android:id="@+id/nav_setting"
-                    android:icon="@drawable/ic_menu_cust_details"
+                    android:icon="@drawable/ic_settings_24dp1"
                     android:title="@string/nav_list_other_setting" />
             </menu>
         </item>

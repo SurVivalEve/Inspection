@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Order Form"
+                    android:text="@string/frag_quotation_order_form_title"
                     android:layout_gravity="center_horizontal"/>
 
                 <View
@@ -46,7 +46,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Changing hinge construction："
+                        android:text="@string/frag_quotation_order_form_col1_title"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
 
@@ -74,7 +74,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Switches construction："
+                        android:text="@string/frag_quotation_order_form_col2_title"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -102,7 +102,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="2dp"
-                            android:text="Up-DOwn-Switches"/>
+                            android:text="@string/frag_quotation_order_form_col2_1"/>
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -121,7 +121,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="2dp"
-                            android:text="Seven-Style-Switches"/>
+                            android:text="@string/frag_quotation_order_form_col2_2"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -134,7 +134,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Strip construction："
+                        android:text="@string/frag_quotation_order_form_col3_title"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
 
@@ -162,7 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="Anti-aging movable sash strip"/>
+                            android:text="@string/frag_quotation_order_form_col3_1"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -175,7 +175,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Others："
+                        android:text="@string/frag_quotation_order_form_col4_title"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
 
@@ -205,7 +205,7 @@
                         android:id="@+id/constructionFee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Construction fee"
+                        android:hint="@string/frag_quotation_order_form_construction_fee_hint"
                         android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -219,7 +219,7 @@
                         android:id="@+id/earnest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Earnest money"
+                        android:hint="@string/frag_quotation_order_form_earnest_money_hint"
                         android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -233,7 +233,7 @@
                         android:id="@+id/owe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Owe money"
+                        android:hint="@string/frag_quotation_order_form_owe_money_hint"
                         android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -247,7 +247,7 @@
                         android:id="@+id/remark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Remark" />
+                        android:hint="@string/frag_quotation_order_form_remark_hint" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
@@ -260,7 +260,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
                     android:textColor="#FFFFFF"
-                    android:text="Save"/>
+                    android:text="@string/frag_quotation_order_form_button"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -24,10 +24,16 @@ public class Login extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-
         PreferenceUtil.init(this);
-        switchLanguage("en");
+        if(!PreferenceUtil.getString("language", "").equals(getCurrentLanguage()) && !PreferenceUtil.getString("language", "").equals("")) {
+            switchLanguage(PreferenceUtil.getString("language", ""));
+            finish();
+            Intent i = new Intent(this, Login.class);
+            startActivity(i);
+        }
+
+        setContentView(R.layout.login);
+        //switchLanguage("en");
 
         eT_username = (EditText) findViewById(R.id.eT_username);
         eT_password = (EditText) findViewById(R.id.eT_password);
@@ -82,16 +88,24 @@ public class Login extends Activity {
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
         DisplayMetrics dm = resources.getDisplayMetrics();
-        if (language.equals("en"))
-        {
+        if (language.equals("en")) {
             config.locale = Locale.ENGLISH;
-        }
-        else
-        {
-            config.locale = Locale.SIMPLIFIED_CHINESE;
+        } else if (language.equals("zh")) {
+            config.locale = Locale.TRADITIONAL_CHINESE;
         }
         resources.updateConfiguration(config, dm);
 
         PreferenceUtil.commitString("language", language);
+    }
+
+    public String getCurrentLanguage(){
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        if(config.locale == Locale.ENGLISH){
+            return "en";
+        } else if (config.locale == Locale.TRADITIONAL_CHINESE){
+            return "zh";
+        }
+        return "";
     }
 }

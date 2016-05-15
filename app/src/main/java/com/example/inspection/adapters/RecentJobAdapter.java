@@ -9,12 +9,13 @@ import com.example.inspection.RecentJobListFragment;
 
 public class RecentJobAdapter extends FragmentPagerAdapter {
     public final int COUNT = 2;
-    private String[] titles = new String[]{"Processing", "History"};
+    private String[] titles;
     private Context context;
 
-    public RecentJobAdapter(FragmentManager fm, Context context) {
+    public RecentJobAdapter(FragmentManager fm, Context context, String[] titles) {
         super(fm);
         this.context = context;
+        this.titles = titles;
     }
 
     @Override
