@@ -147,7 +147,8 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
                                 block.getText().toString().trim(),
                                 building.getText().toString().trim(),
                                 appDate.getText().toString().concat(" " + appTime.getText().toString().trim()).trim(),
-                                appid};
+                                appid,
+                                appEmail.getText().toString().trim()};
                         inputData = data.clone();
 
                         new addTask().execute(data);
@@ -201,7 +202,7 @@ public class AddTaskFragment extends Fragment implements View.OnClickListener {
 
             publishProgress(progress_status);
 
-            return syncManager.syncAppointment(params[0], params[1], params[2], params[3], params[4], params[5], params[6]);
+            return syncManager.syncAppointment(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]);
         }
 
 

@@ -146,8 +146,34 @@ public class QuotationsMenu extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String appid = edtAppNo.getText().toString();
-                new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+
+                if(invoiceJson==null){
+                    snackbar = Snackbar.make(coordinatorLayout, "Invoice must include", Snackbar.LENGTH_LONG);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+
+                    snackbar.setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String appid = edtAppNo.getText().toString();
+                            new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+                        }
+                    });
+
+                    snackbar.setActionTextColor(Color.RED);
+
+
+                    snackbar.show();
+                } else {
+                    String appid = edtAppNo.getText().toString();
+                    new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+                }
+
+
+
             }
         });
 

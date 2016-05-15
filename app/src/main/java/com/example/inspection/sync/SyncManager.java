@@ -209,7 +209,7 @@ public class SyncManager {
 
     }
 
-    public String syncAppointment(String empid, String custName, String custPhone, String flatBlock, String building, String appTime, String appid) {
+    public String syncAppointment(String empid, String custName, String custPhone, String flatBlock, String building, String appTime, String appid, String email) {
         String result = "";
         try {
             JSONObject toSend = new JSONObject();
@@ -219,7 +219,7 @@ public class SyncManager {
             toSend.put("flatBlock", flatBlock);
             toSend.put("building", building);
             toSend.put("appointmentTime", appTime);
-            toSend.put("email", 1);
+            toSend.put("email", email);
             if (appid.equalsIgnoreCase("")) {
                 toSend.put("appid", "");
             } else {
