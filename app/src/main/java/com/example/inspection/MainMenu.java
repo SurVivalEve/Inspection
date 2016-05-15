@@ -1,6 +1,8 @@
 package com.example.inspection;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +28,8 @@ import com.example.inspection.service.AppointmentService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.Locale;
 
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
@@ -171,6 +176,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             case R.id.nav_custContact:
 
                 break;
+            case R.id.nav_setting:
+                switchLanguage("zh");
+                finish();
+                Intent i = new Intent(this, MainMenu.class);
+                i.putExtra("empID", empID);
+                i.putExtra("empName", empName);
+                startActivity(i);
+                break;
             default:
                 break;
         }
@@ -238,5 +251,20 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         MainMenu.empID = empID;
     }
 
+    public void switchLanguage(String language) {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        if (language.equals("en"))
+        {
+            config.locale = Locale.ENGLISH;
+        }
+        else
+        {
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        }
+        resources.updateConfiguration(config, dm);
 
+        PreferenceUtil.commitString("language", language);
+    }
 }
