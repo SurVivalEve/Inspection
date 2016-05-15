@@ -30,10 +30,14 @@
     <string name="frag_job_detail_remark">請先付款!</string>
     <string name="frag_job_detail_card_title_status">狀態 :</string>
     <string name="frag_job_detail_status">未確定</string>
+    <string name="frag_job_detail_card_title_appointment_time">預約時間 :</string>
+    <string name="frag_job_detail_appointment_time">2016-05-15 08:26:00</string>
     <string name="frag_job_detail_card_title_phone">電話號碼 :</string>
     <string name="frag_job_detail_phone">67612428</string>
     <string name="frag_job_detail_card_title_name">顧客名稱 :</string>
     <string name="frag_job_detail_name">陳彼得</string>
+    <string name="frag_job_detail_card_title_email">電郵地址 :</string>
+    <string name="frag_job_detail_email">123@123.com</string>
     <string name="frag_job_detail_card_title_address">地址 :</string>
     <string name="frag_job_detail_address">鰂魚涌海灣街1號華懋交易廣場14樓1403-1405</string>
     <string name="frag_job_detail_card_title_district">地區 :</string>
@@ -49,6 +53,7 @@
     <string name="frag_add_task_block_hint">單位</string>
     <string name="frag_add_task_appointment_date_hint">預約日期 (YYYY-M-DD)</string>
     <string name="frag_add_task_appointment_time_hint">預約時間 (24小時制)</string>
+    <string name="frag_add_task_email_address_hint">電郵地址</string>
     <string name="frag_add_task_button">加入</string>
 
     <string name="frag_calendar_pre">\u003c 上個月</string>
@@ -96,10 +101,9 @@
     <string name="item_appointment_accept">接受</string>
     <string name="item_appointment_cancel">取消</string>
 
-    <string name="switch_language">切換語言</string>
-    <string name="english">英語</string>
-    <string name="chinese">中文</string>
-    <string name="logout">登出</string>
+    <string name="frag_setting_title">設定</string>
+    <string name="frag_setting_switch_language">語言</string>
+    <string name="frag_setting_logout">登出</string>
 
     <string-array name="frag_recent_job_adapter_titles">
         <item>@string/recent_job_adapter_title1</item>
