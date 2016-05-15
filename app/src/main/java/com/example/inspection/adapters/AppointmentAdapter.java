@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.custAddress.setText(webApp.getBuilding()+" "+webApp.getBlock());
         holder.custPhone.setText(webApp.getPhone());
         holder.custDate.setText(webApp.getDate());
-        holder.custRemark.setText(webApp.getRemark());
+        String[] x = webApp.getRemark().split(";");
+        holder.custRemark.setText(x[0]);
+        holder.custRemark2.setText(x[1]);
         holder.setWebApp(webApp);
     }
 
@@ -62,7 +65,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView custName, custPhone, custAddress, custDate, custRemark;
+        public TextView custName, custPhone, custAddress, custDate, custRemark, custRemark2;
         public Button btnAccept, btnCancel;
         public WebAppointment webApp;
         public WebAppointmentDAO webAppDAO = new WebAppointmentDAO(context);
@@ -76,6 +79,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             custAddress = (TextView) itemView.findViewById(R.id.webCustAddress);
             custDate = (TextView) itemView.findViewById(R.id.webCustDate);
             custRemark = (TextView) itemView.findViewById(R.id.webCustRemark);
+            custRemark2 = (TextView) itemView.findViewById(R.id.webCustremark2);
 
             itemView.setOnClickListener(itemViewClicked);
             btnAccept.setOnClickListener(accept);
