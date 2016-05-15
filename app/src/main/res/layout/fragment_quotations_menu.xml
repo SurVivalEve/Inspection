@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cdlayoutForQuotationMenu"
     android:background="@android:color/background_light">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,6 +39,8 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:inputType="text"
+                    android:singleLine="true"
                     android:id="@+id/edtAppNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,12 +48,12 @@
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
+                android:theme="@style/MyButton2"
                 android:id="@+id/findAppointment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="6dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_for_button"
                 android:src="@drawable/ic_search_24dp" />
         </LinearLayout>
 
@@ -88,6 +91,7 @@
                             android:textSize="20sp" />
 
                         <ImageButton
+                            android:theme="@style/MyButton2"
                             android:id="@+id/addFromGallery"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -97,6 +101,7 @@
                             android:src="@drawable/ic_folder_open_24dp" />
 
                         <ImageButton
+                            android:theme="@style/MyButton2"
                             android:id="@+id/addFromCamera"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -106,6 +111,7 @@
                             android:src="@drawable/ic_photo_camera_24dp" />
 
                         <ImageButton
+                            android:theme="@style/MyButton2"
                             android:id="@+id/delPhoto"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -152,21 +158,21 @@
                             android:textSize="20sp" />
 
                         <ImageButton
+                            android:theme="@style/MyButton2"
                             android:id="@+id/addGraph"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="3dp"
-                            android:background="#FFFFFF"
                             android:layout_weight="1"
                             android:layout_gravity="right"
                             android:src="@drawable/ic_add_circle_outline_24dp" />
 
                         <ImageButton
+                            android:theme="@style/MyButton2"
                             android:id="@+id/delGraph"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="3dp"
-                            android:background="#FFFFFF"
                             android:layout_weight="1"
                             android:src="@drawable/ic_remove_circle_outline_24dp" />
                     </LinearLayout>
@@ -205,31 +211,34 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:theme="@style/MyButton"
+                        android:textColor="#FFFFFF"
                         android:id="@+id/invoice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_margin="1dp"
                         android:layout_weight="1"
-                        android:background="?attr/colorPrimary"
                         android:text="@string/frag_quotation_menu_invoice" />
 
                     <Button
+                        android:theme="@style/MyButton"
+                        android:textColor="#FFFFFF"
                         android:id="@+id/orderForm"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_margin="1dp"
                         android:layout_weight="1"
-                        android:background="?attr/colorPrimary"
                         android:text="@string/frag_quotation_menu_order_form" />
                 </LinearLayout>
 
                 <Button
+                    android:theme="@style/MyButton"
+                    android:textColor="#FFFFFF"
                     android:id="@+id/btnUpdateQuotation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_margin="1dp"
                     android:layout_weight="0.7"
-                    android:background="?attr/colorPrimary"
                     android:text="@string/frag_quotation_menu_update" />
             </LinearLayout>
 
