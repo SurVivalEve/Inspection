@@ -39,7 +39,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:text="Job Details"
+                        android:text="@string/frag_job_detail_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -58,7 +58,7 @@
 
 
                     <TextView
-                        android:text="Title :"
+                        android:text="@string/frag_job_detail_card_title"
                         android:id="@+id/card_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Job 1"
+                        tools:text="@string/frag_job_detail_job_title"
                         android:id="@+id/jtitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
 
 
                     <TextView
-                        android:text="Remark :"
+                        android:text="@string/frag_job_detail_card_title_Remark"
                         android:id="@+id/card_remark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Need to pay first!"
+                        tools:text="@string/frag_job_detail_remark"
                         android:id="@+id/remark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:text="Status :"
+                        android:text="@string/frag_job_detail_card_title_status"
                         android:id="@+id/card_tstatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Unconfirmed"
+                        tools:text="@string/frag_job_detail_status"
                         android:id="@+id/tstatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                             android:layout_weight="0.22">
 
                             <TextView
-                                android:text="Phone :"
+                                android:text="@string/frag_job_detail_card_title_phone"
                                 android:id="@+id/card_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                                 android:background="@color/dividers" />
 
                             <TextView
-                                tools:text="67612428"
+                                tools:text="@string/frag_job_detail_phone"
                                 android:id="@+id/phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:text="Name :"
+                        android:text="@string/frag_job_detail_card_title_name"
                         android:id="@+id/card_fullname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Peter Chan"
+                        tools:text="@string/frag_job_detail_name"
                         android:id="@+id/fullname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:text="Address :"
+                        android:text="@string/frag_job_detail_card_title_address"
                         android:id="@+id/card_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Room 1403-5, 14\/F, Chinachem Exchange Square, 1 Hoi Wan Street, Quarry Bay"
+                        tools:text="@string/frag_job_detail_address"
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -293,7 +293,7 @@
 
 
                     <TextView
-                        android:text="District :"
+                        android:text="@string/frag_job_detail_card_title_district"
                         android:id="@+id/card_district"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -311,7 +311,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Wan Chai District"
+                        tools:text="@string/frag_job_detail_district"
                         android:id="@+id/district"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -326,7 +326,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:text="Island :"
+                        android:text="@string/frag_job_detail_card_title_island"
                         android:id="@+id/card_island"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -344,7 +344,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="Hong Kong Island"
+                        tools:text="@string/frag_job_detail_island"
                         android:id="@+id/island"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -395,7 +395,8 @@
                 android:layout_marginTop="25dp"
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"
-                android:text="Create Quotation"/>
+                android:text="@string/frag_job_detail_button"/>
+
 
         </LinearLayout>
     </ScrollView>

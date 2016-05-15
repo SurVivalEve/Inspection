@@ -31,7 +31,7 @@
                     android:gravity="center"
                     android:textStyle="italic"
                     android:textSize="15sp"
-                    android:text="\u003c pre"
+                    android:text="@string/frag_calendar_pre"
                     android:clickable="true"/>
 
                 <TextView
@@ -42,7 +42,7 @@
                     android:gravity="center"
                     android:textSize="25sp"
                     android:textColor="@android:color/black"
-                    android:text="Month"/>
+                    android:text="@string/frag_calendar_month"/>
 
                 <TextView
                     android:id="@+id/next"
@@ -54,7 +54,7 @@
                     android:layout_alignParentBottom="true"
                     android:textStyle="italic"
                     android:textSize="15sp"
-                    android:text="next \u003e"
+                    android:text="@string/frag_calendar_next"
                     android:clickable="true"/>
 
             </RelativeLayout>
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="assigned:"/>
+                    android:text="@string/frag_calendar_assigned"/>
                 <TextView
                     android:id="@+id/assignDayNum"
                     android:layout_width="wrap_content"
@@ -191,7 +191,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:text="not-assigned:"/>
+                    android:text="@string/frag_calendar_not_assigned"/>
                 <TextView
                     android:id="@+id/notAssignDayNum"
                     android:layout_width="wrap_content"
