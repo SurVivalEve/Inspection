@@ -30,10 +30,14 @@
     <string name="frag_job_detail_remark">Need to pay first!</string>
     <string name="frag_job_detail_card_title_status">Status :</string>
     <string name="frag_job_detail_status">Unconfirmed</string>
+    <string name="frag_job_detail_card_title_appointment_time">Appointment Time :</string>
+    <string name="frag_job_detail_appointment_time">2016-05-15 08:26:00</string>
     <string name="frag_job_detail_card_title_phone">Phone :</string>
     <string name="frag_job_detail_phone">67612428</string>
     <string name="frag_job_detail_card_title_name">Name :</string>
     <string name="frag_job_detail_name">Peter Chan</string>
+    <string name="frag_job_detail_card_title_email">Email :</string>
+    <string name="frag_job_detail_email">123@123.com</string>
     <string name="frag_job_detail_card_title_address">Address :</string>
     <string name="frag_job_detail_address">Room 1403-5, 14\/F, Chinachem Exchange Square, 1 Hoi Wan Street, Quarry Bay</string>
     <string name="frag_job_detail_card_title_district">District :</string>
@@ -49,6 +53,7 @@
     <string name="frag_add_task_block_hint">Block</string>
     <string name="frag_add_task_appointment_date_hint">Appointment Date (YYYY-M-DD)</string>
     <string name="frag_add_task_appointment_time_hint">Appointment Time (24-Hour)</string>
+    <string name="frag_add_task_email_address_hint">Email Address</string>
     <string name="frag_add_task_button">Add Task</string>
 
     <string name="frag_calendar_pre">\u003c pre</string>
@@ -97,11 +102,8 @@
     <string name="item_appointment_cancel">Cancel</string>
 
     <string name="frag_setting_title">Setting</string>
-
-    <string name="switch_language">Switch language</string>
-    <string name="english">English</string>
-    <string name="chinese">Chinese</string>
-    <string name="logout">Logout</string>
+    <string name="frag_setting_switch_language">Language</string>
+    <string name="frag_setting_logout">Logout</string>
 
     <string-array name="frag_recent_job_adapter_titles">
         <item>@string/recent_job_adapter_title1</item>
@@ -111,7 +113,7 @@
     <string name="recent_job_adapter_title1">Processing</string>
     <string name="recent_job_adapter_title2">History</string>
 
-    <string-array name="frag_monthly_calendar_weeks">
+    <string-array name="frag_calendar_weeks">
         <item>@string/weeks_sun</item>
         <item>@string/weeks_mon</item>
         <item>@string/weeks_tue</item>
@@ -129,7 +131,7 @@
     <string name="weeks_fri">Fri</string>
     <string name="weeks_sat">Sat</string>
 
-    <string-array name="frag_monthly_calendar_months">
+    <string-array name="frag_calendar_months">
         <item>@string/month_january</item>
         <item>@string/month_february</item>
         <item>@string/month_march</item>

@@ -159,7 +159,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:text="Appointment Time"
+                        android:text="@string/frag_job_detail_card_title_appointment_time"
                         android:id="@+id/card_apptime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="2016-05-15 08:26:00"
+                        tools:text="@string/frag_job_detail_appointment_time"
                         android:id="@+id/apptime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:text="Email"
+                        android:text="@string/frag_job_detail_card_title_email"
                         android:id="@+id/card_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -309,7 +309,7 @@
                         android:background="@color/dividers" />
 
                     <TextView
-                        tools:text="123@123.com"
+                        tools:text="@string/frag_job_detail_email"
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

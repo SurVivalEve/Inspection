@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Setting"
+            android:text="@string/frag_setting_title"
             android:layout_gravity="center_horizontal"/>
 
         <View
@@ -30,10 +30,16 @@
 
 
         <Button
-            android:id="@+id/btnAddTask"
+            android:id="@+id/switchLanguage"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/frag_add_task_button"/>
+            android:text="@string/frag_setting_switch_language"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/frag_setting_logout"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
