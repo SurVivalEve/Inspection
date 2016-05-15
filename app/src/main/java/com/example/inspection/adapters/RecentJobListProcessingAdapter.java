@@ -48,6 +48,7 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
         holder.custName.setText(p.getFullname());
         holder.custAddress.setText(p.getBuilding());
         holder.custPhone.setText(p.getPhone());
+        holder.apptime.setText(p.getApptime());
         holder.setProcessing(p);
     }
 
@@ -60,12 +61,13 @@ public class RecentJobListProcessingAdapter extends RecyclerView.Adapter<RecentJ
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //reduce findViewById
-        public TextView custName, custPhone, custAddress, empName;
+        public TextView custName, custPhone, custAddress, empName, apptime;
         public CircleImageView custSexImage;
         public LocalRecentJob processing;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            apptime = (TextView) itemView.findViewById(R.id.recentjob_apptime);
             empName = (TextView) itemView.findViewById(R.id.recentjob_empName);
             custName = (TextView) itemView.findViewById(R.id.recentjob_custName);
             custPhone = (TextView) itemView.findViewById(R.id.recentjob_custPhone);

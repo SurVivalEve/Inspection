@@ -47,7 +47,7 @@ public class QuotationsMenu extends Fragment {
     private ImageButton btnGallery, btnCamera, delPhoto, addGraph, delGraph, findAppointment;
     private LinearLayout photoContainer, graphContainer;
     private CoordinatorLayout coordinatorLayout;
-    private EditText edtAppNo;
+    private EditText edtAppNo, edtEmail;
 
     public Snackbar snackbar;
 
@@ -72,12 +72,8 @@ public class QuotationsMenu extends Fragment {
         this.invoiceJson = invoice;
     }
 
-    public void setText(String text) {
-        edtAppNo.setText(text);
-    }
-
     public void setGraphList(Bitmap bitmap) {
-        if(bitmap != null) {
+        if (bitmap != null) {
             graphList.add(bitmap);
 
             ImageView imageView = new ImageView(getContext());
@@ -107,7 +103,7 @@ public class QuotationsMenu extends Fragment {
         setRetainInstance(true);
         init(view);
 
-        ((MainMenu)getActivity()).setDrawerLock(true);
+        ((MainMenu) getActivity()).setDrawerLock(true);
 
         return view;
     }
@@ -116,6 +112,7 @@ public class QuotationsMenu extends Fragment {
         empID = getArguments().getString(EMP_ID);
         update = (Button) view.findViewById(R.id.btnUpdateQuotation);
         edtAppNo = (EditText) view.findViewById(R.id.edtAppNo);
+        edtEmail = (EditText) view.findViewById(R.id.edtEmail);
         invoice = (Button) view.findViewById(R.id.invoice);
         orderForm = (Button) view.findViewById(R.id.orderForm);
 
@@ -135,9 +132,12 @@ public class QuotationsMenu extends Fragment {
 
         try {
             String appid = (String) this.getArguments().get("appid");
-            if (appid != null) {
+            String email = (String) this.getArguments().get("email");
+            if (appid != null && email != null) {
                 edtAppNo.setText(appid);
+                edtEmail.setText(email);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,8 +146,28 @@ public class QuotationsMenu extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String appid = edtAppNo.getText().toString();
-                new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+
+                String appid = edtAppNo.getText().toString().trim();
+                String email = edtEmail.getText().toString().trim();
+
+                if(appid == null || appid.isEmpty() || appid.equalsIgnoreCase("") &&
+                        email == null || email.isEmpty() || email.equalsIgnoreCase("")) {
+
+                    snackbar = Snackbar.make(coordinatorLayout, "Appointemnt No. and Email are require", Snackbar.LENGTH_LONG);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+
+                    snackbar.show();
+
+                } else {
+                    new syncQuotation().execute(appid, email, photoUriList, graphList, invoiceJson, orderFormJson);
+                }
+
+
+
             }
         });
 
@@ -159,11 +179,11 @@ public class QuotationsMenu extends Fragment {
                 FragmentTransaction ft = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentByTag("quotationInvoice");
 
-                if(fragment == null){
-                    ft.add(R.id.main_fragment,quotationInvoice,"quotationInvoice")
-                        .addToBackStack(null)
-                        .commit();
-                }else {
+                if (fragment == null) {
+                    ft.add(R.id.main_fragment, quotationInvoice, "quotationInvoice")
+                            .addToBackStack(null)
+                            .commit();
+                } else {
                     ft.show(fragment).commit();
                 }
 
@@ -178,11 +198,11 @@ public class QuotationsMenu extends Fragment {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 Fragment fragment = fm.findFragmentByTag("quotationOrderForm");
 
-                if(fragment == null){
-                    ft.add(R.id.main_fragment,quotationOrderForm,"quotationOrderForm")
+                if (fragment == null) {
+                    ft.add(R.id.main_fragment, quotationOrderForm, "quotationOrderForm")
                             .addToBackStack(null)
                             .commit();
-                }else {
+                } else {
                     ft.show(fragment).commit();
                 }
             }
@@ -219,13 +239,13 @@ public class QuotationsMenu extends Fragment {
         delPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     if (photoContainer.getChildCount() > 0) {
-                        photoUriList.remove(photoUriList.size()-1);
-                        photoContainer.removeViewAt(photoContainer.getChildCount()-1);
+                        photoUriList.remove(photoUriList.size() - 1);
+                        photoContainer.removeViewAt(photoContainer.getChildCount() - 1);
 
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -235,13 +255,13 @@ public class QuotationsMenu extends Fragment {
         delGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    if(graphContainer.getChildCount() > 0) {
-                        graphList.remove(graphList.size()-1);
-                        graphContainer.removeViewAt(graphContainer.getChildCount()-1);
+                try {
+                    if (graphContainer.getChildCount() > 0) {
+                        graphList.remove(graphList.size() - 1);
+                        graphContainer.removeViewAt(graphContainer.getChildCount() - 1);
 
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -303,7 +323,7 @@ public class QuotationsMenu extends Fragment {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, selectedImage);
                 imageView.setImageBitmap(bm);
 
-                if (!bm.isRecycled()){
+                if (!bm.isRecycled()) {
                     bm.isRecycled();
                     System.gc();
                 }
@@ -345,7 +365,7 @@ public class QuotationsMenu extends Fragment {
         protected String doInBackground(Object... params) {
             SyncManager syncManager = new SyncManager("uploadQuotation.php");
 
-            return syncManager.syncQuotation(getContext(), ((String)params[0]), ((List<Uri>)params[1]), ((List<Bitmap>)params[2]), ((JSONArray)params[3]), ((JSONArray)params[4]));
+            return syncManager.syncQuotation(getContext(), ((String) params[0]), ((String)params[1]), ((List<Uri>) params[2]), ((List<Bitmap>) params[3]), ((JSONArray) params[4]), ((JSONArray) params[5]));
         }
 
         @Override
@@ -358,7 +378,7 @@ public class QuotationsMenu extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if(s.equalsIgnoreCase("false")) {
+            if (s.trim().equalsIgnoreCase("false")) {
                 snackbar = Snackbar.make(coordinatorLayout, "Update Fail", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
@@ -370,7 +390,7 @@ public class QuotationsMenu extends Fragment {
                     @Override
                     public void onClick(View v) {
                         String appid = edtAppNo.getText().toString();
-                        new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+                        new syncQuotation().execute(appid, photoUriList, graphList, invoiceJson, orderFormJson);
                     }
                 });
 
@@ -378,7 +398,7 @@ public class QuotationsMenu extends Fragment {
 
 
                 snackbar.show();
-            } else if(s.equalsIgnoreCase("true")) {
+            } else if (s.trim().equalsIgnoreCase("true")) {
                 snackbar = Snackbar.make(coordinatorLayout, "Updated", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
