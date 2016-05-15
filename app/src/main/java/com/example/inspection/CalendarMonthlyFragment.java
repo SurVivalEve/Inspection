@@ -255,8 +255,8 @@ public class CalendarMonthlyFragment extends Fragment {
                                 daySchedule.getAppointments().add(schedule[monthIndex].getAppointments().get(i));
                             }
                         }
-                        assignDayNum.setText(assign);
-                        notAssignDayNum.setText(notAssign);
+                        assignDayNum.setText(assign+"");
+                        notAssignDayNum.setText(notAssign+"");
 
                         //                        Log.d("assigned", assign+"");
                         //                        Log.d("not-assign", notAssign+"");

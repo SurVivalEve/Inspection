@@ -23,6 +23,25 @@
     <string name="nav_list_title_other">其他</string>
     <string name="nav_list_other_setting">設定</string>
 
+    <string name="frag_job_detail_title">工作內容</string>
+    <string name="frag_job_detail_card_title">標題 :</string>
+    <string name="frag_job_detail_job_title">工作 1</string>
+    <string name="frag_job_detail_card_title_Remark">備註 :</string>
+    <string name="frag_job_detail_remark">請先付款!</string>
+    <string name="frag_job_detail_card_title_status">狀態 :</string>
+    <string name="frag_job_detail_status">未確定</string>
+    <string name="frag_job_detail_card_title_phone">電話號碼 :</string>
+    <string name="frag_job_detail_phone">67612428</string>
+    <string name="frag_job_detail_card_title_name">僱客名稱 :</string>
+    <string name="frag_job_detail_name">陳彼得</string>
+    <string name="frag_job_detail_card_title_address">地址 :</string>
+    <string name="frag_job_detail_address">鰂魚涌海灣街1號華懋交易廣場14樓1403-1405</string>
+    <string name="frag_job_detail_card_title_district">地區 :</string>
+    <string name="frag_job_detail_district">灣仔</string>
+    <string name="frag_job_detail_card_title_island">島 :</string>
+    <string name="frag_job_detail_island">香港島</string>
+    <string name="frag_job_detail_button">報價</string>
+
     <string name="frag_add_task_title">新工作</string>
     <string name="frag_add_task_customer_name_hint">僱客名稱</string>
     <string name="frag_add_task_phone_number_hint">電話號碼</string>

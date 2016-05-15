@@ -23,6 +23,25 @@
     <string name="nav_list_title_other">Others</string>
     <string name="nav_list_other_setting">Setting</string>
 
+    <string name="frag_job_detail_title">Job Details</string>
+    <string name="frag_job_detail_card_title">Title :</string>
+    <string name="frag_job_detail_job_title">Job 1</string>
+    <string name="frag_job_detail_card_title_Remark">Remark :</string>
+    <string name="frag_job_detail_remark">Need to pay first!</string>
+    <string name="frag_job_detail_card_title_status">Status :</string>
+    <string name="frag_job_detail_status">Unconfirmed</string>
+    <string name="frag_job_detail_card_title_phone">Phone :</string>
+    <string name="frag_job_detail_phone">67612428</string>
+    <string name="frag_job_detail_card_title_name">Name :</string>
+    <string name="frag_job_detail_name">Peter Chan</string>
+    <string name="frag_job_detail_card_title_address">Address :</string>
+    <string name="frag_job_detail_address">Room 1403-5, 14\/F, Chinachem Exchange Square, 1 Hoi Wan Street, Quarry Bay</string>
+    <string name="frag_job_detail_card_title_district">District :</string>
+    <string name="frag_job_detail_district">Wan Chai District</string>
+    <string name="frag_job_detail_card_title_island">Island :</string>
+    <string name="frag_job_detail_island">Hong Kong Island</string>
+    <string name="frag_job_detail_button">Accept</string>
+
     <string name="frag_add_task_title">Add Task</string>
     <string name="frag_add_task_customer_name_hint">Customer Name</string>
     <string name="frag_add_task_phone_number_hint">Phone Number</string>
@@ -34,7 +53,7 @@
 
     <string name="frag_calendar_pre">\u003c pre</string>
     <string name="frag_calendar_month">Month</string>
-    <string name="frag_calendar_next">\u003c next</string>
+    <string name="frag_calendar_next">next \u003e</string>
     <string name="frag_calendar_assigned">Assigned:</string>
     <string name="frag_calendar_not_assigned">Not-assigned</string>
 
