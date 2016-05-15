@@ -37,12 +37,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/sbtn3"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_open_with_24dp"
+        android:src="@drawable/dot"
         android:elevation="6dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="96dp"
         android:visibility="invisible"
         />
+
 
     <com.example.inspection.SubButton
         android:layout_width="wrap_content"
@@ -159,6 +160,31 @@
         android:layout_marginRight="100dp"
         android:src="@drawable/ic_delete_24dp"
         android:id="@+id/fabLayer_del"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/parallel"
+        android:id="@+id/fabLayer_parallell"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="184dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/ic_https_24dp"
+        android:id="@+id/fabLayer_lock"
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:visibility="invisible"

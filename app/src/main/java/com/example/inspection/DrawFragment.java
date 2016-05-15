@@ -41,7 +41,7 @@ public class DrawFragment extends Fragment {
     DrawEventView dev;
     HorizontalScrollView hsv;
     ScrollView sv;
-    FloatingActionButton fab, fab_q1, fab_q2, fabLayer, fabLayer_cancel, fabLayer_del, fabSend;
+    FloatingActionButton fab, fab_q1, fab_q2, fabLayer, fabLayer_cancel, fabLayer_del, fabSend, fabLayer_parallel, fabLayer_lock;
     SubButton sbtn1, sbtn2, sbtn3, sbtn4;
     public static final String EMP_ID = "empid";
     private  LinearLayout nag, lllayer;
@@ -101,6 +101,8 @@ public class DrawFragment extends Fragment {
         fabLayer = ((FloatingActionButton) view.findViewById(R.id.fabLayer));
         fabLayer_cancel = ((FloatingActionButton) view.findViewById(R.id.fabLayer_cancel));
         fabLayer_del = ((FloatingActionButton) view.findViewById(R.id.fabLayer_del));
+        fabLayer_lock = ((FloatingActionButton) view.findViewById(R.id.fabLayer_lock));
+        fabLayer_parallel = ((FloatingActionButton) view.findViewById(R.id.fabLayer_parallell));
         fabSend = ((FloatingActionButton) view.findViewById(R.id.fabSend));
         lllayer = (LinearLayout) view.findViewById(R.id.lllayer);
         dev.initLayer(layoutInflater, inflater, container, lllayer);
@@ -171,7 +173,7 @@ public class DrawFragment extends Fragment {
                 });
                 sbtn3.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view){
-                        dev.flag = 3;
+                        dev.setDrawDot();
                     }
                 });
                 sbtn4.setOnClickListener(new View.OnClickListener() {
@@ -252,9 +254,12 @@ public class DrawFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dev.selectedIndex = -1;
+                dev.changeMode(0);
                 v.setVisibility(View.INVISIBLE);
                 fabLayer_del.setVisibility(View.INVISIBLE);
                 fabLayer.setVisibility(View.VISIBLE);
+                fabLayer_parallel.setVisibility(View.INVISIBLE);
+                fabLayer_lock.setVisibility(View.INVISIBLE);
                 sv.setVisibility(View.INVISIBLE);
                 dev.invalidate();
             }
@@ -267,6 +272,20 @@ public class DrawFragment extends Fragment {
             }
         });
 
+        fabLayer_parallel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dev.changeMode(1);
+            }
+        });
+
+        fabLayer_lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dev.changeMode(2);
+            }
+        });
+
         fabLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,6 +293,8 @@ public class DrawFragment extends Fragment {
                fabLayer.setVisibility(View.VISIBLE);
                fabLayer_del.setVisibility(View.VISIBLE);
                fabLayer_cancel.setVisibility(View.VISIBLE);
+               fabLayer_parallel.setVisibility(View.VISIBLE);
+               fabLayer_lock.setVisibility(View.VISIBLE);
                sv.setVisibility(View.VISIBLE);
             }
         });
