@@ -2,15 +2,20 @@ package com.example.inspection;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
 import com.example.inspection.models.Schedule;
 import com.example.inspection.sync.SyncManager;
+
+import java.util.Locale;
 
 public class Login extends Activity {
 
@@ -20,6 +25,10 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        PreferenceUtil.init(this);
+        switchLanguage("en");
+
         eT_username = (EditText) findViewById(R.id.eT_username);
         eT_password = (EditText) findViewById(R.id.eT_password);
 
@@ -41,7 +50,6 @@ public class Login extends Activity {
         } else {
             new getLoginResult().execute(eT_username.getText().toString(), eT_password.getText().toString());
         }
-
     }
 
     public void login(String empID, String empName) {
@@ -68,5 +76,22 @@ public class Login extends Activity {
             super.onPostExecute(result);
             login(result[0], result[1]);
         }
+    }
+
+    public void switchLanguage(String language) {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        if (language.equals("en"))
+        {
+            config.locale = Locale.ENGLISH;
+        }
+        else
+        {
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        }
+        resources.updateConfiguration(config, dm);
+
+        PreferenceUtil.commitString("language", language);
     }
 }

@@ -124,7 +124,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="Accept"
+                        android:text="@string/accept"
                         android:background="@color/green"/>
 
                     <View
@@ -137,7 +137,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="Cancel"
+                        android:text="@string/item_appointment_cancel"
                         android:background="@color/red"/>
 
 

@@ -19,6 +19,8 @@
             android:id="@+id/col4_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text"
             android:hint="" />
     </LinearLayout>
 

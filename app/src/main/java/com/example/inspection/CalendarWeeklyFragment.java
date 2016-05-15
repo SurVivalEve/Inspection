@@ -1,9 +1,7 @@
 package com.example.inspection;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,9 +13,6 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -27,7 +22,6 @@ import android.widget.TextView;
 
 import com.example.inspection.dao.LocalScheduleDAO;
 import com.example.inspection.models.Schedule;
-import com.example.inspection.sync.SyncManager;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -174,7 +168,7 @@ public class CalendarWeeklyFragment extends Fragment {
             View lineSeparator = layoutInflater.inflate(R.layout.item_horizontal_line, null);
             dayDetailContainer[i].addView(lineSeparator);        //add vertical line sperator
             for (int t = 0; t < timeMarks.length-1; t++) {
-                View emptyView = layoutInflater.inflate(R.layout.item_empty_view, null);
+                View emptyView = layoutInflater.inflate(R.layout.item_weekly_empty_view, null);
                 emptyViews[t+i*(timeMarks.length-1)] = emptyView;
                 emptyViews[t+i*(timeMarks.length-1)].setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, heightOfDayContainerView));
@@ -206,8 +200,8 @@ public class CalendarWeeklyFragment extends Fragment {
             int min = schedule.getAppointments().get(i).getDate().getMinutes();
             for(int k=0; k<weekday.length; k++){
                 if(day == dayInWeekdayContainerW[k] && month == (monthInWeekdayContainerW[k]-1)) {
-                    // add item_appointment_view
-                    View item_appointment_view = layoutInflater.inflate(R.layout.item_appointment_view, null);
+                    // add item_weekly_appointment_view
+                    View item_appointment_view = layoutInflater.inflate(R.layout.item_weekly_appointment_view, null);
                     item_appointment_view.setLayoutParams(new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT, 120));
                     TextView time = (TextView) item_appointment_view.findViewById(R.id.time);

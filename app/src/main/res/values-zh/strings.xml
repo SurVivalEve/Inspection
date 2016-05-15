@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">窗戶檢查</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="user_name_hint">用戶名稱</string>
+    <string name="password_hint">密碼</string>
+    <string name="sign_in">登入</string>
+
+    <string name="nav_header_staffID">員工編號:</string>
+
+    <string name="nav_list_recent_job">行程</string>
+    <string name="nav_list_add_task">新工作</string>
+    <string name="nav_list_agenda">月歷</string>
+    <string name="nav_list_quotation">報價表</string>
+    <string name="nav_list_appointment">預約</string>
+
+    <string name="nav_list_title_customer">僱客</string>
+    <string name="nav_list_customer_detail">詳情</string>
+    <string name="nav_list_customer_contact">聯絡</string>
+
+    <string name="nav_list_title_other">其他</string>
+    <string name="nav_list_other_setting">設定</string>
+
+    <string name="frag_add_task_title">新工作</string>
+    <string name="frag_add_task_customer_name_hint">僱客名稱</string>
+    <string name="frag_add_task_phone_number_hint">電話號碼</string>
+    <string name="frag_add_task_building_hint">地址</string>
+    <string name="frag_add_task_block_hint">單位</string>
+    <string name="frag_add_task_appointment_date_hint">預約日期 (YYYY-M-DD)</string>
+    <string name="frag_add_task_appointment_time_hint">預約時間 (24小時制)</string>
+    <string name="frag_add_task_button">加入</string>
+
+    <string name="frag_calendar_pre">\u003c 上個月</string>
+    <string name="frag_calendar_month">月</string>
+    <string name="frag_calendar_next">\u003c 下個月</string>
+    <string name="frag_calendar_assigned">已分配:</string>
+    <string name="frag_calendar_not_assigned">未分配</string>
+
+    <string name="item_weekly_appointment_view_time">時間</string>
+    <string name="item_weekly_appointment_view_handler">負責人</string>
+
+    <string name="frag_quotation_menu_title">報價表</string>
+    <string name="frag_quotation_menu_appointment_number_hint">預約編號</string>
+    <string name="frag_quotation_menu_photo">相片</string>
+    <string name="frag_quotation_menu_graph">繪圖</string>
+    <string name="frag_quotation_menu_invoice">發票</string>
+    <string name="frag_quotation_menu_order_form">僱客訂製單</string>
+    <string name="frag_quotation_menu_update">更新</string>
+
+    <string name="frag_quotation_invoice_title">發票</string>
+    <string name="frag_quotation_invoice_remark_hint">備註</string>
+    <string name="frag_quotation_invoice_amount_hint">價錢 (HKD)</string>
+    <string name="frag_quotation_invoice_signature">簽署</string>
+    <string name="frag_quotation_invoice_signature_customer">僱客:</string>
+    <string name="frag_quotation_invoice_signature_employee">員工:</string>
+    <string name="frag_quotation_invoice_save">儲存</string>
+
+    <string name="item_appointment_accept">接受</string>
+    <string name="item_appointment_cancel">取消</string>
+
+    <string name="switch_language">切換語言</string>
+    <string name="english">英語</string>
+    <string name="chinese">中文</string>
+</resources>

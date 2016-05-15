@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Quotations"
+            android:text="@string/frag_quotation_menu_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <View
@@ -41,7 +41,7 @@
                     android:id="@+id/edtAppNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Appointment No." />
+                    android:hint="@string/frag_quotation_menu_appointment_number_hint" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
@@ -84,7 +84,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:gravity="center|left"
-                            android:text="Photos"
+                            android:text="@string/frag_quotation_menu_photo"
                             android:textSize="20sp" />
 
                         <ImageButton
@@ -148,7 +148,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="8"
                             android:gravity="center|left"
-                            android:text="Graph"
+                            android:text="@string/frag_quotation_menu_graph"
                             android:textSize="20sp" />
 
                         <ImageButton
@@ -211,7 +211,7 @@
                         android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="?attr/colorPrimary"
-                        android:text="Invoice" />
+                        android:text="@string/frag_quotation_menu_invoice" />
 
                     <Button
                         android:id="@+id/orderForm"
@@ -220,7 +220,7 @@
                         android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="?attr/colorPrimary"
-                        android:text="Order Form" />
+                        android:text="@string/frag_quotation_menu_order_form" />
                 </LinearLayout>
 
                 <Button
@@ -230,7 +230,7 @@
                     android:layout_margin="2dp"
                     android:layout_weight="0.7"
                     android:background="?attr/colorPrimary"
-                    android:text="Update" />
+                    android:text="@string/frag_quotation_menu_update" />
             </LinearLayout>
 
         </LinearLayout>

@@ -52,7 +52,7 @@
                 android:layout_marginRight="10dp"
 				android:textSize="25sp"
                 android:singleLine="true"
-                android:hint="Username"
+                android:hint="@string/user_name_hint"
                 android:drawablePadding="8dp"
                 android:text="emp15@fyp.com"/>
 
@@ -64,7 +64,7 @@
                 android:layout_marginRight="10dp"
 				android:textSize="25sp"
                 android:singleLine="true"
-                android:hint="Password"
+                android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:drawablePadding="8dp"
                 android:text="password"/>
@@ -87,7 +87,7 @@
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"
                 android:background="#69CBCC"
-                android:text="Signln"
+                android:text="@string/sign_in"
                 android:onClick="doLogin"/>
             
 		</LinearLayout>

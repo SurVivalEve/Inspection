@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Invoice"
+                android:text="@string/frag_quotation_invoice_title"
                 android:layout_gravity="center_horizontal"/>
 
             <View
@@ -40,7 +40,8 @@
                     android:id="@+id/remark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Remark" />
+                    android:inputType="text"
+                    android:hint="@string/frag_quotation_invoice_remark_hint" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -52,7 +53,9 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount (HKD)" />
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:hint="@string/frag_quotation_invoice_amount_hint" />
             </android.support.design.widget.TextInputLayout>
 
             <View
@@ -62,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Signature"
+                android:text="@string/frag_quotation_invoice_signature"
                 android:layout_gravity="center_horizontal"/>
 
             <View
@@ -87,7 +90,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Customer:"
+                        android:text="@string/frag_quotation_invoice_signature_customer"
                         android:textSize="15dp"
                         android:background="#EEEEEE"/>
 
@@ -120,7 +123,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Employee:"
+                        android:text="string/frag_quotation_invoice_signature_employee"
                         android:textSize="15dp"
                         android:background="#EEEEEE"/>
                     <LinearLayout
@@ -144,7 +147,7 @@
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"
                 android:background="#69CBCC"
-                android:text="Save"/>
+                android:text="@string/frag_quotation_invoice_save"/>
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
