@@ -175,17 +175,31 @@
                     android:layout_weight="1"
                     />
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="assigned:"/>
+                <TextView
                     android:id="@+id/assignDayNum"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="assigned: 0"/>
+                    android:layout_marginLeft="2dp"
+                    android:text="0"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="not-assigned:"/>
                 <TextView
                     android:id="@+id/notAssignDayNum"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="   not-assigned: 0 "/>
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:text="0"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

@@ -5,37 +5,46 @@
         <item
             android:id="@+id/nav_recent"
             android:icon="@drawable/ic_play_install_24dp"
-            android:title="Recent Job" />
+            android:title="@string/nav_list_recent_job" />
         <item
             android:id="@+id/nav_task"
             android:icon="@drawable/ic_menu_task"
-            android:title="Add Task" />
+            android:title="@string/nav_list_add_task" />
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_menu_schedule"
-            android:title="Agenda" />
+            android:title="@string/nav_list_agenda" />
         <item
             android:id="@+id/nav_quotations"
             android:icon="@drawable/ic_menu_quotations"
-            android:title="Quotations" />
+            android:title="@string/nav_list_quotation" />
         <item
             android:id="@+id/nav_appointment"
             android:icon="@drawable/ic_menu_appointment"
-            android:title="Appointment" />
+            android:title="@string/nav_list_appointment" />
 
     </group>
 
-    <item android:title="Customers">
+    <item android:title="@string/nav_list_title_customer">
         <menu>
             <item
                 android:id="@+id/nav_custDetails"
                 android:icon="@drawable/ic_menu_cust_details"
-                android:title="Details" />
+                android:title="@string/nav_list_customer_detail" />
             <item
                 android:id="@+id/nav_custContact"
                 android:icon="@drawable/ic_menu_cust_contact"
-                android:title="Contact" />
+                android:title="@string/nav_list_customer_contact" />
         </menu>
     </item>
-
+    <group android:checkableBehavior="single">
+        <item android:title="@string/nav_list_title_other">
+            <menu>
+                <item
+                    android:id="@+id/nav_setting"
+                    android:icon="@drawable/ic_menu_cust_details"
+                    android:title="@string/nav_list_other_setting" />
+            </menu>
+        </item>
+    </group>
 </menu>

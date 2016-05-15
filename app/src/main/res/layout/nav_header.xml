@@ -34,11 +34,12 @@
             android:id="@+id/staffID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="StaffID: "/>
+            android:text="StaffID:"/>
         <TextView
             android:id="@+id/txtStaffID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
             android:text=""/>
 
     </LinearLayout>

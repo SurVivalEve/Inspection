@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inspection</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="user_name_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_in">Signln</string>
+
+    <string name="nav_header_staffID">StaffID:</string>
+
+    <string name="nav_list_recent_job">Recent Job</string>
+    <string name="nav_list_add_task">Add Task</string>
+    <string name="nav_list_agenda">Agenda</string>
+    <string name="nav_list_quotation">Quotation</string>
+    <string name="nav_list_appointment">Appointment</string>
+
+    <string name="nav_list_title_customer">Customers</string>
+    <string name="nav_list_customer_detail">Details</string>
+    <string name="nav_list_customer_contact">Contact</string>
+
+    <string name="nav_list_title_other">Others</string>
+    <string name="nav_list_other_setting">Setting</string>
+
+    <string name="frag_add_task_title">Add Task</string>
+    <string name="frag_add_task_customer_name_hint">Customer Name</string>
+    <string name="frag_add_task_phone_number_hint">Phone Number</string>
+    <string name="frag_add_task_building_hint">Building</string>
+    <string name="frag_add_task_block_hint">Block</string>
+    <string name="frag_add_task_appointment_date_hint">Appointment Date</string>
+    <string name="frag_add_task_appointment_time_hint">Appointment Time</string>
+    <string name="frag_add_task_button">Add Task</string>
+
+    <string name="frag_calendar_pre">\u003c pre</string>
+    <string name="frag_calendar_month">Month</string>
+    <string name="frag_calendar_next">\u003c next</string>
+    <string name="frag_calendar_assigned">Assigned:</string>
+    <string name="frag_calendar_not_assigned">Not-assigned</string>
+
+    <string name="item_appointment_view_time">time</string>
+    <string name="item_weekly_appointment_view_handler">handler</string>
+
+    <string name="frag_quotation_menu_title">Quotation</string>
+    <string name="frag_quotation_menu_appointment_number_hint">Appointment No.</string>
+    <string name="frag_quotation_menu_photo">Photos</string>
+    <string name="frag_quotation_menu_graph">Graphs</string>
+    <string name="frag_quotation_menu_invoice">Invoice</string>
+    <string name="frag_quotation_menu_order_form">Order Form</string>
+    <string name="frag_quotation_menu_update">Update</string>
+
+    <string name="frag_quotation_invoice_title">Invoice</string>
+    <string name="frag_quotation_invoice_remark_hint">Remark</string>
+    <string name="frag_quotation_invoice_amount_hint">Amount (HKD)</string>
+    <string name="frag_quotation_invoice_signature">Signature</string>
+    <string name="frag_quotation_invoice_signature_customer">Customer:</string>
+    <string name="frag_quotation_invoice_signature_employee">Employee:</string>
+    <string name="frag_quotation_invoice_save">save</string>
+
+    <string name="item_appointment_accept">Accept</string>
+    <string name="item_appointment_cancel">Cancel</string>
+
+    <string name="frag_setting_title">Setting</string>
+
+    <string name="switch_language">Switch language</string>
+    <string name="english">English</string>
+    <string name="chinese">Chinese</string>
+</resources>

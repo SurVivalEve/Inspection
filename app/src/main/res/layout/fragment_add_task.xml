@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Add Task"
+            android:text="@string/frag_add_task_title"
             android:layout_gravity="center_horizontal"/>
 
         <View
@@ -37,7 +37,7 @@
                 android:id="@+id/custName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Customer Name" />
+                android:hint="@string/frag_add_task_customer_name_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -49,7 +49,7 @@
                 android:id="@+id/custPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number" />
+                android:hint="@string/frag_add_task_phone_number_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
@@ -67,7 +67,7 @@
                     android:id="@+id/custAddressBuilding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Building" />
+                    android:hint="@string/frag_add_task_building_hint" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -80,7 +80,7 @@
                     android:id="@+id/custAddressBlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Block" />
+                    android:hint="@string/frag_add_task_block_hint" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
@@ -95,7 +95,7 @@
                 android:id="@+id/appointmentDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="AppointmentDate"/>
+                android:hint="@string/frag_add_task_appointment_date_hint"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -107,14 +107,14 @@
                 android:id="@+id/appointmentTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="AppointmentTime"/>
+                android:hint="@string/frag_add_task_appointment_time_hint"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btnAddTask"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Add Task"/>
+            android:text="@string/frag_add_task_button"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
