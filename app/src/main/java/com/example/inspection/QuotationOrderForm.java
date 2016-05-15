@@ -1,10 +1,11 @@
 package com.example.inspection;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,19 +18,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.inspection.util.FileWrapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class QuotationOrderForm extends Fragment {
 
+    private CoordinatorLayout quotationOrderFormLayout;
     private LinearLayout col1, col4;
     private EditText col2_1, col2_2, col3_1, constructionFee, earnest, owe, remark;
     private ArrayList<View> col1_View = new ArrayList<>();
@@ -44,6 +43,7 @@ public class QuotationOrderForm extends Fragment {
     private Button save;
     private LayoutInflater layoutInflater;
     private int col1Index=0, col4Index=0;
+    private Snackbar snackbar;
 
     private QuotationsListener mCallback;
 
@@ -84,6 +84,7 @@ public class QuotationOrderForm extends Fragment {
     }
 
     public void init(View view){
+        quotationOrderFormLayout = (CoordinatorLayout) view.findViewById(R.id.quotationOrderFormLayout);
         col1 = (LinearLayout) view.findViewById(R.id.col1);
         col4 = (LinearLayout) view.findViewById(R.id.col4);
         col2_1 = (EditText) view.findViewById(R.id.col2_1);
@@ -263,10 +264,24 @@ public class QuotationOrderForm extends Fragment {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.hide(fm.findFragmentByTag("quotationOrderForm")).commit();
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                        snackbar = Snackbar.make(quotationOrderFormLayout, error_message, Snackbar.LENGTH_LONG);
+
+                        // Changing action button text color
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+
+                        snackbar.show();
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                    snackbar = Snackbar.make(quotationOrderFormLayout, error_message, Snackbar.LENGTH_LONG);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+
+                    snackbar.show();
                 }
             }
         });

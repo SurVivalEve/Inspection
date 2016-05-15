@@ -1,10 +1,7 @@
 package com.example.inspection;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,21 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.inspection.dao.LocalNextMonthScheduleDAO;
-import com.example.inspection.dao.LocalPreMonthScheduleDAO;
-import com.example.inspection.dao.LocalScheduleDAO;
 import com.example.inspection.dao.WebAppointmentDAO;
-import com.example.inspection.models.RecentJob;
-import com.example.inspection.models.Schedule;
 import com.example.inspection.service.AppointmentService;
-import com.example.inspection.sync.SyncManager;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuotationOrderForm.QuotationsListener, QuotationInvoice.QuotationsListener, DrawFragment.QuotationsListener {
@@ -183,7 +168,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
                 break;
             case R.id.nav_setting:
-                ft.replace(R.id.main_fragment, Setting.newInstance(empID, empName), "setting")
+                ft.replace(R.id.main_fragment, SettingFragment.newInstance(empID, empName), "setting")
                         .addToBackStack(null)
                         .commit();
                 break;

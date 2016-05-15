@@ -1,6 +1,7 @@
 package com.example.inspection;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -75,8 +76,9 @@ public class CalendarMonthlyFragment extends Fragment {
     }
 
     private void init(View view){
-        weeks = getActivity().getResources().getStringArray(R.array.frag_calendar_weeks);
-        months = getActivity().getResources().getStringArray(R.array.frag_calendar_months);
+        Resources resources = getActivity().getResources();
+        weeks = resources.getStringArray(R.array.frag_calendar_weeks);
+        months = resources.getStringArray(R.array.frag_calendar_months);
         empID = getArguments().getString("empID");
         refreshSchedule();
 

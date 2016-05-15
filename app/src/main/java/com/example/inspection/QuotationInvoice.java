@@ -3,8 +3,11 @@ package com.example.inspection;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inspection.Dialog.SignpadDialog;
@@ -31,6 +35,8 @@ public class QuotationInvoice extends Fragment {
     private EditText remark, amount;
     private ImageView custSign, empSign;
     private Button save;
+    private Snackbar snackbar;
+    private CoordinatorLayout quotationInvoiceLayout;
 
     private QuotationsListener mCallback;
 
@@ -71,6 +77,7 @@ public class QuotationInvoice extends Fragment {
     }
 
     public void init(View view){
+        quotationInvoiceLayout = (CoordinatorLayout) view.findViewById(R.id.quotationInvoiceLayout);
         remark = (EditText) view.findViewById(R.id.remark);
         amount = (EditText) view.findViewById(R.id.amount);
         custSign = (ImageView) view.findViewById(R.id.custSign);
@@ -151,10 +158,24 @@ public class QuotationInvoice extends Fragment {
                         Fragment fragment = fm.findFragmentByTag("quotationInvoice");
                         ft.hide(fragment).commit();
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                        snackbar = Snackbar.make(quotationInvoiceLayout, error_message, Snackbar.LENGTH_LONG);
+
+                        // Changing action button text color
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+
+                        snackbar.show();
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), error_message, Toast.LENGTH_SHORT).show();
+                    snackbar = Snackbar.make(quotationInvoiceLayout, error_message, Snackbar.LENGTH_LONG);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+
+                    snackbar.show();
                 }
             }
         });

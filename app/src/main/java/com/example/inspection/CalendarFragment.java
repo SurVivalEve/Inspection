@@ -1,19 +1,20 @@
 package com.example.inspection;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
@@ -25,14 +26,15 @@ import java.util.Calendar;
 
 public class CalendarFragment extends Fragment {
 
-    private FrameLayout calendarLayout;
-    private int currentMonth, currentYear, currentDay, currentWeekDay;
+    private CoordinatorLayout calendarLayout;
+    private int currentMonth, currentYear;
     private CalendarMonthlyFragment calendarMonthlyFragment;
     private CalendarWeeklyFragment calendarWeeklyFragment;
     private FragmentTransaction ft;
     private int viewIndex = 0; //0 for monthly, 1for weekly
     private static String empID = "";
     private MenuItem modeModify;
+    private Snackbar snackbar;
 
     public static CalendarFragment newInstance(String id) {
         CalendarFragment fragment = new CalendarFragment();
@@ -58,7 +60,7 @@ public class CalendarFragment extends Fragment {
     public void init(View view){
         empID = getArguments().getString("empID");
 
-        calendarLayout = (FrameLayout) view.findViewById(R.id.calendar_fragment);
+        calendarLayout = (CoordinatorLayout) view.findViewById(R.id.calendarLayout);
 
         calendarMonthlyFragment = CalendarMonthlyFragment.newInstance(empID);
         calendarWeeklyFragment = CalendarWeeklyFragment.newInstance(empID);
@@ -90,7 +92,14 @@ public class CalendarFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.refreshSchedule:
                 new GetSchedule().execute();
-                Toast.makeText(getContext(), "Updating", Toast.LENGTH_SHORT).show();
+                snackbar = Snackbar.make(calendarLayout, "Updating", Snackbar.LENGTH_SHORT);
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.GREEN);
+
+                snackbar.show();
                 return true;
             case R.id.modeModify:
                 if(viewIndex == 0) {
@@ -171,7 +180,14 @@ public class CalendarFragment extends Fragment {
                 calendarWeekly.refreshSchedule();
                 calendarWeekly.createView();
             }
-            Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
+            snackbar = Snackbar.make(calendarLayout, "Updated", Snackbar.LENGTH_SHORT);
+
+            // Changing action button text color
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.GREEN);
+
+            snackbar.show();
         }
     }
 }

@@ -1,43 +1,26 @@
 package com.example.inspection;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.inspection.Dialog.SignpadDialog;
-import com.example.inspection.util.FileWrapper;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Locale;
 
-public class Setting extends Fragment {
+public class SettingFragment extends Fragment {
 
     private Button switchLanguage, logout;
     private String empID = "", empName = "";
 
-    public static Setting newInstance(String id, String name) {
-        Setting fragment = new Setting();
+    public static SettingFragment newInstance(String id, String name) {
+        SettingFragment fragment = new SettingFragment();
         Bundle bundle = new Bundle();
         bundle.putString("empID", id);
         bundle.putString("empName", id);
