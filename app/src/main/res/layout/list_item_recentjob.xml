@@ -79,6 +79,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:layout_marginBottom="5dp"
                         android:id="@+id/recentjob_custAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
