@@ -21,39 +21,42 @@
             android:layout_height="match_parent"
             android:maxLength="2"
             android:inputType="number"
-            android:hint=""/>
+            android:hint=""
+            android:singleLine="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text=" live windows\nchange to "/>
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="Windos"/>
 
         <EditText
+            android:inputType="text"
             android:id="@+id/col1_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:maxLength="5"
-            android:hint="" />
+            android:hint=""
+            android:singleLine="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="hinge with total"/>
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="Hinge Type Total"/>
         <EditText
             android:id="@+id/col1_3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:maxLength="2"
             android:inputType="number"
-            android:hint="" />
+            android:hint=""
+            android:singleLine="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="hinge"/>
     </LinearLayout>
 
     <ImageButton

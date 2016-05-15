@@ -44,10 +44,11 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Changing hinge construction："
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
 
                     <ImageButton
                         android:id="@+id/col1_plus"
@@ -74,7 +75,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Switches construction："
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -99,7 +101,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text=" live windows change to up-down-switches"/>
+                            android:layout_marginLeft="2dp"
+                            android:text="Up-DOwn-Switches"/>
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -117,7 +120,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text=" live windows change to seven-style-switches"/>
+                            android:layout_marginLeft="2dp"
+                            android:text="Seven-Style-Switches"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -130,8 +134,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Plastic strip construction："
-                        android:textSize="15dp"/>
+                        android:text="Strip construction："
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -157,7 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text=" live windows change to aging live window's plastic strip"/>
+                            android:text="Anti-aging movable sash strip"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -168,10 +173,11 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Others："
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
 
                     <ImageButton
                         android:id="@+id/col4_plus"
@@ -195,10 +201,12 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/constructionFee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Construction fee" />
+                        android:hint="Construction fee"
+                        android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -207,10 +215,12 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/earnest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Earnest money" />
+                        android:hint="Earnest money"
+                        android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -219,10 +229,12 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/owe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Owe money" />
+                        android:hint="Owe money"
+                        android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -231,6 +243,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:inputType="text"
                         android:id="@+id/remark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -238,6 +251,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
+                    android:theme="@style/MyButton"
                     android:id="@+id/save"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -246,7 +260,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
                     android:textColor="#FFFFFF"
-                    android:background="#69CBCC"
                     android:text="Save"/>
             </LinearLayout>
         </LinearLayout>

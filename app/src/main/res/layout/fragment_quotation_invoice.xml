@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="string/frag_quotation_invoice_signature_employee"
+                        android:text="@string/frag_quotation_invoice_signature_employee"
                         android:textSize="15dp"
                         android:background="#EEEEEE"/>
                     <LinearLayout
@@ -139,6 +139,7 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <Button
+                android:theme="@style/MyButton"
                 android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -146,8 +147,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#69CBCC"
-                android:text="@string/frag_quotation_invoice_save"/>
+                android:text="@string/frag_quotation_invoice_save"
+                />
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

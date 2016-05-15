@@ -211,6 +211,7 @@
                             android:layout_weight="1">
 
                             <ImageButton
+                                android:theme="@style/MyButton2"
                                 android:id="@+id/jobdetails_image_call"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -387,15 +388,13 @@
             </android.support.v7.widget.CardView>
 
             <Button
+                android:theme="@style/MyButton"
                 android:id="@+id/btnCreateQuotation"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#69CBCC"
                 android:text="Create Quotation"/>
 
         </LinearLayout>
