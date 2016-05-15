@@ -1,8 +1,10 @@
 package com.example.inspection.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,12 +104,11 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 AddTaskFragment addTaskFragment = new AddTaskFragment();
                 FragmentTransaction ft = ((MainMenu)context).getSupportFragmentManager().beginTransaction();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data",getWebApp());
+                bundle.putSerializable("data", getWebApp());
                 addTaskFragment.setArguments(bundle);
                 ft.replace(R.id.main_fragment,addTaskFragment,"addTaskByClient")
                         .addToBackStack(null)
                         .commit();
-                webAppDAO.delete(getWebApp().getId());
             }
         };
 
@@ -115,8 +116,23 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
             @Override
             public void onClick(View v) {
-                delete(getAdapterPosition());
-                webAppDAO.delete(getWebApp().getId());
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                dialog.setTitle("Confirm");
+                dialog.setMessage("Do you really want to delete this appointment?");
+                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete(getAdapterPosition());
+                        webAppDAO.delete(getWebApp().getId());
+                    }
+                });
+                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
             }
         };
 

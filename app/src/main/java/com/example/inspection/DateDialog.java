@@ -25,12 +25,15 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return datePickerDialog;
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        ((EditText) getActivity().findViewById(R.id.appointmentDate)).setText(year+"-"+month+"-"+day);
+        month+=1;
+        ((EditText) getActivity().findViewById(R.id.appointmentDate)).setText(year + "-" + month + "-" + day);
     }
 }

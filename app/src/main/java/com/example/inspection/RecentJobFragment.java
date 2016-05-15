@@ -28,6 +28,7 @@ public class RecentJobFragment extends Fragment {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private CoordinatorLayout coordinatorLayout;
+    Snackbar snackbar;
 
     public static RecentJobFragment newInstance(int page, String id) {
         RecentJobFragment fragment = new RecentJobFragment();
@@ -70,7 +71,14 @@ public class RecentJobFragment extends Fragment {
 
                 new GetPersonalSchedule().execute(String.valueOf(getArguments().get(EMP_ID)));
 
-                Toast.makeText(getContext(), "Updating", Toast.LENGTH_SHORT).show();
+                snackbar = Snackbar.make(coordinatorLayout, "Updating", Snackbar.LENGTH_LONG);
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.GREEN);
+
+                snackbar.show();
             }
         });
     }
@@ -90,12 +98,21 @@ public class RecentJobFragment extends Fragment {
             laySwipeRecentJob.setRefreshing(false);
 
             if (!aBoolean) {
-                Snackbar snackbar = Snackbar.make(coordinatorLayout, "No recent job record", Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(coordinatorLayout, "No recent job record", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
                 View sbView = snackbar.getView();
                 TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
                 textView.setTextColor(Color.YELLOW);
+
+                snackbar.setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new GetPersonalSchedule().execute(String.valueOf(getArguments().get(EMP_ID)));
+
+                        viewPager.setAdapter(new RecentJobAdapter(getChildFragmentManager(),getContext()));
+                    }
+                });
 
                 snackbar.show();
             }

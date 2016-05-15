@@ -26,6 +26,7 @@ public class JobFragment extends Fragment {
         Bundle bundle = this.getArguments();
         Schedule schedule = (Schedule) bundle.getSerializable("joblist");
         rv = (RecyclerView) view.findViewById(R.id.rv);
+
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(new JobListAdapter(getContext(),schedule));
         return view;

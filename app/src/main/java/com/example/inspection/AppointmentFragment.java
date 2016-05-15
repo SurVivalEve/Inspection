@@ -66,7 +66,7 @@ public class AppointmentFragment extends Fragment {
     }
 
     private void init(View view) {
-        laySwip.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                laySwip.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 laySwip.setRefreshing(true);

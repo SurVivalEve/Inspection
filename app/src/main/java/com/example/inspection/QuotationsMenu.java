@@ -5,11 +5,14 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.inspection.sync.SyncManager;
 import com.example.inspection.util.FileWrapper;
@@ -41,12 +45,14 @@ public class QuotationsMenu extends Fragment {
 
     private ImageButton btnGallery, btnCamera, delPhoto, addGraph, delGraph, findAppointment;
     private LinearLayout photoContainer, graphContainer;
-
+    private CoordinatorLayout coordinatorLayout;
     private EditText edtAppNo;
 
-    public static final String EMP_ID = "empid";
-    public static final int CAMERA_REQUEST = 1;
-    public static final int GALLERY_REQUEST = 2;
+    public Snackbar snackbar;
+
+    private static final String EMP_ID = "empid";
+    private static final int CAMERA_REQUEST = 1;
+    private static final int GALLERY_REQUEST = 2;
 
     private String empID = "";
 
@@ -55,8 +61,7 @@ public class QuotationsMenu extends Fragment {
     private List<Bitmap> photoList = new ArrayList<>();
     private static List<Uri> photoUriList = new ArrayList<>();
     private static List<Bitmap> graphList = new ArrayList<>();
-
-    private JSONArray orderFormJson, invoiceJson;
+    private static JSONArray orderFormJson, invoiceJson;
 
     public void setOrderForm(JSONArray orderForm) {
         this.orderFormJson = orderForm;
@@ -120,6 +125,7 @@ public class QuotationsMenu extends Fragment {
 
         graphContainer = (LinearLayout) view.findViewById(R.id.graphContainer);
         photoContainer = (LinearLayout) view.findViewById(R.id.photoContainer);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.cdlayoutForQuotaitonMenu);
 
         findAppointment = (ImageButton) view.findViewById(R.id.findAppointment);
 
@@ -330,12 +336,6 @@ public class QuotationsMenu extends Fragment {
 
     private class syncQuotation extends AsyncTask<Object, Integer, String> {
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
         @Override
         protected String doInBackground(Object... params) {
             SyncManager syncManager = new SyncManager("uploadQuotation.php");
@@ -346,11 +346,46 @@ public class QuotationsMenu extends Fragment {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            if(s.equalsIgnoreCase("false")) {
+                snackbar = Snackbar.make(coordinatorLayout, "Update fail", Snackbar.LENGTH_LONG);
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.YELLOW);
+
+                snackbar.setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String appid = edtAppNo.getText().toString();
+                        new syncQuotation().execute(appid,photoUriList,graphList,invoiceJson,orderFormJson);
+                    }
+                });
+
+                snackbar.setActionTextColor(Color.RED);
+
+
+                snackbar.show();
+            } else if(s.equalsIgnoreCase("true")) {
+                snackbar = Snackbar.make(coordinatorLayout, "Updated", Snackbar.LENGTH_LONG);
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.GREEN);
+
+
+                snackbar.show();
+            }
+
+
         }
     }
 }

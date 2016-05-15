@@ -155,7 +155,7 @@ public class SyncManager {
 
 
     public String syncQuotation(Context context, String appID, List<Uri> uris, List<Bitmap> graphList, JSONArray invoice, JSONArray orderForm) {
-
+        String result = "false";
 
         try {
             JSONObject toSend = new JSONObject();
@@ -198,13 +198,15 @@ public class SyncManager {
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
             Log.i("XXX", stream2String(is));
+            result = stream2String(is);
+            return result;
 
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
 
     }
 
@@ -225,7 +227,7 @@ public class SyncManager {
             }
             HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
             InputStream is = conn.getInputStream();
-            result += stream2String(is);
+            result = stream2String(is);
             Log.e("Error is : ", result);
         } catch (JSONException e) {
             e.printStackTrace();

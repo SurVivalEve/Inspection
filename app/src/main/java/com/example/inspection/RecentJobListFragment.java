@@ -79,7 +79,7 @@ public class RecentJobListFragment extends Fragment {
             if (historys != null) {
                 rv.setAdapter(new RecentJobListHistoryAdapter(getContext(), historys));
             } else {
-                snackbar = Snackbar.make(coordinatorLayout, "NO HISOTRY RECORD", Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(coordinatorLayout, "NO HISTORY RECORD", Snackbar.LENGTH_LONG);
 
                 // Changing action button text color
                 View sbView = snackbar.getView();
