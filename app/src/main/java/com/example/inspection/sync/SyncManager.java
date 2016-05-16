@@ -15,8 +15,10 @@ import com.example.inspection.dao.LocalNextMonthScheduleDAO;
 import com.example.inspection.dao.LocalPreMonthScheduleDAO;
 import com.example.inspection.dao.LocalScheduleDAO;
 import com.example.inspection.dao.RecentJobDAO;
+import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.dbmodels.LocalRecentJob;
 import com.example.inspection.dbmodels.LocalSchedule;
+import com.example.inspection.dbmodels.WebAppointment;
 import com.example.inspection.models.Appointment;
 import com.example.inspection.models.Customer;
 import com.example.inspection.models.History;
@@ -237,6 +239,65 @@ public class SyncManager {
         return result;
     }
 
+    public String syncExistsAppointment(Context context) {
+
+        WebAppointmentDAO webDAO = new WebAppointmentDAO(context);
+        try {
+            HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "GET", null);
+            InputStream is = conn.getInputStream();
+            JSONObject json = new JSONObject(stream2String(is));
+
+            webDAO.delete();
+
+            JSONArray app = json.optJSONArray("NewAppointment");
+
+            if (app != null) {
+                for (int i = 0; i < app.length(); i++) {
+                    JSONObject w = app.getJSONObject(i);
+                    WebAppointment webApp = new WebAppointment(
+                            w.getString("appointmentID"),
+                            w.getString("custName"),
+                            w.getString("custPhone"),
+                            w.getString("building"),
+                            w.getString("flatBlock"),
+                            w.getString("date"),
+                            w.getString("remark"),
+                            w.getString("email")
+                    );
+                    webDAO.insert(webApp);
+                }
+                return "true";
+            } else {
+                return "empty";
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  "false";
+    }
+
+    public String syncCancelAppoinmtent(Context context, String appid) {
+        String result = "false";
+        try {
+            JSONObject toSend = new JSONObject();
+            toSend.put("appid", appid);
+
+            HttpURLConnection conn = getHttpConn(GET_URL + appendUrl, "POST", toSend);
+            InputStream is = conn.getInputStream();
+            result = stream2String(is);
+            Log.e("Error is : ", result);
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public boolean syncRecentJob(Context context) {
 //        RecentJob result = new RecentJob();
         RecentJobDAO dao = new RecentJobDAO(context);
@@ -254,14 +315,14 @@ public class SyncManager {
             if (processing != null) {
                 for (int i = 0; i < processing.length(); i++) {
                     JSONObject p = processing.getJSONObject(i);
-                    String title = "N/A", remark = "N/A", status = "N/A", email="N/A";
-                    if(!p.isNull("title"))
+                    String title = "N/A", remark = "N/A", status = "N/A", email = "N/A";
+                    if (!p.isNull("title"))
                         title = p.getString("title");
-                    if(!p.isNull("remark"))
+                    if (!p.isNull("remark"))
                         remark = p.getString("remark");
-                    if(!p.isNull("tstatus"))
+                    if (!p.isNull("tstatus"))
                         status = p.getString("tstatus");
-                    if(!p.isNull("email"))
+                    if (!p.isNull("email"))
                         email = p.getString("email");
 
                     LocalRecentJob newC = new LocalRecentJob(
@@ -290,14 +351,14 @@ public class SyncManager {
 
                 for (int i = 0; i < history.length(); i++) {
                     JSONObject h = history.getJSONObject(i);
-                    String title = "N/A", remark = "N/A", status = "N/A", email="N/A";
-                    if(!h.isNull("title"))
+                    String title = "N/A", remark = "N/A", status = "N/A", email = "N/A";
+                    if (!h.isNull("title"))
                         title = h.getString("title");
-                    if(!h.isNull("remark"))
+                    if (!h.isNull("remark"))
                         remark = h.getString("remark");
-                    if(!h.isNull("tstatus"))
+                    if (!h.isNull("tstatus"))
                         status = h.getString("tstatus");
-                    if(!h.isNull("email"))
+                    if (!h.isNull("email"))
                         email = h.getString("email");
                     LocalRecentJob newH = new LocalRecentJob(
                             title,

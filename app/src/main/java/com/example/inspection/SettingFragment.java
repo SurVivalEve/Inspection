@@ -57,6 +57,8 @@ public class SettingFragment extends Fragment {
                     switchLanguage("zh");
                 } else if (config.locale == Locale.TRADITIONAL_CHINESE || config.locale.toString().equalsIgnoreCase("zh_hk")){
                     switchLanguage("en");
+                } else {
+                    switchLanguage("en");
                 }
                 getActivity().finish();
                 Intent i = new Intent(getActivity(), MainMenu.class);

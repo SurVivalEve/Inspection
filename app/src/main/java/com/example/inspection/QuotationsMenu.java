@@ -103,7 +103,7 @@ public class QuotationsMenu extends Fragment {
         setRetainInstance(true);
         init(view);
 
-        ((MainMenu) getActivity()).setDrawerLock(true);
+//        ((MainMenu) getActivity()).setDrawerLock(true);
 
         return view;
     }

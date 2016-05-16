@@ -119,6 +119,10 @@ public class WebAppointmentDAO {
         return db.delete(TABLE_NAME, where, null) > 0;
     }
 
+    public void delete(){
+        db.execSQL("delete from "+ TABLE_NAME);
+    }
+
     // 讀取所有資料
     public List<WebAppointment> getAll() {
         List<WebAppointment> result = new ArrayList<>();

@@ -2,7 +2,10 @@ package com.example.inspection.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,7 @@ import com.example.inspection.MainMenu;
 import com.example.inspection.R;
 import com.example.inspection.dao.WebAppointmentDAO;
 import com.example.inspection.dbmodels.WebAppointment;
+import com.example.inspection.sync.SyncManager;
 
 import java.util.List;
 
@@ -45,12 +49,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         WebAppointment webApp = webAppointments.get(position);
         holder.custName.setText(webApp.getName());
-        holder.custAddress.setText(webApp.getBuilding()+" "+webApp.getBlock());
+        holder.custAddress.setText(webApp.getBuilding() + " " + webApp.getBlock());
         holder.custPhone.setText(webApp.getPhone());
         holder.custDate.setText(webApp.getDate());
         String[] x = webApp.getRemark().split(";");
         holder.custRemark.setText(x[0]);
-        holder.custRemark2.setText(x[1]);
+        if (x.length > 1)
+            holder.custRemark2.setText(x[1]);
+
         holder.setWebApp(webApp);
     }
 
@@ -106,11 +112,11 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             @Override
             public void onClick(View v) {
                 AddTaskFragment addTaskFragment = new AddTaskFragment();
-                FragmentTransaction ft = ((MainMenu)context).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft = ((MainMenu) context).getSupportFragmentManager().beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", getWebApp());
                 addTaskFragment.setArguments(bundle);
-                ft.replace(R.id.main_fragment,addTaskFragment,"addTaskByClient")
+                ft.replace(R.id.main_fragment, addTaskFragment, "addTaskByClient")
                         .addToBackStack(null)
                         .commit();
             }
@@ -126,6 +132,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        new cancelAppointment().execute(getWebApp().getAppId());
+
                         delete(getAdapterPosition());
                         webAppDAO.delete(getWebApp().getId());
                     }
@@ -140,5 +149,24 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             }
         };
 
+    }
+
+    private class cancelAppointment extends AsyncTask<String, Integer, String> {
+        private Snackbar snackbar;
+
+        @Override
+        protected String doInBackground(String... params) {
+            SyncManager syncManager = new SyncManager("cancelAppointment.php");
+
+            return syncManager.syncCancelAppoinmtent(context, params[0]);
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.equalsIgnoreCase("true")) {
+
+            }
+        }
     }
 }
