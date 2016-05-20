@@ -370,7 +370,7 @@ public class SyncManager {
                             h.getString("building"),
                             h.getString("districtEN"),
                             h.getString("island"),
-                            "processing",
+                            "history",
                             h.getString("appointmentID"),
                             h.getString("appointmentTime"),
                             email
